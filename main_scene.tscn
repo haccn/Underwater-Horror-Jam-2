@@ -1,30 +1,65 @@
-[gd_scene load_steps=4 format=3 uid="uid://cdam25a4ajmd3"]
+[gd_scene load_steps=8 format=3 uid="uid://cdam25a4ajmd3"]
 
-[sub_resource type="PhysicalSkyMaterial" id="PhysicalSkyMaterial_o3jxj"]
-rayleigh_color = Color(0.52, 0.52, 0.52, 1)
-mie_coefficient = 0.004
-mie_color = Color(0.81, 0.81, 0.81, 1)
-ground_color = Color(0.0214346, 0.0214346, 0.0214346, 1)
+[ext_resource type="Script" uid="uid://bymru6gmapxlq" path="res://controller_manager.gd" id="1_0f027"]
+
+[sub_resource type="PhysicalSkyMaterial" id="PhysicalSkyMaterial_0f027"]
+ground_color = Color(0, 0, 0, 1)
 
 [sub_resource type="Sky" id="Sky_0f027"]
-sky_material = SubResource("PhysicalSkyMaterial_o3jxj")
+sky_material = SubResource("PhysicalSkyMaterial_0f027")
 process_mode = 3
-radiance_size = 0
 
 [sub_resource type="Environment" id="Environment_2c62f"]
 background_mode = 2
 sky = SubResource("Sky_0f027")
+reflected_light_source = 1
 volumetric_fog_enabled = true
-volumetric_fog_density = 0.15
 volumetric_fog_albedo = Color(0.601223, 0.601223, 0.601223, 1)
 volumetric_fog_anisotropy = 0.4
+volumetric_fog_sky_affect = 0.5
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0f027"]
+transparency = 1
+albedo_color = Color(0.501961, 0.666667, 0.976471, 0.592157)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_0f027"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_0f027"]
 
 [node name="MainScene" type="Node3D"]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_2c62f")
 
-[node name="OmniLight3D" type="OmniLight3D" parent="WorldEnvironment"]
+[node name="World" type="Node3D" parent="."]
+
+[node name="OmniLight3D" type="OmniLight3D" parent="World"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.815767, 1.18301, -0.516864)
 
-[node name="CSGBox3D" type="CSGBox3D" parent="."]
+[node name="CSGBox3D" type="CSGBox3D" parent="World"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.16244, 1.49503, 0.0241394)
+visible = false
+use_collision = true
+flip_faces = true
+size = Vector3(7.45976, 3.03223, 5.16522)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="World"]
+transform = Transform3D(-295.66, -8.74228e-08, 0, 2.58474e-05, -1, 0, 0, 0, -267.767, 0, 8.73831, 0)
+material_override = SubResource("StandardMaterial3D_0f027")
+mesh = SubResource("PlaneMesh_0f027")
+skeleton = NodePath("../../WorldEnvironment")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="World"]
+transform = Transform3D(0.918564, -0.335331, 0.20927, 0, 0.529431, 0.848353, -0.395273, -0.779266, 0.486316, 0, 5.15569, 0)
+
+[node name="Player" type="CharacterBody3D" parent="."]
+
+[node name="Camera3D" type="Camera3D" parent="Player"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Player"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_0f027")
+
+[node name="ControllerManager" type="Node" parent="Player"]
+script = ExtResource("1_0f027")
