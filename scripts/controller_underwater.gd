@@ -1,8 +1,10 @@
 extends CameraController
 
-var accel = 5
-var decel = 3
-var speed = 4
+class_name ControllerUnderwater
+
+const accel = 5
+const decel = 3
+const speed = 3
 
 var _velocity = Vector2.ZERO
 
@@ -13,6 +15,6 @@ func _physics_process(delta):
 	
 	_velocity = _velocity.lerp(Vector2.ZERO, decel * delta)
 	
-	velocity = transform.basis * $Camera3D.basis * Vector3(_velocity.x, 0, _velocity.y)
+	player.velocity = player.transform.basis * camera.basis * Vector3(_velocity.x, 0, _velocity.y)
 
-	move_and_slide()
+	player.move_and_slide()

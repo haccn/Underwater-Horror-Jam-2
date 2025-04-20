@@ -1,6 +1,9 @@
-[gd_scene load_steps=8 format=3 uid="uid://cdam25a4ajmd3"]
+[gd_scene load_steps=12 format=3 uid="uid://cdam25a4ajmd3"]
 
-[ext_resource type="Script" uid="uid://bymru6gmapxlq" path="res://controller_manager.gd" id="1_0f027"]
+[ext_resource type="Script" uid="uid://bymru6gmapxlq" path="res://scripts/controller_manager.gd" id="1_0f027"]
+[ext_resource type="Texture2D" uid="uid://unj4uiohk8r6" path="res://assets/hand.png" id="1_2c62f"]
+[ext_resource type="Script" uid="uid://cpwcv8clnk3cg" path="res://scripts/door.gd" id="1_d5x1h"]
+[ext_resource type="AudioStream" uid="uid://tcw1euqqr65c" path="res://assets/submarine_engine.mp3" id="1_gyfs4"]
 
 [sub_resource type="PhysicalSkyMaterial" id="PhysicalSkyMaterial_0f027"]
 ground_color = Color(0, 0, 0, 1)
@@ -24,6 +27,8 @@ albedo_color = Color(0.501961, 0.666667, 0.976471, 0.592157)
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_0f027"]
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_gyfs4"]
+
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_0f027"]
 
 [node name="MainScene" type="Node3D"]
@@ -31,35 +36,82 @@ albedo_color = Color(0.501961, 0.666667, 0.976471, 0.592157)
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_2c62f")
 
-[node name="World" type="Node3D" parent="."]
+[node name="Node" type="Node" parent="."]
 
-[node name="OmniLight3D" type="OmniLight3D" parent="World"]
+[node name="OmniLight3D" type="OmniLight3D" parent="Node"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.815767, 1.18301, -0.516864)
 
-[node name="CSGBox3D" type="CSGBox3D" parent="World"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.16244, 1.49503, 0.0241394)
-visible = false
-use_collision = true
-flip_faces = true
-size = Vector3(7.45976, 3.03223, 5.16522)
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Node"]
+transform = Transform3D(0.918564, -0.335331, 0.20927, 0, 0.529431, 0.848353, -0.395273, -0.779266, 0.486316, 0, 5.15569, 0)
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="World"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Node"]
 transform = Transform3D(-295.66, -8.74228e-08, 0, 2.58474e-05, -1, 0, 0, 0, -267.767, 0, 8.73831, 0)
 material_override = SubResource("StandardMaterial3D_0f027")
 mesh = SubResource("PlaneMesh_0f027")
 skeleton = NodePath("../../WorldEnvironment")
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="World"]
-transform = Transform3D(0.918564, -0.335331, 0.20927, 0, 0.529431, 0.848353, -0.395273, -0.779266, 0.486316, 0, 5.15569, 0)
+[node name="Submarine" type="CSGBox3D" parent="Node"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.16244, 1.49503, 0.0241394)
+use_collision = true
+flip_faces = true
+size = Vector3(7.45976, 3.03223, 5.16522)
+
+[node name="Door" type="StaticBody3D" parent="Node/Submarine"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.07432, -2.63149)
+script = ExtResource("1_d5x1h")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Node/Submarine/Door"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0669315, 0.0550451)
+shape = SubResource("BoxShape3D_gyfs4")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="Node/Submarine/Door"]
+
+[node name="InShipPos" type="Node3D" parent="Node/Submarine/Door"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.857367, 1.33829)
+
+[node name="OutShipPos" type="Node3D" parent="Node/Submarine/Door"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.34813, -2.32861)
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="Node/Submarine"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.67359, -0.267013, 2.38419e-07)
+stream = ExtResource("1_gyfs4")
+volume_db = -8.0
+unit_size = 4.0
+max_db = -8.0
+autoplay = true
+panning_strength = 0.4
+attenuation_filter_db = 0.0
+parameters/looping = true
 
 [node name="Player" type="CharacterBody3D" parent="."]
+script = ExtResource("1_0f027")
 
 [node name="Camera3D" type="Camera3D" parent="Player"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
 
+[node name="CanvasLayer" type="CanvasLayer" parent="Player/Camera3D"]
+
+[node name="Hand" type="CenterContainer" parent="Player/Camera3D/CanvasLayer"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="Sprite2D" type="Sprite2D" parent="Player/Camera3D/CanvasLayer/Hand"]
+texture = ExtResource("1_2c62f")
+
+[node name="RayCast3D" type="RayCast3D" parent="Player/Camera3D"]
+target_position = Vector3(0, 0, -1.5)
+
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Player"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("CapsuleShape3D_0f027")
-
-[node name="ControllerManager" type="Node" parent="Player"]
-script = ExtResource("1_0f027")
