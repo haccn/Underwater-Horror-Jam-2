@@ -1,9 +1,13 @@
-[gd_scene load_steps=12 format=3 uid="uid://cdam25a4ajmd3"]
+[gd_scene load_steps=18 format=3 uid="uid://cdam25a4ajmd3"]
 
 [ext_resource type="Script" uid="uid://bymru6gmapxlq" path="res://scripts/controller_manager.gd" id="1_0f027"]
 [ext_resource type="Texture2D" uid="uid://unj4uiohk8r6" path="res://assets/hand.png" id="1_2c62f"]
 [ext_resource type="Script" uid="uid://cpwcv8clnk3cg" path="res://scripts/door.gd" id="1_d5x1h"]
 [ext_resource type="AudioStream" uid="uid://tcw1euqqr65c" path="res://assets/submarine_engine.mp3" id="1_gyfs4"]
+[ext_resource type="PackedScene" uid="uid://b263k42rel1e7" path="res://assets/submarine/wall.glb" id="4_nfk4m"]
+[ext_resource type="PackedScene" uid="uid://duib3lie6m561" path="res://hellfish.tscn" id="5_8mm7a"]
+[ext_resource type="Texture2D" uid="uid://cw3nnxc4n6nvb" path="res://assets/submarine/STEEL_1A.PNG" id="5_66tet"]
+[ext_resource type="PackedScene" uid="uid://deadcjfne4uv4" path="res://assets/submarine/bio_printer/bio_printer.glb" id="6_hq1ik"]
 
 [sub_resource type="PhysicalSkyMaterial" id="PhysicalSkyMaterial_0f027"]
 ground_color = Color(0, 0, 0, 1)
@@ -16,7 +20,9 @@ process_mode = 3
 background_mode = 2
 sky = SubResource("Sky_0f027")
 reflected_light_source = 1
+glow_enabled = true
 volumetric_fog_enabled = true
+volumetric_fog_density = 0.1
 volumetric_fog_albedo = Color(0.601223, 0.601223, 0.601223, 1)
 volumetric_fog_anisotropy = 0.4
 volumetric_fog_sky_affect = 0.5
@@ -29,6 +35,15 @@ albedo_color = Color(0.501961, 0.666667, 0.976471, 0.592157)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_gyfs4"]
 
+[sub_resource type="PlaneMesh" id="PlaneMesh_7ycvg"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wr18j"]
+albedo_texture = ExtResource("5_66tet")
+uv1_scale = Vector3(0.5, 0.5, 0.5)
+uv1_triplanar = true
+uv1_world_triplanar = true
+texture_filter = 0
+
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_0f027"]
 
 [node name="MainScene" type="Node3D"]
@@ -39,7 +54,7 @@ environment = SubResource("Environment_2c62f")
 [node name="Node" type="Node" parent="."]
 
 [node name="OmniLight3D" type="OmniLight3D" parent="Node"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.815767, 1.18301, -0.516864)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.184233, 3.18301, -0.516864)
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="Node"]
 transform = Transform3D(0.918564, -0.335331, 0.20927, 0, 0.529431, 0.848353, -0.395273, -0.779266, 0.486316, 0, 5.15569, 0)
@@ -50,14 +65,10 @@ material_override = SubResource("StandardMaterial3D_0f027")
 mesh = SubResource("PlaneMesh_0f027")
 skeleton = NodePath("../../WorldEnvironment")
 
-[node name="Submarine" type="CSGBox3D" parent="Node"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.16244, 1.49503, 0.0241394)
-use_collision = true
-flip_faces = true
-size = Vector3(7.45976, 3.03223, 5.16522)
+[node name="Submarine" type="Node" parent="Node"]
 
 [node name="Door" type="StaticBody3D" parent="Node/Submarine"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.07432, -2.63149)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.16244, 0.42071, -2.60735)
 script = ExtResource("1_d5x1h")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Node/Submarine/Door"]
@@ -73,7 +84,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.857367, 1.33829)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.34813, -2.32861)
 
 [node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="Node/Submarine"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.67359, -0.267013, 2.38419e-07)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.51115, 1.22802, 0.0241396)
 stream = ExtResource("1_gyfs4")
 volume_db = -8.0
 unit_size = 4.0
@@ -82,6 +93,23 @@ autoplay = true
 panning_strength = 0.4
 attenuation_filter_db = 0.0
 parameters/looping = true
+
+[node name="bio_printer" parent="Node/Submarine" instance=ExtResource("6_hq1ik")]
+transform = Transform3D(0.74622, 0, -0.665699, 0, 1, 0, 0.665699, 0, 0.74622, -1.72222, 0.00895652, -1.66585)
+
+[node name="wall_1" parent="Node/Submarine" instance=ExtResource("4_nfk4m")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 2.3439, -0.0210846, 2.32396)
+
+[node name="wall_2" parent="Node/Submarine" instance=ExtResource("4_nfk4m")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 3.66786, -0.0421692, 0.980066)
+
+[node name="wall_3" parent="Node/Submarine" instance=ExtResource("4_nfk4m")]
+transform = Transform3D(1, 0, 1.74846e-07, 0, 1, 0, -1.74846e-07, 0, 1, 4, -0.0843384, 2.98023e-07)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Node/Submarine"]
+transform = Transform3D(4.536, 0, 0, 0, 1, 0, 0, 0, 4.08, 0, 0, 0)
+mesh = SubResource("PlaneMesh_7ycvg")
+surface_material_override/0 = SubResource("StandardMaterial3D_wr18j")
 
 [node name="Player" type="CharacterBody3D" parent="."]
 script = ExtResource("1_0f027")
@@ -115,3 +143,6 @@ target_position = Vector3(0, 0, -1.5)
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Player"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("CapsuleShape3D_0f027")
+
+[node name="Hellfish" parent="." instance=ExtResource("5_8mm7a")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.85774, -8.31478, 0)

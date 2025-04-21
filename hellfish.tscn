@@ -1,0 +1,36 @@
+[gd_scene load_steps=9 format=3 uid="uid://duib3lie6m561"]
+
+[ext_resource type="ArrayMesh" uid="uid://d4h8jp3jpn11m" path="res://assets/hellfish/model.obj" id="1_6t084"]
+[ext_resource type="Texture2D" uid="uid://bpeqt5r5j538p" path="res://assets/hellfish/body.png" id="2_iiq3i"]
+[ext_resource type="Texture2D" uid="uid://bqpkg7s4dbsie" path="res://assets/hellfish/tail.png" id="3_oymx7"]
+[ext_resource type="Texture2D" uid="uid://i6dmjiquv728" path="res://assets/hellfish/fin.png" id="4_2s1c7"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wr18j"]
+albedo_texture = ExtResource("2_iiq3i")
+texture_filter = 0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qwutr"]
+transparency = 1
+cull_mode = 2
+albedo_texture = ExtResource("3_oymx7")
+texture_filter = 0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_671wp"]
+transparency = 1
+albedo_texture = ExtResource("4_2s1c7")
+texture_filter = 0
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_6t084"]
+size = Vector3(2.336, 1.865, 1.795)
+
+[node name="Hellfish" type="CharacterBody3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = ExtResource("1_6t084")
+surface_material_override/0 = SubResource("StandardMaterial3D_wr18j")
+surface_material_override/1 = SubResource("StandardMaterial3D_qwutr")
+surface_material_override/2 = SubResource("StandardMaterial3D_671wp")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0859375, 0.0265427, 0)
+shape = SubResource("BoxShape3D_6t084")

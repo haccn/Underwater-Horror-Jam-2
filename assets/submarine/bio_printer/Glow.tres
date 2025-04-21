@@ -1,0 +1,10 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://5ko7ayowu8qr"]
+
+[resource]
+resource_name = "Glow"
+cull_mode = 2
+albedo_color = Color(0.183609, 0.903144, 1, 1)
+roughness = 0.5
+emission_enabled = true
+emission = Color(7.70092e-06, 0.960524, 0.875769, 1)
+emission_energy_multiplier = 16.0
