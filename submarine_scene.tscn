@@ -1,0 +1,425 @@
+[gd_scene load_steps=49 format=3 uid="uid://cdam25a4ajmd3"]
+
+[ext_resource type="Script" uid="uid://cpwcv8clnk3cg" path="res://scripts/submarine_exit_door.gd" id="1_ifo1v"]
+[ext_resource type="AudioStream" uid="uid://tcw1euqqr65c" path="res://assets/submarine/submarine_engine.mp3" id="2_eurom"]
+[ext_resource type="PackedScene" uid="uid://deadcjfne4uv4" path="res://assets/submarine/bio_printer/BioPrinter.glb" id="3_ck0ux"]
+[ext_resource type="Texture2D" uid="uid://bmkbn8csgbdbf" path="res://assets/submarine/exit_sign.png" id="3_kgtvm"]
+[ext_resource type="Texture2D" uid="uid://din0twx86t33i" path="res://assets/submarine/PIPES_1A.PNG" id="4_dlg4a"]
+[ext_resource type="Texture2D" uid="uid://cw3nnxc4n6nvb" path="res://assets/submarine/STEEL_1A.PNG" id="5_kgtvm"]
+[ext_resource type="Texture2D" uid="uid://cn5t25xopepa1" path="res://assets/submarine/TECH_1E.PNG" id="6_i6aw8"]
+[ext_resource type="ArrayMesh" uid="uid://dx8ey3df3q4sj" path="res://assets/submarine/ladder.obj" id="7_8vqou"]
+[ext_resource type="ArrayMesh" uid="uid://bdqw70apv2655" path="res://assets/submarine/tv/tv.obj" id="8_agu76"]
+[ext_resource type="Material" uid="uid://bf5kaqh12av8j" path="res://assets/submarine/bio_printer/Main.tres" id="9_hqisu"]
+[ext_resource type="VideoStream" uid="uid://b2sif0iwdgxap" path="res://assets/submarine/tv/ad_jello_chinese_baby.ogv" id="10_vrgwh"]
+[ext_resource type="Texture2D" uid="uid://b3jc023nlm2hf" path="res://assets/submarine/RIVET_1A.PNG" id="11_arj1g"]
+[ext_resource type="Texture2D" uid="uid://ckexak5wcj4b5" path="res://assets/submarine/LAB_2B.PNG" id="12_efirx"]
+[ext_resource type="ArrayMesh" uid="uid://cgcrnokg13omt" path="res://assets/submarine/vault_door.obj" id="13_ifo1v"]
+[ext_resource type="Script" uid="uid://bymru6gmapxlq" path="res://scripts/controller_manager.gd" id="13_ysodj"]
+[ext_resource type="Script" uid="uid://jw2xc5mt8l86" path="res://scripts/radiation_room_door.gd" id="14_ck0ux"]
+[ext_resource type="Texture2D" uid="uid://unj4uiohk8r6" path="res://assets/hand.png" id="14_j5o7m"]
+[ext_resource type="Texture2D" uid="uid://dg44g0x33ug58" path="res://assets/submarine/radiation_symbol.png" id="15_dlg4a"]
+[ext_resource type="ArrayMesh" uid="uid://dyap4n4dcsnvh" path="res://assets/submarine/reactor/model.obj" id="17_kgtvm"]
+[ext_resource type="Texture2D" uid="uid://cr465cn41kdcr" path="res://assets/submarine/reactor/texture.png" id="18_i6aw8"]
+
+[sub_resource type="PhysicalSkyMaterial" id="PhysicalSkyMaterial_0f027"]
+ground_color = Color(0, 0, 0, 1)
+
+[sub_resource type="Sky" id="Sky_xocut"]
+sky_material = SubResource("PhysicalSkyMaterial_0f027")
+process_mode = 3
+
+[sub_resource type="Environment" id="Environment_2c62f"]
+background_energy_multiplier = 0.0
+sky = SubResource("Sky_xocut")
+ambient_light_source = 1
+ambient_light_sky_contribution = 0.0
+ambient_light_energy = 0.0
+reflected_light_source = 1
+ssao_radius = 13.86
+ssao_intensity = 16.0
+glow_enabled = true
+volumetric_fog_density = 0.1
+volumetric_fog_albedo = Color(0.601223, 0.601223, 0.601223, 1)
+volumetric_fog_anisotropy = 0.4
+volumetric_fog_sky_affect = 0.5
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_gyfs4"]
+size = Vector3(0.95166, 0.331787, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_i6aw8"]
+albedo_texture = ExtResource("3_kgtvm")
+emission = Color(0.582609, 1, 0.551535, 1)
+emission_energy_multiplier = 0.64
+emission_texture = ExtResource("3_kgtvm")
+uv1_scale = Vector3(2.97, 1.975, 2.11)
+texture_filter = 0
+
+[sub_resource type="BoxMesh" id="BoxMesh_8vqou"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_7ycvg"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2jcla"]
+cull_mode = 2
+albedo_texture = ExtResource("4_dlg4a")
+uv1_scale = Vector3(2, 2, 2)
+uv1_triplanar = true
+texture_filter = 0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wr18j"]
+albedo_texture = ExtResource("5_kgtvm")
+uv1_scale = Vector3(0.5, 0.5, 0.5)
+uv1_triplanar = true
+uv1_world_triplanar = true
+texture_filter = 0
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_wr18j"]
+data = PackedVector3Array(1, 0, 1, -1, 0, 1, 1, 0, -1, -1, 0, 1, -1, 0, -1, 1, 0, -1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_671wp"]
+albedo_texture = ExtResource("6_i6aw8")
+uv1_scale = Vector3(0.333, 0.333, 0.333)
+uv1_offset = Vector3(0, 0.667, 0)
+uv1_triplanar = true
+texture_filter = 0
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_42l1d"]
+data = PackedVector3Array(-6, -1.5, 0.125, -6, -1.5, -0.125, -6, 1.5, -0.125, 6, -1.5, -0.125, -6, -1.5, -0.125, -6, -1.5, 0.125, -6, 1.5, -0.125, -6, -1.5, -0.125, 6, -1.5, -0.125, -6, 1.5, -0.125, -6, 1.5, 0.125, -6, -1.5, 0.125, -6, -1.5, 0.125, -6, 1.5, 0.125, 6, 1.5, 0.125, 6, 1.5, 0.125, -6, 1.5, 0.125, -6, 1.5, -0.125, -6, -1.5, 0.125, 6, -1.5, 0.125, 6, -1.5, -0.125, 6, 1.5, 0.125, 6, -1.5, 0.125, -6, -1.5, 0.125, 6, -1.5, -0.125, 6, -1.5, 0.125, 6, 1.5, 0.125, 6, -1.5, -0.125, 6, 1.5, -0.125, -6, 1.5, -0.125, -6, 1.5, -0.125, 6, 1.5, -0.125, 6, 1.5, 0.125, 6, 1.5, 0.125, 6, 1.5, -0.125, 6, -1.5, -0.125)
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_2jcla"]
+data = PackedVector3Array(-4, -1.5, 0.125, -4, -1.5, -0.125, -4, 1.5, -0.125, 4, -1.5, -0.125, -4, -1.5, -0.125, -4, -1.5, 0.125, -4, 1.5, -0.125, -4, -1.5, -0.125, 4, -1.5, -0.125, -4, 1.5, -0.125, -4, 1.5, 0.125, -4, -1.5, 0.125, -4, -1.5, 0.125, -4, 1.5, 0.125, 4, 1.5, 0.125, 4, 1.5, 0.125, -4, 1.5, 0.125, -4, 1.5, -0.125, -4, -1.5, 0.125, 4, -1.5, 0.125, 4, -1.5, -0.125, 4, 1.5, 0.125, 4, -1.5, 0.125, -4, -1.5, 0.125, 4, -1.5, -0.125, 4, -1.5, 0.125, 4, 1.5, 0.125, 4, -1.5, -0.125, 4, 1.5, -0.125, -4, 1.5, -0.125, -4, 1.5, -0.125, 4, 1.5, -0.125, 4, 1.5, 0.125, 4, 1.5, 0.125, 4, 1.5, -0.125, 4, -1.5, -0.125)
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_m35m6"]
+data = PackedVector3Array(-4, -1.5, 0.125, -4, -1.5, -0.125, -4, 1.5, -0.125, 4, -1.5, -0.125, -4, -1.5, -0.125, -4, -1.5, 0.125, -4, 1.5, -0.125, -4, -1.5, -0.125, 4, -1.5, -0.125, -4, 1.5, -0.125, -4, 1.5, 0.125, -4, -1.5, 0.125, -4, -1.5, 0.125, -4, 1.5, 0.125, 4, 1.5, 0.125, 4, 1.5, 0.125, -4, 1.5, 0.125, -4, 1.5, -0.125, -4, -1.5, 0.125, 4, -1.5, 0.125, 4, -1.5, -0.125, 4, 1.5, 0.125, 4, -1.5, 0.125, -4, -1.5, 0.125, 4, -1.5, -0.125, 4, -1.5, 0.125, 4, 1.5, 0.125, 4, -1.5, -0.125, 4, 1.5, -0.125, -4, 1.5, -0.125, -4, 1.5, -0.125, 4, 1.5, -0.125, 4, 1.5, 0.125, 4, 1.5, 0.125, 4, 1.5, -0.125, 4, -1.5, -0.125)
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_u0ygc"]
+data = PackedVector3Array(-6, -1.5, 0.125, -6, -1.5, -0.125, -6, 1.5, -0.125, 6, -1.5, -0.125, -6, -1.5, -0.125, -6, -1.5, 0.125, -6, 1.5, -0.125, -6, -1.5, -0.125, 6, -1.5, -0.125, -6, 1.5, -0.125, -6, 1.5, 0.125, -6, -1.5, 0.125, -6, -1.5, 0.125, -6, 1.5, 0.125, 6, 1.5, 0.125, 6, 1.5, 0.125, -6, 1.5, 0.125, -6, 1.5, -0.125, -6, -1.5, 0.125, 6, -1.5, 0.125, 6, -1.5, -0.125, 6, 1.5, 0.125, 6, -1.5, 0.125, -6, -1.5, 0.125, 6, -1.5, -0.125, 6, -1.5, 0.125, 6, 1.5, 0.125, 6, -1.5, -0.125, 6, 1.5, -0.125, -6, 1.5, -0.125, -6, 1.5, -0.125, 6, 1.5, -0.125, 6, 1.5, 0.125, 6, 1.5, 0.125, 6, 1.5, -0.125, 6, -1.5, -0.125)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_m7x7q"]
+albedo_color = Color(0.577008, 0.577008, 0.577008, 1)
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_7th4q"]
+data = PackedVector3Array(-3, -1.5, 0.125, -3, -1.5, -0.125, -3, 1.5, -0.125, 3, -1.5, -0.125, -3, -1.5, -0.125, -3, -1.5, 0.125, -3, 1.5, -0.125, -3, -1.5, -0.125, 3, -1.5, -0.125, -3, 1.5, -0.125, -3, 1.5, 0.125, -3, -1.5, 0.125, -3, -1.5, 0.125, -3, 1.5, 0.125, 3, 1.5, 0.125, 3, 1.5, 0.125, -3, 1.5, 0.125, -3, 1.5, -0.125, -3, -1.5, 0.125, 3, -1.5, 0.125, 3, -1.5, -0.125, 3, 1.5, 0.125, 3, -1.5, 0.125, -3, -1.5, 0.125, 3, -1.5, -0.125, 3, -1.5, 0.125, 3, 1.5, 0.125, 3, -1.5, -0.125, 3, 1.5, -0.125, -3, 1.5, -0.125, -3, 1.5, -0.125, 3, 1.5, -0.125, 3, 1.5, 0.125, 3, 1.5, 0.125, 3, 1.5, -0.125, 3, -1.5, -0.125)
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_6jybn"]
+data = PackedVector3Array(-2.07318, -1.5, 0.125, -2.07318, -1.5, -0.125, -2.07318, 1.5, -0.125, 2.07318, -1.5, -0.125, -2.07318, -1.5, -0.125, -2.07318, -1.5, 0.125, -2.07318, 1.5, -0.125, -2.07318, -1.5, -0.125, 2.07318, -1.5, -0.125, -2.07318, 1.5, -0.125, -2.07318, 1.5, 0.125, -2.07318, -1.5, 0.125, -2.07318, -1.5, 0.125, -2.07318, 1.5, 0.125, 2.07318, 1.5, 0.125, 2.07318, 1.5, 0.125, -2.07318, 1.5, 0.125, -2.07318, 1.5, -0.125, -2.07318, -1.5, 0.125, 2.07318, -1.5, 0.125, 2.07318, -1.5, -0.125, 2.07318, 1.5, 0.125, 2.07318, -1.5, 0.125, -2.07318, -1.5, 0.125, 2.07318, -1.5, -0.125, 2.07318, -1.5, 0.125, 2.07318, 1.5, 0.125, 2.07318, -1.5, -0.125, 2.07318, 1.5, -0.125, -2.07318, 1.5, -0.125, -2.07318, 1.5, -0.125, 2.07318, 1.5, -0.125, 2.07318, 1.5, 0.125, 2.07318, 1.5, 0.125, 2.07318, 1.5, -0.125, 2.07318, -1.5, -0.125)
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_wr18j"]
+viewport_path = NodePath("SubmarineScene/Submarine/Tv/SubViewport")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qwutr"]
+resource_local_to_scene = true
+albedo_texture = SubResource("ViewportTexture_wr18j")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_42l1d"]
+albedo_texture = ExtResource("11_arj1g")
+uv1_triplanar = true
+texture_filter = 0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mo76n"]
+albedo_texture = ExtResource("12_efirx")
+uv1_offset = Vector3(0, -0.435, 0)
+uv1_triplanar = true
+texture_filter = 0
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_mo76n"]
+size = Vector3(1.5, 2, 4)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_eurom"]
+size = Vector3(2, 2, 1.5)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8vqou"]
+albedo_texture = ExtResource("18_i6aw8")
+texture_filter = 2
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kgtvm"]
+albedo_color = Color(0.493545, 0.493546, 0.493546, 1)
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_i6aw8"]
+height = 3.25
+radius = 1.0
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_0f027"]
+
+[node name="SubmarineScene" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_2c62f")
+
+[node name="SubmarineScene" type="Node" parent="."]
+
+[node name="Submarine" type="Node" parent="SubmarineScene"]
+
+[node name="SubmarineExitDoor" type="StaticBody3D" parent="SubmarineScene/Submarine"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.16244, 0.42071, -3.60735)
+script = ExtResource("1_ifo1v")
+
+[node name="VaultDoor" type="MeshInstance3D" parent="SubmarineScene/Submarine/SubmarineExitDoor"]
+transform = Transform3D(0.6, 0, 0, 0, -2.62268e-08, 0.6, 0, -0.6, -2.62268e-08, -0.062, -0.215, 0.5)
+mesh = ExtResource("13_ifo1v")
+skeleton = NodePath("../..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SubmarineScene/Submarine/SubmarineExitDoor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0241699, -0.267175, 0.555045)
+shape = SubResource("BoxShape3D_gyfs4")
+
+[node name="InShipPos" type="Node3D" parent="SubmarineScene/Submarine/SubmarineExitDoor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.857367, 1.33829)
+
+[node name="OutShipPos" type="Node3D" parent="SubmarineScene/Submarine/SubmarineExitDoor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.84813, -1.82861)
+
+[node name="ExitSign" type="MeshInstance3D" parent="SubmarineScene/Submarine/SubmarineExitDoor"]
+transform = Transform3D(0.452558, -0.196972, 0, 0.393944, 0.226279, 0, 0, 0, 0.15, 0.0920686, 0.328463, -0.340195)
+material_override = SubResource("StandardMaterial3D_i6aw8")
+mesh = SubResource("BoxMesh_8vqou")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="SubmarineScene/Submarine/SubmarineExitDoor/ExitSign"]
+transform = Transform3D(1.66667, -1.19209e-07, 0, 2.38419e-07, 3.33333, 0, 0, 0, 6.66667, 0, 0, 1.67058)
+light_color = Color(0, 1, 0, 1)
+light_energy = 0.1
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="SubmarineScene/Submarine"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.01115, 1.22802, 0.0241396)
+stream = ExtResource("2_eurom")
+volume_db = -8.0
+unit_size = 4.0
+max_db = -8.0
+autoplay = true
+panning_strength = 0.4
+attenuation_filter_db = 0.0
+parameters/looping = true
+
+[node name="OmniLight3D2" type="OmniLight3D" parent="SubmarineScene/Submarine"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.50337, 2.32399, 0.944303)
+
+[node name="BioPrinter" parent="SubmarineScene/Submarine" instance=ExtResource("3_ck0ux")]
+transform = Transform3D(-0.866025, 0, 0.5, 0, 1, 0, -0.5, 0, -0.866025, 1.51379, 0.00895652, 1.07506)
+
+[node name="Roof" type="MeshInstance3D" parent="SubmarineScene/Submarine"]
+transform = Transform3D(6, 0, 0, 0, -1, 1.55766e-06, 0, -3.89414e-07, -4, 0, 3, 0)
+mesh = SubResource("PlaneMesh_7ycvg")
+skeleton = NodePath("../Floor")
+surface_material_override/0 = SubResource("StandardMaterial3D_2jcla")
+
+[node name="Floor" type="MeshInstance3D" parent="SubmarineScene/Submarine"]
+transform = Transform3D(6, 0, 0, 0, 1, 0, 0, 0, 4, 0, 0, 0)
+mesh = SubResource("PlaneMesh_7ycvg")
+surface_material_override/0 = SubResource("StandardMaterial3D_wr18j")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="SubmarineScene/Submarine/Floor"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SubmarineScene/Submarine/Floor/StaticBody3D"]
+shape = SubResource("ConcavePolygonShape3D_wr18j")
+
+[node name="Wall1" type="CSGBox3D" parent="SubmarineScene/Submarine"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 2)
+material_override = SubResource("StandardMaterial3D_671wp")
+size = Vector3(12, 3, 0.25)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="SubmarineScene/Submarine/Wall1"]
+
+[node name="CSGBakedCollisionShape3D" type="CollisionShape3D" parent="SubmarineScene/Submarine/Wall1/StaticBody3D"]
+shape = SubResource("ConcavePolygonShape3D_42l1d")
+
+[node name="Wall2" type="CSGBox3D" parent="SubmarineScene/Submarine"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -6, 1.5, 0)
+material_override = SubResource("StandardMaterial3D_671wp")
+size = Vector3(8, 3, 0.25)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="SubmarineScene/Submarine/Wall2"]
+
+[node name="CSGBakedCollisionShape3D" type="CollisionShape3D" parent="SubmarineScene/Submarine/Wall2/StaticBody3D"]
+shape = SubResource("ConcavePolygonShape3D_2jcla")
+
+[node name="Wall4" type="CSGBox3D" parent="SubmarineScene/Submarine"]
+transform = Transform3D(1.31134e-07, 0, 1, 0, 1, 0, -1, 0, 1.31134e-07, 2.49507, 1.505, 0.00296032)
+material_override = SubResource("StandardMaterial3D_671wp")
+size = Vector3(8, 3, 0.25)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="SubmarineScene/Submarine/Wall4"]
+
+[node name="CSGBakedCollisionShape3D" type="CollisionShape3D" parent="SubmarineScene/Submarine/Wall4/StaticBody3D"]
+shape = SubResource("ConcavePolygonShape3D_m35m6")
+
+[node name="Wall3" type="CSGBox3D" parent="SubmarineScene/Submarine"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, -4)
+material_override = SubResource("StandardMaterial3D_671wp")
+size = Vector3(12, 3, 0.25)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="SubmarineScene/Submarine/Wall3"]
+
+[node name="CSGBakedCollisionShape3D" type="CollisionShape3D" parent="SubmarineScene/Submarine/Wall3/StaticBody3D"]
+shape = SubResource("ConcavePolygonShape3D_u0ygc")
+
+[node name="Ladder" type="MeshInstance3D" parent="SubmarineScene/Submarine"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -5.5, 0.5, -3)
+material_override = SubResource("StandardMaterial3D_m7x7q")
+mesh = ExtResource("7_8vqou")
+skeleton = NodePath("../../..")
+
+[node name="OmniLight3D3" type="OmniLight3D" parent="SubmarineScene/Submarine"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.7566, 2.32399, -3.02424)
+
+[node name="Wall5" type="CSGBox3D" parent="SubmarineScene/Submarine"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 1.5, -2)
+material_override = SubResource("StandardMaterial3D_671wp")
+size = Vector3(6, 3, 0.25)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="SubmarineScene/Submarine/Wall5"]
+
+[node name="CSGBakedCollisionShape3D" type="CollisionShape3D" parent="SubmarineScene/Submarine/Wall5/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00701499, 0.00897026, 0.0159426)
+shape = SubResource("ConcavePolygonShape3D_7th4q")
+
+[node name="Wall6" type="CSGBox3D" parent="SubmarineScene/Submarine"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -2, 1.5, -0.0731812)
+material_override = SubResource("StandardMaterial3D_671wp")
+size = Vector3(4.14636, 3, 0.25)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="SubmarineScene/Submarine/Wall6"]
+
+[node name="CSGBakedCollisionShape3D2" type="CollisionShape3D" parent="SubmarineScene/Submarine/Wall6/StaticBody3D"]
+shape = SubResource("ConcavePolygonShape3D_6jybn")
+
+[node name="Tv" type="MeshInstance3D" parent="SubmarineScene/Submarine"]
+transform = Transform3D(-0.311127, 0, 0.311127, 0, 0.44, 0, -0.311127, 0, -0.311127, 1.78389, 1, -3.32893)
+mesh = ExtResource("8_agu76")
+skeleton = NodePath("../../..")
+surface_material_override/0 = ExtResource("9_hqisu")
+surface_material_override/1 = SubResource("StandardMaterial3D_qwutr")
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="SubmarineScene/Submarine/Tv"]
+transform = Transform3D(2.27273, 0, 0, 0, 2.27273, 0, 0, 0, 2.27273, 0, 0, 0)
+
+[node name="SubViewport" type="SubViewport" parent="SubmarineScene/Submarine/Tv"]
+size = Vector2i(300, 200)
+
+[node name="CenterContainer" type="CenterContainer" parent="SubmarineScene/Submarine/Tv/SubViewport"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VideoStreamPlayer" type="VideoStreamPlayer" parent="SubmarineScene/Submarine/Tv/SubViewport/CenterContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+stream = ExtResource("10_vrgwh")
+autoplay = true
+
+[node name="OmniLight3D" type="OmniLight3D" parent="SubmarineScene/Submarine"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.6217, 2.662, -1.88778)
+
+[node name="Bench" type="Node3D" parent="SubmarineScene/Submarine"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, 0, -2)
+
+[node name="Top" type="CSGBox3D" parent="SubmarineScene/Submarine/Bench"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.205099, 1.00682, 0.067552)
+material_override = SubResource("StandardMaterial3D_42l1d")
+size = Vector3(1.5, 0.11438, 3.96729)
+
+[node name="Bottom" type="CSGBox3D" parent="SubmarineScene/Submarine/Bench"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.25, 0.5, 0)
+material_override = SubResource("StandardMaterial3D_mo76n")
+size = Vector3(1.5, 1, 4)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="SubmarineScene/Submarine/Bench"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SubmarineScene/Submarine/Bench/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.25, 0.5, 0)
+shape = SubResource("BoxShape3D_mo76n")
+
+[node name="RadiationRoomDoor" type="Node3D" parent="SubmarineScene/Submarine"]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="SubmarineScene/Submarine/RadiationRoomDoor"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -2.00095, 1.5, -0.136614)
+script = ExtResource("14_ck0ux")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SubmarineScene/Submarine/RadiationRoomDoor/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08616e-07, 0, -0.0725708)
+shape = SubResource("BoxShape3D_eurom")
+
+[node name="Outer" type="MeshInstance3D" parent="SubmarineScene/Submarine/RadiationRoomDoor"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -1.50095, 1.5, -0.136614)
+mesh = ExtResource("13_ifo1v")
+skeleton = NodePath("../../../..")
+
+[node name="Decal" type="Decal" parent="SubmarineScene/Submarine/RadiationRoomDoor/Outer"]
+transform = Transform3D(-0.232566, -2.03316e-08, -1.01658e-08, 1.01658e-08, 4.44361e-16, -0.232566, 2.03316e-08, -0.232566, 4.44361e-16, -0.0104541, 0.542964, 0.0373646)
+texture_albedo = ExtResource("15_dlg4a")
+
+[node name="Decal2" type="Decal" parent="SubmarineScene/Submarine/RadiationRoomDoor/Outer"]
+transform = Transform3D(-0.232566, -2.03316e-08, -1.01658e-08, 1.01658e-08, 4.44361e-16, -0.232566, 2.03316e-08, -0.232566, 4.44361e-16, -0.549438, 0.0191312, 0.0373646)
+texture_albedo = ExtResource("15_dlg4a")
+
+[node name="Decal3" type="Decal" parent="SubmarineScene/Submarine/RadiationRoomDoor/Outer"]
+transform = Transform3D(-0.232566, -2.03316e-08, -1.01658e-08, 1.01658e-08, 4.44361e-16, -0.232566, 2.03316e-08, -0.232566, 4.44361e-16, 0.00269973, -0.554711, 0.0373646)
+texture_albedo = ExtResource("15_dlg4a")
+
+[node name="Decal4" type="Decal" parent="SubmarineScene/Submarine/RadiationRoomDoor/Outer"]
+transform = Transform3D(-0.232566, -2.03316e-08, -1.01658e-08, 1.01658e-08, 4.44361e-16, -0.232566, 2.03316e-08, -0.232566, 4.44361e-16, 0.568218, 0.0331112, 0.0373646)
+texture_albedo = ExtResource("15_dlg4a")
+
+[node name="Inner" type="MeshInstance3D" parent="SubmarineScene/Submarine/RadiationRoomDoor"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -2.50095, 1.5, -0.136614)
+mesh = ExtResource("13_ifo1v")
+skeleton = NodePath("../../../..")
+
+[node name="OutPos" type="Node3D" parent="SubmarineScene/Submarine/RadiationRoomDoor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 2, 0)
+
+[node name="InPos" type="Node3D" parent="SubmarineScene/Submarine/RadiationRoomDoor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 2, 0)
+
+[node name="OmniLight3D4" type="OmniLight3D" parent="SubmarineScene/Submarine"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.05013, 2.82399, -0.0128365)
+light_color = Color(0.0606769, 0.947154, 0, 1)
+
+[node name="Reactor" type="MeshInstance3D" parent="SubmarineScene/Submarine"]
+transform = Transform3D(-0.5, 0, 0.866025, 0, 1, 0, -0.866025, 0, -0.5, -5, 0, 0)
+mesh = ExtResource("17_kgtvm")
+skeleton = NodePath("../../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_8vqou")
+surface_material_override/1 = SubResource("StandardMaterial3D_kgtvm")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="SubmarineScene/Submarine/Reactor"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SubmarineScene/Submarine/Reactor/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.625, 0)
+shape = SubResource("CylinderShape3D_i6aw8")
+
+[node name="Player" type="CharacterBody3D" parent="."]
+transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, 1.37949, 0, 0.94488)
+script = ExtResource("13_ysodj")
+
+[node name="Camera3D" type="Camera3D" parent="Player"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="Player/Camera3D"]
+
+[node name="Hand" type="CenterContainer" parent="Player/Camera3D/CanvasLayer"]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="Sprite2D" type="Sprite2D" parent="Player/Camera3D/CanvasLayer/Hand"]
+texture = ExtResource("14_j5o7m")
+
+[node name="RayCast3D" type="RayCast3D" parent="Player/Camera3D"]
+target_position = Vector3(0, 0, -1.5)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Player"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_0f027")

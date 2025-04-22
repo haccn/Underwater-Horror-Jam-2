@@ -2,20 +2,17 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ddf30hn1rqree"
-path.s3tc="res://.godot/imported/wall_1_TECH_1E.png-49bbbbe0d481a591cc12c1fbbf84462d.s3tc.ctex"
+uid="uid://b3jc023nlm2hf"
+path.s3tc="res://.godot/imported/RIVET_1A.PNG-4c4df8ed99f79daa3e98bbacd0d5f6c8.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
 }
-generator_parameters={
-"md5": "20d6bdab14224062240ad9aa70691e81"
-}
 
 [deps]
 
-source_file="res://assets/submarine/wall_1_TECH_1E.png"
-dest_files=["res://.godot/imported/wall_1_TECH_1E.png-49bbbbe0d481a591cc12c1fbbf84462d.s3tc.ctex"]
+source_file="res://assets/submarine/RIVET_1A.PNG"
+dest_files=["res://.godot/imported/RIVET_1A.PNG-4c4df8ed99f79daa3e98bbacd0d5f6c8.s3tc.ctex"]
 
 [params]
 

@@ -23,11 +23,11 @@ func _input(event):
 			if event.keycode == KEY_ESCAPE:
 				Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 			
-			# Interact with any interactable
-			if _interactable != null and \
-				event.is_pressed() and event.is_echo() == false and \
-				InputMap.event_is_action(event, "interact"):
-				_interactable.interact()
+		# Interact with any interactable
+		if _interactable != null and \
+			event.is_pressed() and event.is_echo() == false and \
+			InputMap.event_is_action(event, "interact"):
+			_interactable.interact()
 		
 		elif event is InputEventMouseMotion:
 			player.rotate_y(-event.relative.x * mouse_sensitivity)

@@ -1,4 +1,6 @@
-[gd_scene load_steps=4 format=3 uid="uid://dsfxx52dv13a6"]
+[gd_scene load_steps=5 format=3 uid="uid://xfbq8gag4sus"]
+
+[ext_resource type="ArrayMesh" uid="uid://vc1otskrlu1h" path="res://assets/cockpit/panels.obj" id="1_2ei3t"]
 
 [sub_resource type="PhysicalSkyMaterial" id="PhysicalSkyMaterial_o3jxj"]
 ground_color = Color(0, 0, 0, 1)
@@ -8,7 +10,8 @@ sky_material = SubResource("PhysicalSkyMaterial_o3jxj")
 process_mode = 3
 
 [sub_resource type="Environment" id="Environment_0f027"]
-background_mode = 2
+background_mode = 1
+background_color = Color(0.0657852, 0.238965, 0.321622, 1)
 sky = SubResource("Sky_0f027")
 reflected_light_source = 1
 glow_enabled = true
@@ -18,7 +21,14 @@ volumetric_fog_albedo = Color(0.601223, 0.601223, 0.601223, 1)
 volumetric_fog_anisotropy = 0.4
 volumetric_fog_sky_affect = 0.5
 
-[node name="MainScene" type="Node3D"]
+[node name="CockpitScene" type="Node3D"]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_0f027")
+
+[node name="Panels" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 3)
+mesh = ExtResource("1_2ei3t")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, 1, -1)

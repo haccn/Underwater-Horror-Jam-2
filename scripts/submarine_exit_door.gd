@@ -4,7 +4,7 @@ const Controllers = preload("res://scripts/controller_manager.gd").Controllers
 
 @onready var in_ship_pos = $InShipPos
 @onready var out_ship_pos = $OutShipPos
-@onready var player = $/root/MainScene/Player
+@onready var player = $"/root/SubmarineScene/Player"
 
 func interact():
 	if player.controller == Controllers.Land:
