@@ -1,4 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://dsfxx52dv13a6"]
+[gd_scene load_steps=6 format=3 uid="uid://dsfxx52dv13a6"]
+
+[ext_resource type="ArrayMesh" uid="uid://cmejtsi3xt302" path="res://assets/sub_exterior.obj" id="1_0f027"]
+[ext_resource type="AudioStream" uid="uid://d3it05e17u5cm" path="res://assets/ambience.mp3" id="2_2c62f"]
 
 [sub_resource type="PhysicalSkyMaterial" id="PhysicalSkyMaterial_o3jxj"]
 ground_color = Color(0, 0, 0, 1)
@@ -8,17 +11,25 @@ sky_material = SubResource("PhysicalSkyMaterial_o3jxj")
 process_mode = 3
 
 [sub_resource type="Environment" id="Environment_0f027"]
-background_mode = 2
+background_energy_multiplier = 0.0
 sky = SubResource("Sky_0f027")
+ambient_light_source = 1
 reflected_light_source = 1
 glow_enabled = true
 volumetric_fog_enabled = true
-volumetric_fog_density = 0.1
-volumetric_fog_albedo = Color(0.601223, 0.601223, 0.601223, 1)
-volumetric_fog_anisotropy = 0.4
+volumetric_fog_density = 0.2
+volumetric_fog_albedo = Color(0.33949, 0.578064, 0.678201, 1)
+volumetric_fog_anisotropy = 0.5
 volumetric_fog_sky_affect = 0.5
 
 [node name="MainScene" type="Node3D"]
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+[node name="WorldEnvironment2" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_0f027")
+
+[node name="SubExterior" type="MeshInstance3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 0)
+mesh = ExtResource("1_0f027")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_2c62f")

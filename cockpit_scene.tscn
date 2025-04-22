@@ -1,34 +1,109 @@
-[gd_scene load_steps=5 format=3 uid="uid://xfbq8gag4sus"]
+[gd_scene load_steps=12 format=3 uid="uid://xfbq8gag4sus"]
 
 [ext_resource type="ArrayMesh" uid="uid://vc1otskrlu1h" path="res://assets/cockpit/panels.obj" id="1_2ei3t"]
+[ext_resource type="Material" uid="uid://df26tb2wfrv2h" path="res://assets/cockpit/cockpit_material.tres" id="2_5cfl1"]
+[ext_resource type="Material" uid="uid://dchl7yauo0m2r" path="res://assets/cockpit/console_material.tres" id="3_5cfl1"]
+[ext_resource type="Material" uid="uid://c1rxnm6farp4l" path="res://assets/cockpit/joystick_material.tres" id="4_gajdp"]
+[ext_resource type="AudioStream" uid="uid://tcw1euqqr65c" path="res://assets/submarine/submarine_engine.mp3" id="5_gajdp"]
 
 [sub_resource type="PhysicalSkyMaterial" id="PhysicalSkyMaterial_o3jxj"]
 ground_color = Color(0, 0, 0, 1)
 
-[sub_resource type="Sky" id="Sky_0f027"]
+[sub_resource type="Sky" id="Sky_gajdp"]
 sky_material = SubResource("PhysicalSkyMaterial_o3jxj")
 process_mode = 3
 
 [sub_resource type="Environment" id="Environment_0f027"]
-background_mode = 1
-background_color = Color(0.0657852, 0.238965, 0.321622, 1)
-sky = SubResource("Sky_0f027")
+background_energy_multiplier = 0.0
+sky = SubResource("Sky_gajdp")
+ambient_light_source = 1
 reflected_light_source = 1
 glow_enabled = true
 volumetric_fog_enabled = true
-volumetric_fog_density = 0.1
-volumetric_fog_albedo = Color(0.601223, 0.601223, 0.601223, 1)
-volumetric_fog_anisotropy = 0.4
+volumetric_fog_density = 0.2
+volumetric_fog_albedo = Color(0.33949, 0.578064, 0.678201, 1)
+volumetric_fog_anisotropy = 0.5
 volumetric_fog_sky_affect = 0.5
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_gajdp"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_u8jma"]
+resource_local_to_scene = true
+albedo_texture = SubResource("ViewportTexture_gajdp")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_gajdp"]
+size = Vector3(8, 6, 10)
 
 [node name="CockpitScene" type="Node3D"]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_0f027")
 
-[node name="Panels" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 3)
-mesh = ExtResource("1_2ei3t")
+[node name="CSGPolygon3D" type="CSGPolygon3D" parent="."]
+transform = Transform3D(5.054, 0, 0, 0, 5.054, 0, 0, 0, 5.054, 20.5, 6.5, -12)
+polygon = PackedVector2Array(0, -2.5, 0, 3, 1, 2.5, 2, 1, 2, 0, 2.5, -2.5)
+mode = 1
+spin_degrees = 360.0
+spin_sides = 8
+smooth_faces = true
 
-[node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, 1, -1)
+[node name="CSGPolygon3D4" type="CSGPolygon3D" parent="."]
+transform = Transform3D(5.054, 0, 0, 0, 5.054, 0, 0, 0, 5.054, -19.5, 10.5, -26.5)
+polygon = PackedVector2Array(0, -2.5, 0, 3, 1, 2.5, 2, 1, 2, 0, 2.5, -2.5)
+mode = 1
+spin_degrees = 360.0
+spin_sides = 8
+smooth_faces = true
+
+[node name="CSGPolygon3D3" type="CSGPolygon3D" parent="."]
+transform = Transform3D(11.6242, 0, 0, 0, 11.6242, 0, 0, 0, 11.6242, 40, 30, -82)
+polygon = PackedVector2Array(0, -2.5, 0, 3, 1, 2.5, 2, 1, 2, 0, 2.5, -2.5)
+mode = 1
+spin_degrees = 360.0
+spin_sides = 8
+smooth_faces = true
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.123213, -0.861403, 0.49275, -0.287235, 0.506236, 0.813155, -0.949903, -0.0413436, -0.3098, 0, 6.5, 0)
+light_energy = 0.5
+
+[node name="Player" type="CharacterBody3D" parent="."]
+
+[node name="Camera3D" type="Camera3D" parent="Player"]
+
+[node name="Panels" type="MeshInstance3D" parent="Player"]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, -1, -4.32903)
+mesh = ExtResource("1_2ei3t")
+skeleton = NodePath("../..")
+surface_material_override/0 = ExtResource("2_5cfl1")
+surface_material_override/1 = ExtResource("2_5cfl1")
+surface_material_override/2 = ExtResource("3_5cfl1")
+surface_material_override/3 = SubResource("StandardMaterial3D_u8jma")
+surface_material_override/4 = ExtResource("3_5cfl1")
+surface_material_override/5 = ExtResource("3_5cfl1")
+surface_material_override/6 = ExtResource("2_5cfl1")
+surface_material_override/7 = ExtResource("4_gajdp")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="Player"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+light_energy = 4.048
+light_volumetric_fog_energy = 0.0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Player"]
+shape = SubResource("BoxShape3D_gajdp")
+
+[node name="RadarViewport" type="SubViewport" parent="Player"]
+
+[node name="ColorRect" type="ColorRect" parent="Player/RadarViewport"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.237539, 0.237539, 0.237539, 1)
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_gajdp")
+volume_db = -18.0
+autoplay = true
+parameters/looping = true

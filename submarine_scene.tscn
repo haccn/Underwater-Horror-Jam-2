@@ -1,4 +1,4 @@
-[gd_scene load_steps=49 format=3 uid="uid://cdam25a4ajmd3"]
+[gd_scene load_steps=64 format=3 uid="uid://cdam25a4ajmd3"]
 
 [ext_resource type="Script" uid="uid://cpwcv8clnk3cg" path="res://scripts/submarine_exit_door.gd" id="1_ifo1v"]
 [ext_resource type="AudioStream" uid="uid://tcw1euqqr65c" path="res://assets/submarine/submarine_engine.mp3" id="2_eurom"]
@@ -10,9 +10,11 @@
 [ext_resource type="ArrayMesh" uid="uid://dx8ey3df3q4sj" path="res://assets/submarine/ladder.obj" id="7_8vqou"]
 [ext_resource type="ArrayMesh" uid="uid://bdqw70apv2655" path="res://assets/submarine/tv/tv.obj" id="8_agu76"]
 [ext_resource type="Material" uid="uid://bf5kaqh12av8j" path="res://assets/submarine/bio_printer/Main.tres" id="9_hqisu"]
+[ext_resource type="Script" uid="uid://eu8ab441ll66" path="res://scripts/cockpit_ladder.gd" id="10_8vqou"]
 [ext_resource type="VideoStream" uid="uid://b2sif0iwdgxap" path="res://assets/submarine/tv/ad_jello_chinese_baby.ogv" id="10_vrgwh"]
 [ext_resource type="Texture2D" uid="uid://b3jc023nlm2hf" path="res://assets/submarine/RIVET_1A.PNG" id="11_arj1g"]
 [ext_resource type="Texture2D" uid="uid://ckexak5wcj4b5" path="res://assets/submarine/LAB_2B.PNG" id="12_efirx"]
+[ext_resource type="AudioStream" uid="uid://3h411wts2whe" path="res://assets/submarine/tv/ad_jello_chinese_baby.mp3" id="13_hqisu"]
 [ext_resource type="ArrayMesh" uid="uid://cgcrnokg13omt" path="res://assets/submarine/vault_door.obj" id="13_ifo1v"]
 [ext_resource type="Script" uid="uid://bymru6gmapxlq" path="res://scripts/controller_manager.gd" id="13_ysodj"]
 [ext_resource type="Script" uid="uid://jw2xc5mt8l86" path="res://scripts/radiation_room_door.gd" id="14_ck0ux"]
@@ -20,6 +22,13 @@
 [ext_resource type="Texture2D" uid="uid://dg44g0x33ug58" path="res://assets/submarine/radiation_symbol.png" id="15_dlg4a"]
 [ext_resource type="ArrayMesh" uid="uid://dyap4n4dcsnvh" path="res://assets/submarine/reactor/model.obj" id="17_kgtvm"]
 [ext_resource type="Texture2D" uid="uid://cr465cn41kdcr" path="res://assets/submarine/reactor/texture.png" id="18_i6aw8"]
+[ext_resource type="Shader" uid="uid://kcx4qo6l8enu" path="res://vignette.gdshader" id="24_arj1g"]
+[ext_resource type="Material" uid="uid://t3s061dkjxhy" path="res://assets/player_helmet_overlay.tres" id="24_efirx"]
+[ext_resource type="AudioStream" uid="uid://cvprxf73shjbp" path="res://assets/submarine/bio_printer/print.wav" id="25_efirx"]
+
+[sub_resource type="GDScript" id="GDScript_arj1g"]
+script/source = "extends Node
+"
 
 [sub_resource type="PhysicalSkyMaterial" id="PhysicalSkyMaterial_0f027"]
 ground_color = Color(0, 0, 0, 1)
@@ -42,6 +51,21 @@ volumetric_fog_density = 0.1
 volumetric_fog_albedo = Color(0.601223, 0.601223, 0.601223, 1)
 volumetric_fog_anisotropy = 0.4
 volumetric_fog_sky_affect = 0.5
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vrgwh"]
+transparency = 1
+shading_mode = 0
+vertex_color_use_as_albedo = true
+billboard_mode = 2
+
+[sub_resource type="RibbonTrailMesh" id="RibbonTrailMesh_vrgwh"]
+material = SubResource("StandardMaterial3D_vrgwh")
+shape = 0
+size = 0.1
+section_length = 0.1
+
+[sub_resource type="Gradient" id="Gradient_vrgwh"]
+colors = PackedColorArray(0, 0, 0, 0, 0, 1, 1, 1)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_gyfs4"]
 size = Vector3(0.95166, 0.331787, 1)
@@ -97,6 +121,9 @@ data = PackedVector3Array(-6, -1.5, 0.125, -6, -1.5, -0.125, -6, 1.5, -0.125, 6,
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_m7x7q"]
 albedo_color = Color(0.577008, 0.577008, 0.577008, 1)
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_agu76"]
+size = Vector3(1, 2.5, 0.5)
+
 [sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_7th4q"]
 data = PackedVector3Array(-3, -1.5, 0.125, -3, -1.5, -0.125, -3, 1.5, -0.125, 3, -1.5, -0.125, -3, -1.5, -0.125, -3, -1.5, 0.125, -3, 1.5, -0.125, -3, -1.5, -0.125, 3, -1.5, -0.125, -3, 1.5, -0.125, -3, 1.5, 0.125, -3, -1.5, 0.125, -3, -1.5, 0.125, -3, 1.5, 0.125, 3, 1.5, 0.125, 3, 1.5, 0.125, -3, 1.5, 0.125, -3, 1.5, -0.125, -3, -1.5, 0.125, 3, -1.5, 0.125, 3, -1.5, -0.125, 3, 1.5, 0.125, 3, -1.5, 0.125, -3, -1.5, 0.125, 3, -1.5, -0.125, 3, -1.5, 0.125, 3, 1.5, 0.125, 3, -1.5, -0.125, 3, 1.5, -0.125, -3, 1.5, -0.125, -3, 1.5, -0.125, 3, 1.5, -0.125, 3, 1.5, 0.125, 3, 1.5, 0.125, 3, 1.5, -0.125, 3, -1.5, -0.125)
 
@@ -138,12 +165,156 @@ albedo_color = Color(0.493545, 0.493546, 0.493546, 1)
 height = 3.25
 radius = 1.0
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_efirx"]
+shader = ExtResource("24_arj1g")
+shader_parameter/outer_radius = 1.5
+shader_parameter/vignette_color = Color(0, 0, 0, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_vrgwh"]
+radial_segments = 16
+rings = 1
+
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_0f027"]
 
+[sub_resource type="Animation" id="Animation_arj1g"]
+resource_name = "Print"
+length = 3.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Camera3D/CanvasLayer/PrintOverlay:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0.617176, 1, 0.995675, 1), Color(0, 1, 1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Camera3D/CanvasLayer/PrintOverlay:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:is_in_cutscene")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/3/type = "audio"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("PrintSound")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"clips": [{
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource("25_efirx")
+}],
+"times": PackedFloat32Array(0)
+}
+tracks/3/use_blend = true
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("PrintSound:volume_db")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [-5.0]
+}
+
+[sub_resource type="Animation" id="Animation_efirx"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Camera3D/CanvasLayer/PrintOverlay:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:is_in_cutscene")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("PrintSound:volume_db")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ysodj"]
+_data = {
+&"Print": SubResource("Animation_arj1g"),
+&"RESET": SubResource("Animation_efirx")
+}
+
 [node name="SubmarineScene" type="Node3D"]
+script = SubResource("GDScript_arj1g")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_2c62f")
+
+[node name="BioPrinter" parent="." instance=ExtResource("3_ck0ux")]
+transform = Transform3D(-0.866025, 0, 0.5, 0, 1, 0, -0.5, 0, -0.866025, 1.51379, 0.00895652, 1.07506)
+
+[node name="OmniLight3D2" type="OmniLight3D" parent="BioPrinter"]
+transform = Transform3D(-0.866026, 0, -0.5, 0, 1, 0, 0.5, 0, -0.866026, 0.0744025, 2.31503, 0.108029)
+light_energy = 0.5
+
+[node name="Effect" type="CPUParticles3D" parent="BioPrinter"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.38419e-07, -0.5, -5.96046e-08)
+emitting = false
+amount = 32
+lifetime = 1.5
+one_shot = true
+lifetime_randomness = 0.5
+mesh = SubResource("RibbonTrailMesh_vrgwh")
+emission_shape = 1
+emission_sphere_radius = 1.0
+gravity = Vector3(0, 8, 0)
+color_ramp = SubResource("Gradient_vrgwh")
+
+[node name="Audio" type="AudioStreamPlayer3D" parent="BioPrinter"]
 
 [node name="SubmarineScene" type="Node" parent="."]
 
@@ -152,6 +323,7 @@ environment = SubResource("Environment_2c62f")
 [node name="SubmarineExitDoor" type="StaticBody3D" parent="SubmarineScene/Submarine"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.16244, 0.42071, -3.60735)
 script = ExtResource("1_ifo1v")
+is_enabled = false
 
 [node name="VaultDoor" type="MeshInstance3D" parent="SubmarineScene/Submarine/SubmarineExitDoor"]
 transform = Transform3D(0.6, 0, 0, 0, -2.62268e-08, 0.6, 0, -0.6, -2.62268e-08, -0.062, -0.215, 0.5)
@@ -174,26 +346,9 @@ material_override = SubResource("StandardMaterial3D_i6aw8")
 mesh = SubResource("BoxMesh_8vqou")
 
 [node name="OmniLight3D" type="OmniLight3D" parent="SubmarineScene/Submarine/SubmarineExitDoor/ExitSign"]
-transform = Transform3D(1.66667, -1.19209e-07, 0, 2.38419e-07, 3.33333, 0, 0, 0, 6.66667, 0, 0, 1.67058)
+transform = Transform3D(1, -1.43051e-07, 0, 1.43051e-07, 1, 0, 0, 0, 1, 0, 0, 1.67058)
 light_color = Color(0, 1, 0, 1)
 light_energy = 0.1
-
-[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="SubmarineScene/Submarine"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.01115, 1.22802, 0.0241396)
-stream = ExtResource("2_eurom")
-volume_db = -8.0
-unit_size = 4.0
-max_db = -8.0
-autoplay = true
-panning_strength = 0.4
-attenuation_filter_db = 0.0
-parameters/looping = true
-
-[node name="OmniLight3D2" type="OmniLight3D" parent="SubmarineScene/Submarine"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.50337, 2.32399, 0.944303)
-
-[node name="BioPrinter" parent="SubmarineScene/Submarine" instance=ExtResource("3_ck0ux")]
-transform = Transform3D(-0.866025, 0, 0.5, 0, 1, 0, -0.5, 0, -0.866025, 1.51379, 0.00895652, 1.07506)
 
 [node name="Roof" type="MeshInstance3D" parent="SubmarineScene/Submarine"]
 transform = Transform3D(6, 0, 0, 0, -1, 1.55766e-06, 0, -3.89414e-07, -4, 0, 3, 0)
@@ -257,6 +412,13 @@ material_override = SubResource("StandardMaterial3D_m7x7q")
 mesh = ExtResource("7_8vqou")
 skeleton = NodePath("../../..")
 
+[node name="StaticBody3D" type="StaticBody3D" parent="SubmarineScene/Submarine/Ladder"]
+script = ExtResource("10_8vqou")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SubmarineScene/Submarine/Ladder/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.25, 0.116699)
+shape = SubResource("BoxShape3D_agu76")
+
 [node name="OmniLight3D3" type="OmniLight3D" parent="SubmarineScene/Submarine"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.7566, 2.32399, -3.02424)
 
@@ -290,22 +452,23 @@ surface_material_override/1 = SubResource("StandardMaterial3D_qwutr")
 
 [node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="SubmarineScene/Submarine/Tv"]
 transform = Transform3D(2.27273, 0, 0, 0, 2.27273, 0, 0, 0, 2.27273, 0, 0, 0)
+stream = ExtResource("13_hqisu")
+volume_db = -18.0
+autoplay = true
 
 [node name="SubViewport" type="SubViewport" parent="SubmarineScene/Submarine/Tv"]
 size = Vector2i(300, 200)
 
-[node name="CenterContainer" type="CenterContainer" parent="SubmarineScene/Submarine/Tv/SubViewport"]
+[node name="VideoStreamPlayer" type="VideoStreamPlayer" parent="SubmarineScene/Submarine/Tv/SubViewport"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-
-[node name="VideoStreamPlayer" type="VideoStreamPlayer" parent="SubmarineScene/Submarine/Tv/SubViewport/CenterContainer"]
-layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 stream = ExtResource("10_vrgwh")
+volume_db = -80.0
 autoplay = true
 
 [node name="OmniLight3D" type="OmniLight3D" parent="SubmarineScene/Submarine"]
@@ -335,6 +498,7 @@ shape = SubResource("BoxShape3D_mo76n")
 [node name="StaticBody3D" type="StaticBody3D" parent="SubmarineScene/Submarine/RadiationRoomDoor"]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -2.00095, 1.5, -0.136614)
 script = ExtResource("14_ck0ux")
+is_enabled = false
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="SubmarineScene/Submarine/RadiationRoomDoor/StaticBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08616e-07, 0, -0.0725708)
@@ -372,6 +536,17 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 2, 0)
 [node name="InPos" type="Node3D" parent="SubmarineScene/Submarine/RadiationRoomDoor"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 2, 0)
 
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="SubmarineScene/Submarine"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.01115, 1.22802, 0.0241396)
+stream = ExtResource("2_eurom")
+volume_db = -8.0
+unit_size = 4.0
+max_db = -8.0
+autoplay = true
+panning_strength = 0.2
+attenuation_filter_db = 0.0
+parameters/looping = true
+
 [node name="OmniLight3D4" type="OmniLight3D" parent="SubmarineScene/Submarine"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.05013, 2.82399, -0.0128365)
 light_color = Color(0.0606769, 0.947154, 0, 1)
@@ -390,7 +565,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.625, 0)
 shape = SubResource("CylinderShape3D_i6aw8")
 
 [node name="Player" type="CharacterBody3D" parent="."]
-transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, 1.37949, 0, 0.94488)
+transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, 1.58026, 0, 1.18557)
 script = ExtResource("13_ysodj")
 
 [node name="Camera3D" type="Camera3D" parent="Player"]
@@ -417,9 +592,59 @@ size_flags_vertical = 4
 [node name="Sprite2D" type="Sprite2D" parent="Player/Camera3D/CanvasLayer/Hand"]
 texture = ExtResource("14_j5o7m")
 
+[node name="Vignette" type="ColorRect" parent="Player/Camera3D/CanvasLayer"]
+visible = false
+material = SubResource("ShaderMaterial_efirx")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.444077, 0, 0.0994422, 1)
+
+[node name="PrintOverlay" type="ColorRect" parent="Player/Camera3D/CanvasLayer"]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.617176, 1, 0.995675, 1)
+
 [node name="RayCast3D" type="RayCast3D" parent="Player/Camera3D"]
 target_position = Vector3(0, 0, -1.5)
+
+[node name="SpotLight3D" type="SpotLight3D" parent="Player/Camera3D"]
+visible = false
+
+[node name="Helmet" type="Node3D" parent="Player/Camera3D"]
+transform = Transform3D(0.504267, 0, 0, 0, 0.504267, 0, 0, 0, 0.504267, 5.96046e-08, 0, 0.0276576)
+
+[node name="Bottom" type="MeshInstance3D" parent="Player/Camera3D/Helmet"]
+transform = Transform3D(1, 0, 0, 0, 0.1, 0, 0, 0, 1, 0, -0.449221, -0.101122)
+mesh = SubResource("CylinderMesh_vrgwh")
+skeleton = NodePath("../..")
+surface_material_override/0 = ExtResource("24_efirx")
+
+[node name="Top" type="MeshInstance3D" parent="Player/Camera3D/Helmet"]
+transform = Transform3D(1.25, 0, 0, 0, 0.1, 0, 0, 0, 1.25, 0, 0.416473, -0.101122)
+mesh = SubResource("CylinderMesh_vrgwh")
+skeleton = NodePath("../..")
+surface_material_override/0 = ExtResource("24_efirx")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Player"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("CapsuleShape3D_0f027")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Player"]
+libraries = {
+&"": SubResource("AnimationLibrary_ysodj")
+}
+
+[node name="PrintSound" type="AudioStreamPlayer" parent="Player"]
+
+[node name="Footstep" type="AudioStreamPlayer3D" parent="Player"]
+
+[node name="Robot" type="AudioStreamPlayer" parent="."]
+autoplay = true
+bus = &"Robot"

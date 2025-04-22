@@ -1,7 +1,5 @@
 extends Interactable
 
-const Controllers = preload("res://scripts/controller_manager.gd").Controllers
-
 @onready var in_pos = $"../InPos"
 @onready var out_pos = $"../OutPos"
 @onready var player = $"/root/SubmarineScene/Player"
