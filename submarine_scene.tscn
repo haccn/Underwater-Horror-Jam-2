@@ -1,4 +1,4 @@
-[gd_scene load_steps=64 format=3 uid="uid://cdam25a4ajmd3"]
+[gd_scene load_steps=61 format=3 uid="uid://cdam25a4ajmd3"]
 
 [ext_resource type="Script" uid="uid://cpwcv8clnk3cg" path="res://scripts/submarine_exit_door.gd" id="1_ifo1v"]
 [ext_resource type="AudioStream" uid="uid://tcw1euqqr65c" path="res://assets/submarine/submarine_engine.mp3" id="2_eurom"]
@@ -20,14 +20,29 @@
 [ext_resource type="Script" uid="uid://jw2xc5mt8l86" path="res://scripts/radiation_room_door.gd" id="14_ck0ux"]
 [ext_resource type="Texture2D" uid="uid://unj4uiohk8r6" path="res://assets/hand.png" id="14_j5o7m"]
 [ext_resource type="Texture2D" uid="uid://dg44g0x33ug58" path="res://assets/submarine/radiation_symbol.png" id="15_dlg4a"]
-[ext_resource type="ArrayMesh" uid="uid://dyap4n4dcsnvh" path="res://assets/submarine/reactor/model.obj" id="17_kgtvm"]
-[ext_resource type="Texture2D" uid="uid://cr465cn41kdcr" path="res://assets/submarine/reactor/texture.png" id="18_i6aw8"]
+[ext_resource type="ArrayMesh" uid="uid://dyap4n4dcsnvh" path="res://assets/submarine/reactor/reactor.obj" id="17_kgtvm"]
 [ext_resource type="Shader" uid="uid://kcx4qo6l8enu" path="res://vignette.gdshader" id="24_arj1g"]
 [ext_resource type="Material" uid="uid://t3s061dkjxhy" path="res://assets/player_helmet_overlay.tres" id="24_efirx"]
 [ext_resource type="AudioStream" uid="uid://cvprxf73shjbp" path="res://assets/submarine/bio_printer/print.wav" id="25_efirx"]
 
 [sub_resource type="GDScript" id="GDScript_arj1g"]
 script/source = "extends Node
+
+const hello_and_welcome = preload(\"res://assets/voice/hello_and_welcome.wav\")
+const nuclear_reactor_damaged = preload(\"res://assets/voice/nuclear_reactor_damaged.wav\")
+
+@onready var robot = $Robot
+
+func _ready():
+	if GameManager.cutscene_index == 0:
+		var timer = get_tree().create_timer(5)
+		timer.connect(\"timeout\", func():
+			robot.stream = hello_and_welcome
+			robot.playing = true)
+	
+	elif GameManager.cutscene_index == 1:
+		robot.stream = nuclear_reactor_damaged
+		robot.playing = true
 "
 
 [sub_resource type="PhysicalSkyMaterial" id="PhysicalSkyMaterial_0f027"]
@@ -153,13 +168,6 @@ size = Vector3(1.5, 2, 4)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_eurom"]
 size = Vector3(2, 2, 1.5)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8vqou"]
-albedo_texture = ExtResource("18_i6aw8")
-texture_filter = 2
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kgtvm"]
-albedo_color = Color(0.493545, 0.493546, 0.493546, 1)
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_i6aw8"]
 height = 3.25
@@ -514,15 +522,11 @@ transform = Transform3D(-0.232566, -2.03316e-08, -1.01658e-08, 1.01658e-08, 4.44
 texture_albedo = ExtResource("15_dlg4a")
 
 [node name="Decal2" type="Decal" parent="SubmarineScene/Submarine/RadiationRoomDoor/Outer"]
-transform = Transform3D(-0.232566, -2.03316e-08, -1.01658e-08, 1.01658e-08, 4.44361e-16, -0.232566, 2.03316e-08, -0.232566, 4.44361e-16, -0.549438, 0.0191312, 0.0373646)
-texture_albedo = ExtResource("15_dlg4a")
-
-[node name="Decal3" type="Decal" parent="SubmarineScene/Submarine/RadiationRoomDoor/Outer"]
-transform = Transform3D(-0.232566, -2.03316e-08, -1.01658e-08, 1.01658e-08, 4.44361e-16, -0.232566, 2.03316e-08, -0.232566, 4.44361e-16, 0.00269973, -0.554711, 0.0373646)
+transform = Transform3D(-0.232566, -2.03316e-08, -1.01658e-08, 1.01658e-08, 4.44361e-16, -0.232566, 2.03316e-08, -0.232566, 4.44361e-16, -0.457354, -0.216346, 0.0373646)
 texture_albedo = ExtResource("15_dlg4a")
 
 [node name="Decal4" type="Decal" parent="SubmarineScene/Submarine/RadiationRoomDoor/Outer"]
-transform = Transform3D(-0.232566, -2.03316e-08, -1.01658e-08, 1.01658e-08, 4.44361e-16, -0.232566, 2.03316e-08, -0.232566, 4.44361e-16, 0.568218, 0.0331112, 0.0373646)
+transform = Transform3D(-0.232566, -2.03316e-08, -1.01658e-08, 1.01658e-08, 4.44361e-16, -0.232566, 2.03316e-08, -0.232566, 4.44361e-16, 0.481319, -0.202366, 0.0373646)
 texture_albedo = ExtResource("15_dlg4a")
 
 [node name="Inner" type="MeshInstance3D" parent="SubmarineScene/Submarine/RadiationRoomDoor"]
@@ -555,8 +559,6 @@ light_color = Color(0.0606769, 0.947154, 0, 1)
 transform = Transform3D(-0.5, 0, 0.866025, 0, 1, 0, -0.866025, 0, -0.5, -5, 0, 0)
 mesh = ExtResource("17_kgtvm")
 skeleton = NodePath("../../..")
-surface_material_override/0 = SubResource("StandardMaterial3D_8vqou")
-surface_material_override/1 = SubResource("StandardMaterial3D_kgtvm")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="SubmarineScene/Submarine/Reactor"]
 

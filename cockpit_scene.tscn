@@ -1,10 +1,14 @@
-[gd_scene load_steps=12 format=3 uid="uid://xfbq8gag4sus"]
+[gd_scene load_steps=19 format=3 uid="uid://xfbq8gag4sus"]
 
 [ext_resource type="ArrayMesh" uid="uid://vc1otskrlu1h" path="res://assets/cockpit/panels.obj" id="1_2ei3t"]
-[ext_resource type="Material" uid="uid://df26tb2wfrv2h" path="res://assets/cockpit/cockpit_material.tres" id="2_5cfl1"]
+[ext_resource type="Script" uid="uid://cquilswbssol" path="res://scripts/controller_cockpit.gd" id="1_u8jma"]
+[ext_resource type="Material" uid="uid://df26tb2wfrv2h" path="res://assets/cockpit/cockpit_material.tres" id="2_gajdp"]
 [ext_resource type="Material" uid="uid://dchl7yauo0m2r" path="res://assets/cockpit/console_material.tres" id="3_5cfl1"]
-[ext_resource type="Material" uid="uid://c1rxnm6farp4l" path="res://assets/cockpit/joystick_material.tres" id="4_gajdp"]
+[ext_resource type="Material" uid="uid://c1rxnm6farp4l" path="res://assets/cockpit/joystick_material.tres" id="4_u8jma"]
 [ext_resource type="AudioStream" uid="uid://tcw1euqqr65c" path="res://assets/submarine/submarine_engine.mp3" id="5_gajdp"]
+[ext_resource type="AudioStream" uid="uid://cfbeayx5omiu0" path="res://assets/cockpit/siren.ogg" id="6_ghfmb"]
+[ext_resource type="AudioStream" uid="uid://br6je4sbkv700" path="res://assets/cockpit/high_pitch_noise.ogg" id="7_p6jfi"]
+[ext_resource type="Texture2D" uid="uid://dg44g0x33ug58" path="res://assets/submarine/radiation_symbol.png" id="7_sbdck"]
 
 [sub_resource type="PhysicalSkyMaterial" id="PhysicalSkyMaterial_o3jxj"]
 ground_color = Color(0, 0, 0, 1)
@@ -26,13 +30,55 @@ volumetric_fog_anisotropy = 0.5
 volumetric_fog_sky_affect = 0.5
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_gajdp"]
+viewport_path = NodePath("Player/RadarViewport")
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_u8jma"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ghfmb"]
 resource_local_to_scene = true
-albedo_texture = SubResource("ViewportTexture_gajdp")
+albedo_color = Color(0.0562916, 0.0562916, 0.0562916, 1)
+emission_enabled = true
+emission_energy_multiplier = 16.0
+emission_texture = SubResource("ViewportTexture_gajdp")
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_gajdp"]
 size = Vector3(8, 6, 10)
+
+[sub_resource type="Animation" id="Animation_p6jfi"]
+resource_name = "Flash"
+length = 0.5
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(-0.523599, 0, 0), Vector3(-0.523599, 6.28319, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_ghfmb"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(-0.523599, 0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_sbdck"]
+_data = {
+&"Flash": SubResource("Animation_p6jfi"),
+&"RESET": SubResource("Animation_ghfmb")
+}
 
 [node name="CockpitScene" type="Node3D"]
 
@@ -40,7 +86,7 @@ size = Vector3(8, 6, 10)
 environment = SubResource("Environment_0f027")
 
 [node name="CSGPolygon3D" type="CSGPolygon3D" parent="."]
-transform = Transform3D(5.054, 0, 0, 0, 5.054, 0, 0, 0, 5.054, 20.5, 6.5, -12)
+transform = Transform3D(5.5594, 0, 0, 0, 5.5594, 0, 0, 0, 5.5594, 20.5, 6.5, -12)
 polygon = PackedVector2Array(0, -2.5, 0, 3, 1, 2.5, 2, 1, 2, 0, 2.5, -2.5)
 mode = 1
 spin_degrees = 360.0
@@ -48,7 +94,7 @@ spin_sides = 8
 smooth_faces = true
 
 [node name="CSGPolygon3D4" type="CSGPolygon3D" parent="."]
-transform = Transform3D(5.054, 0, 0, 0, 5.054, 0, 0, 0, 5.054, -19.5, 10.5, -26.5)
+transform = Transform3D(7.581, 0, 0, 0, 7.581, 0, 0, 0, 7.581, -24, 6.5, -16)
 polygon = PackedVector2Array(0, -2.5, 0, 3, 1, 2.5, 2, 1, 2, 0, 2.5, -2.5)
 mode = 1
 spin_degrees = 360.0
@@ -56,7 +102,7 @@ spin_sides = 8
 smooth_faces = true
 
 [node name="CSGPolygon3D3" type="CSGPolygon3D" parent="."]
-transform = Transform3D(11.6242, 0, 0, 0, 11.6242, 0, 0, 0, 11.6242, 40, 30, -82)
+transform = Transform3D(11.6242, 0, 0, 0, 11.6242, 0, 0, 0, 11.6242, 39, 9.5, -82)
 polygon = PackedVector2Array(0, -2.5, 0, 3, 1, 2.5, 2, 1, 2, 0, 2.5, -2.5)
 mode = 1
 spin_degrees = 360.0
@@ -69,20 +115,25 @@ light_energy = 0.5
 
 [node name="Player" type="CharacterBody3D" parent="."]
 
-[node name="Camera3D" type="Camera3D" parent="Player"]
+[node name="Controller" type="Node3D" parent="Player"]
+script = ExtResource("1_u8jma")
+
+[node name="CameraContainer" type="Node3D" parent="Player"]
+
+[node name="Camera3D" type="Camera3D" parent="Player/CameraContainer"]
 
 [node name="Panels" type="MeshInstance3D" parent="Player"]
-transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, -1, -4.32903)
+transform = Transform3D(-1, 0, -1.50996e-07, 0, 1, 0, 1.50996e-07, 0, -1, 0, -1, -4.32903)
 mesh = ExtResource("1_2ei3t")
 skeleton = NodePath("../..")
-surface_material_override/0 = ExtResource("2_5cfl1")
-surface_material_override/1 = ExtResource("2_5cfl1")
+surface_material_override/0 = ExtResource("2_gajdp")
+surface_material_override/1 = ExtResource("2_gajdp")
 surface_material_override/2 = ExtResource("3_5cfl1")
-surface_material_override/3 = SubResource("StandardMaterial3D_u8jma")
+surface_material_override/3 = SubResource("StandardMaterial3D_ghfmb")
 surface_material_override/4 = ExtResource("3_5cfl1")
 surface_material_override/5 = ExtResource("3_5cfl1")
-surface_material_override/6 = ExtResource("2_5cfl1")
-surface_material_override/7 = ExtResource("4_gajdp")
+surface_material_override/6 = ExtResource("2_gajdp")
+surface_material_override/7 = ExtResource("4_u8jma")
 
 [node name="OmniLight3D" type="OmniLight3D" parent="Player"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
@@ -93,17 +144,105 @@ light_volumetric_fog_energy = 0.0
 shape = SubResource("BoxShape3D_gajdp")
 
 [node name="RadarViewport" type="SubViewport" parent="Player"]
+size = Vector2i(128, 86)
 
-[node name="ColorRect" type="ColorRect" parent="Player/RadarViewport"]
+[node name="Background" type="ColorRect" parent="Player/RadarViewport"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0.237539, 0.237539, 0.237539, 1)
+color = Color(0, 0, 0, 1)
 
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+[node name="ObjectiveDot" type="ColorRect" parent="Player/RadarViewport"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -5.0
+offset_top = -5.0
+offset_right = -1.0
+offset_bottom = -1.0
+grow_horizontal = 2
+grow_vertical = 2
+rotation = 0.785398
+pivot_offset = Vector2(2, 2)
+size_flags_horizontal = 4
+color = Color(1, 0, 0, 1)
+
+[node name="SelfDot" type="ColorRect" parent="Player/RadarViewport"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -5.0
+offset_top = -5.0
+offset_right = -1.0
+offset_bottom = -1.0
+grow_horizontal = 2
+grow_vertical = 2
+rotation = 0.785398
+pivot_offset = Vector2(2, 2)
+size_flags_horizontal = 4
+size_flags_vertical = 4
+color = Color(0, 1, 0, 1)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="Player"]
+visible = false
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Player/CanvasLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+text = "Press [E] to exit the cockpit"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="DangerSiren" type="Node3D" parent="Player"]
+visible = false
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Player/DangerSiren"]
+root_node = NodePath("../SpotLight3D")
+libraries = {
+&"": SubResource("AnimationLibrary_sbdck")
+}
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Player/DangerSiren"]
+stream = ExtResource("6_ghfmb")
+
+[node name="SpotLight3D" type="SpotLight3D" parent="Player/DangerSiren"]
+transform = Transform3D(1, 0, 0, 0, 0.866025, 0.5, 0, -0.5, 0.866025, 0, 0, 0.5)
+light_color = Color(1, 0, 0, 1)
+light_energy = 24.0
+spot_range = 5.5
+spot_angle = 52.3481
+
+[node name="Decal" type="Decal" parent="Player/DangerSiren"]
+transform = Transform3D(0.7, 0, 0, 0, 0.35, -0.606218, 0, 0.606218, 0.35, 0, -0.5, -2)
+texture_albedo = ExtResource("7_sbdck")
+
+[node name="Decal2" type="Decal" parent="Player/DangerSiren"]
+transform = Transform3D(0.341333, 0.204212, 0.117902, 6.98377e-09, 0.207432, -0.359282, -0.235804, 0.295603, 0.170666, -1.96007, -0.800966, -1.69546)
+texture_albedo = ExtResource("7_sbdck")
+
+[node name="EngineNoise" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("5_gajdp")
 volume_db = -18.0
 autoplay = true
 parameters/looping = true
+
+[node name="ObjectivePosition" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0, -12.5)
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer3D" parent="ObjectivePosition"]
+stream = ExtResource("7_p6jfi")
+volume_db = -16.0
+max_db = 0.0
+autoplay = true
+panning_strength = 0.0

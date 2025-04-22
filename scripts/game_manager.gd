@@ -2,23 +2,14 @@
 
 extends Node
 
-const hello_and_welcome = preload("res://assets/voice/hello_and_welcome.wav")
-
 var cutscene_index = 0
 
 @onready var tree = get_tree()
 @onready var root = get_tree().root
 
 func _ready():
-	respawn()
-	
-	if cutscene_index == 0:
-		var timer = tree.create_timer(5)
-		timer.connect("timeout", func():
-			var robot = tree.current_scene.get_node("Robot")
-			robot.stream = hello_and_welcome
-			robot.playing = true
-			cutscene_index += 1)
+	pass
+	#respawn()
 
 func respawn():
 	tree.current_scene.get_node("Player/AnimationPlayer").play("Print")
