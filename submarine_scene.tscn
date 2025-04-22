@@ -1,7 +1,6 @@
 [gd_scene load_steps=61 format=3 uid="uid://cdam25a4ajmd3"]
 
 [ext_resource type="Script" uid="uid://cpwcv8clnk3cg" path="res://scripts/submarine_exit_door.gd" id="1_ifo1v"]
-[ext_resource type="AudioStream" uid="uid://tcw1euqqr65c" path="res://assets/submarine/submarine_engine.mp3" id="2_eurom"]
 [ext_resource type="PackedScene" uid="uid://deadcjfne4uv4" path="res://assets/submarine/bio_printer/BioPrinter.glb" id="3_ck0ux"]
 [ext_resource type="Texture2D" uid="uid://bmkbn8csgbdbf" path="res://assets/submarine/exit_sign.png" id="3_kgtvm"]
 [ext_resource type="Texture2D" uid="uid://din0twx86t33i" path="res://assets/submarine/PIPES_1A.PNG" id="4_dlg4a"]
@@ -21,6 +20,7 @@
 [ext_resource type="Texture2D" uid="uid://unj4uiohk8r6" path="res://assets/hand.png" id="14_j5o7m"]
 [ext_resource type="Texture2D" uid="uid://dg44g0x33ug58" path="res://assets/submarine/radiation_symbol.png" id="15_dlg4a"]
 [ext_resource type="ArrayMesh" uid="uid://dyap4n4dcsnvh" path="res://assets/submarine/reactor/reactor.obj" id="17_kgtvm"]
+[ext_resource type="AudioStream" uid="uid://dmswleayva2ke" path="res://assets/submarine/submarine_engine.ogg" id="18_vrgwh"]
 [ext_resource type="Shader" uid="uid://kcx4qo6l8enu" path="res://vignette.gdshader" id="24_arj1g"]
 [ext_resource type="Material" uid="uid://t3s061dkjxhy" path="res://assets/player_helmet_overlay.tres" id="24_efirx"]
 [ext_resource type="AudioStream" uid="uid://cvprxf73shjbp" path="res://assets/submarine/bio_printer/print.wav" id="25_efirx"]
@@ -34,13 +34,12 @@ const nuclear_reactor_damaged = preload(\"res://assets/voice/nuclear_reactor_dam
 @onready var robot = $Robot
 
 func _ready():
-	if GameManager.cutscene_index == 0:
-		var timer = get_tree().create_timer(5)
-		timer.connect(\"timeout\", func():
+	if Global.cutscene_index == 0:
+		get_tree().create_timer(5).connect(\"timeout\", func():
 			robot.stream = hello_and_welcome
 			robot.playing = true)
 	
-	elif GameManager.cutscene_index == 1:
+	elif Global.cutscene_index == 1:
 		robot.stream = nuclear_reactor_damaged
 		robot.playing = true
 "
@@ -542,7 +541,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 2, 0)
 
 [node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="SubmarineScene/Submarine"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.01115, 1.22802, 0.0241396)
-stream = ExtResource("2_eurom")
+stream = ExtResource("18_vrgwh")
 volume_db = -8.0
 unit_size = 4.0
 max_db = -8.0

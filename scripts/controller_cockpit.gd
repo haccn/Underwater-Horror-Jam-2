@@ -3,17 +3,20 @@ extends Controller
 class_name ControllerCockpit
 
 const mouse_sensitivity = 0.0005
+const shake_fade = 4
+var shake_strength = 0
 
-const accel = 3
+const accel = 2
 const decel = 2
 const speed = 5
 
-const rotate_accel = 0.5
-const rotate_decel = 0.5
-const rotate_speed = 0.1
+const rotate_accel = 0.1
+const rotate_decel = 0.1
+const rotate_speed = 0.05
 
 @onready var camera_container = $"../CameraContainer"
 @onready var camera = $"../CameraContainer/Camera3D"
+@onready var actual_camera = $"../CameraContainer/Camera3D/Camera3D"
 @onready var objective_pos = $"/root/CockpitScene/ObjectivePosition"
 @onready var radar_viewport = $"../RadarViewport"
 @onready var objective_dot = $"../RadarViewport/ObjectiveDot"
@@ -43,14 +46,25 @@ func _physics_process(delta):
 		offset_to_objective = Vector2(offset_to_objective.x, offset_to_objective.z)
 		objective_dot.position = offset_to_objective + objective_dot.get_viewport_rect().size / 2
 		if offset_to_objective.length() <= 10:
-			GameManager.cutscene_index += 1
+			Global.cutscene_index += 1
 			is_enabled = false
 			$"../DangerSiren/AnimationPlayer".play("Flash")
 			$"../DangerSiren".visible = true
 			$"../DangerSiren/AudioStreamPlayer".playing = true
 			$"/root/CockpitScene/ObjectivePosition/AudioStreamPlayer".playing = false
-			$"/root/CockpitScene/EngineNoise".playing = false
-			$"../CanvasLayer".visible = true
+			$"/root/CockpitScene/Creaking".playing = true
+			get_tree().create_timer(4).connect("timeout", func():
+				$"/root/CockpitScene/Explosion".playing = true
+				$"/root/CockpitScene/EngineNoise".playing = false
+				$"../CanvasLayer".visible = true
+				shake_strength = 0.75)
+	
+	if shake_strength > 0:
+		shake_strength = lerpf(shake_strength, 0, shake_fade * delta)
+		actual_camera.position = Vector3(
+			randf_range(-shake_strength, shake_strength),
+			randf_range(-shake_strength, shake_strength),
+			randf_range(-shake_strength, shake_strength))
 	
 func _input(event):
 	if event is InputEventMouseMotion:

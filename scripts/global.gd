@@ -8,8 +8,7 @@ var cutscene_index = 0
 @onready var root = get_tree().root
 
 func _ready():
-	pass
-	#respawn()
+	respawn()
 
 func respawn():
 	tree.current_scene.get_node("Player/AnimationPlayer").play("Print")

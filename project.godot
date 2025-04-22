@@ -11,13 +11,13 @@ config_version=5
 [application]
 
 config/name="Underwater Horror Jam 2"
-run/main_scene="uid://xfbq8gag4sus"
+run/main_scene="uid://cdam25a4ajmd3"
 config/features=PackedStringArray("4.4", "Forward Plus")
 config/icon="res://icon.svg"
 
 [autoload]
 
-GameManager="*res://scripts/game_manager.gd"
+Global="*res://scripts/global.gd"
 
 [dotnet]
 
