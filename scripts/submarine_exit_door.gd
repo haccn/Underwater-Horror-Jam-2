@@ -14,5 +14,5 @@ func interact():
 			robot.playing = true
 		return
 	
-	Global.player_is_underwater = true
-	get_tree().change_scene_to_file("res://main_scene.tscn")
+	$AudioStreamPlayer.playing = true
+	Global.transition_scene("res://main_scene.tscn")

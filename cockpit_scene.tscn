@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://xfbq8gag4sus"]
+[gd_scene load_steps=23 format=3 uid="uid://xfbq8gag4sus"]
 
 [ext_resource type="ArrayMesh" uid="uid://vc1otskrlu1h" path="res://assets/cockpit/panels.obj" id="1_2ei3t"]
 [ext_resource type="Script" uid="uid://cquilswbssol" path="res://scripts/controller_cockpit.gd" id="1_u8jma"]
@@ -11,6 +11,8 @@
 [ext_resource type="AudioStream" uid="uid://dmswleayva2ke" path="res://assets/submarine/submarine_engine.ogg" id="8_sbdck"]
 [ext_resource type="AudioStream" uid="uid://cl3cgxb4fe1yr" path="res://assets/cockpit/explosion_impact.ogg" id="9_1fm72"]
 [ext_resource type="AudioStream" uid="uid://bra2gqdf4uana" path="res://assets/cockpit/metal_creaking.mp3" id="10_tfkky"]
+[ext_resource type="AudioStream" uid="uid://weonsbo7q84n" path="res://assets/cockpit/sit.mp3" id="12_voujt"]
+[ext_resource type="AudioStream" uid="uid://vd34plddob7e" path="res://assets/cockpit/engine.mp3" id="13_pao38"]
 
 [sub_resource type="PhysicalSkyMaterial" id="PhysicalSkyMaterial_o3jxj"]
 ground_color = Color(0, 0, 0, 1)
@@ -118,8 +120,6 @@ light_energy = 0.2
 shadow_enabled = true
 
 [node name="Player" type="CharacterBody3D" parent="."]
-
-[node name="Controller" type="Node3D" parent="Player"]
 script = ExtResource("1_u8jma")
 
 [node name="CameraContainer" type="Node3D" parent="Player"]
@@ -242,7 +242,7 @@ libraries = {
 
 [node name="EngineNoise" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("8_sbdck")
-volume_db = -16.0
+volume_db = -12.0
 autoplay = true
 parameters/looping = true
 
@@ -255,7 +255,7 @@ stream = ExtResource("10_tfkky")
 volume_db = -4.0
 
 [node name="ObjectivePosition" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.94886, 0, -32.687)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.71517, 0, -4.84346)
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer3D" parent="ObjectivePosition"]
 stream = ExtResource("7_p6jfi")
@@ -263,4 +263,13 @@ volume_db = -16.0
 max_db = 0.0
 autoplay = true
 panning_strength = 0.0
+parameters/looping = true
+
+[node name="Sit" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("12_voujt")
+autoplay = true
+
+[node name="EngineNoise2" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("13_pao38")
+autoplay = true
 parameters/looping = true

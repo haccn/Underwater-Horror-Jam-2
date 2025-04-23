@@ -10,6 +10,7 @@ func get_is_enabled():
 	return Global.cutscene_index > 0
 
 func interact():
+	$"../AudioStreamPlayer".playing = true
 	if _is_in:
 		player.global_position = out_pos.global_position
 		_is_in = false

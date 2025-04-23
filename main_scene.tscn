@@ -1,15 +1,18 @@
-[gd_scene load_steps=22 format=3 uid="uid://dsfxx52dv13a6"]
+[gd_scene load_steps=25 format=3 uid="uid://dsfxx52dv13a6"]
 
 [ext_resource type="ArrayMesh" uid="uid://cmejtsi3xt302" path="res://assets/sub_exterior.obj" id="1_0f027"]
+[ext_resource type="Script" uid="uid://be82qluytkeax" path="res://scripts/main_scene.gd" id="1_42l1d"]
 [ext_resource type="AudioStream" uid="uid://d3it05e17u5cm" path="res://assets/ambience.mp3" id="2_2c62f"]
 [ext_resource type="Script" uid="uid://ck0i25v4io2vb" path="res://submarine_entrance_door.gd" id="2_qwutr"]
 [ext_resource type="PackedScene" uid="uid://dfluedvoogcsl" path="res://player.tscn" id="3_7ycvg"]
 [ext_resource type="ArrayMesh" uid="uid://cgcrnokg13omt" path="res://assets/submarine/vault_door.obj" id="3_671wp"]
+[ext_resource type="AudioStream" uid="uid://basnjb1kcujh4" path="res://assets/submarine/vault_open.mp3" id="4_mo76n"]
 [ext_resource type="Material" uid="uid://cbk28pk7w5e4c" path="res://assets/stone_material.tres" id="8_7ycvg"]
 [ext_resource type="Material" uid="uid://c5x1s7tseowq8" path="res://assets/sand_material.tres" id="8_wr18j"]
 [ext_resource type="ArrayMesh" uid="uid://momundttr34v" path="res://assets/rock.obj" id="9_wr18j"]
 [ext_resource type="Texture2D" uid="uid://qffne6gk03ha" path="res://assets/blood1.png" id="11_mo76n"]
 [ext_resource type="Texture2D" uid="uid://d28xs3gfsy05j" path="res://assets/blood2.png" id="12_42l1d"]
+[ext_resource type="AudioStream" uid="uid://cv6nns426g3nq" path="res://assets/submerge.mp3" id="12_671wp"]
 [ext_resource type="Texture2D" uid="uid://bc4iwqetme4eh" path="res://assets/blood3.png" id="13_2jcla"]
 
 [sub_resource type="PhysicalSkyMaterial" id="PhysicalSkyMaterial_o3jxj"]
@@ -52,6 +55,7 @@ data = PackedVector3Array(-1.5061, 1.2537, -0.7499, -1.8256, -0.9742, 0.2248, -0
 material = ExtResource("8_7ycvg")
 
 [node name="MainScene" type="Node3D"]
+script = ExtResource("1_42l1d")
 
 [node name="WorldEnvironment2" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_0f027")
@@ -82,6 +86,10 @@ skeleton = NodePath("../../OmniLight3D")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="SubExterior/SubmarineEntranceDoor"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0616455, -0.267175, 0.555045)
 shape = SubResource("BoxShape3D_42l1d")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="SubExterior/SubmarineEntranceDoor"]
+stream = ExtResource("4_mo76n")
+volume_db = -4.0
 
 [node name="Ambience" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("2_2c62f")
@@ -390,3 +398,7 @@ transform = Transform3D(-0.934075, 3.554, 4.35949, 7.1532, 0.246471, 0.651435, 0
 material_override = ExtResource("8_7ycvg")
 mesh = SubResource("PlaneMesh_7ycvg")
 skeleton = NodePath("")
+
+[node name="Submerge" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("12_671wp")
+autoplay = true
