@@ -364,6 +364,7 @@ color_ramp = SubResource("Gradient_vrgwh")
 
 [node name="OmniLight3D2" type="OmniLight3D" parent="BioPrinter"]
 transform = Transform3D(-0.866026, 0, -0.5, 0, 1, 0, 0.5, 0, -0.866026, 0.0744025, 2.31503, 0.108029)
+layers = 3
 light_color = Color(0, 1, 1, 1)
 light_energy = 0.2
 
@@ -382,12 +383,6 @@ skeleton = NodePath("../..")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0241699, -0.267175, 0.555045)
 shape = SubResource("BoxShape3D_gyfs4")
 
-[node name="InShipPos" type="Node3D" parent="Submarine/SubmarineExitDoor"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.857367, 1.33829)
-
-[node name="OutShipPos" type="Node3D" parent="Submarine/SubmarineExitDoor"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.84813, -1.82861)
-
 [node name="ExitSign" type="MeshInstance3D" parent="Submarine/SubmarineExitDoor"]
 transform = Transform3D(0.452558, -0.196972, 0, 0.393944, 0.226279, 0, 0, 0, 0.15, 0.0920686, 0.328463, -0.340195)
 material_override = SubResource("StandardMaterial3D_i6aw8")
@@ -395,6 +390,7 @@ mesh = SubResource("BoxMesh_8vqou")
 
 [node name="OmniLight3D" type="OmniLight3D" parent="Submarine/SubmarineExitDoor/ExitSign"]
 transform = Transform3D(1, -1.43051e-07, 0, 1.43051e-07, 1, 0, 0, 0, 1, 0, 0, 1.67058)
+layers = 3
 light_color = Color(0, 1, 0, 1)
 light_energy = 0.1
 
@@ -469,6 +465,7 @@ shape = SubResource("BoxShape3D_agu76")
 
 [node name="OmniLight3D3" type="OmniLight3D" parent="Submarine"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.7566, 2.32399, -3.02424)
+layers = 3
 shadow_enabled = true
 
 [node name="Wall5" type="MeshInstance3D" parent="Submarine"]
@@ -522,6 +519,7 @@ autoplay = true
 
 [node name="OmniLight3D" type="OmniLight3D" parent="Submarine"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.61666, 1.4796, -3.20139)
+layers = 3
 light_energy = 0.2
 
 [node name="Bench" type="Node3D" parent="Submarine"]
@@ -545,6 +543,7 @@ shape = SubResource("BoxShape3D_mo76n")
 
 [node name="OmniLight3D" type="OmniLight3D" parent="Submarine/Bench"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 0.5)
+layers = 3
 shadow_enabled = true
 
 [node name="RadiationRoomDoor" type="Node3D" parent="Submarine"]
@@ -627,6 +626,7 @@ parameters/looping = true
 
 [node name="OmniLight3D4" type="OmniLight3D" parent="Submarine"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.05013, 2.82399, -0.0128365)
+layers = 3
 light_color = Color(0.0606769, 0.947154, 0, 1)
 shadow_enabled = true
 
@@ -680,6 +680,7 @@ shape = SubResource("BoxShape3D_efirx")
 
 [node name="OmniLight3D" type="OmniLight3D" parent="Fabricator"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+layers = 3
 light_energy = 0.2
 
 [node name="DangerSiren" type="Node3D" parent="."]
@@ -692,6 +693,7 @@ parameters/looping = true
 
 [node name="SpotLight3D" type="SpotLight3D" parent="DangerSiren"]
 transform = Transform3D(1, 0, 0, 0, 0.866025, 0.5, 0, -0.5, 0.866025, 0, 0, 0.5)
+layers = 3
 light_color = Color(1, 0, 0, 1)
 light_energy = 24.0
 shadow_enabled = true

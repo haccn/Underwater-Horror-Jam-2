@@ -71,6 +71,11 @@ flashlight={
 ]
 }
 
+[layer_names]
+
+3d_render/layer_1="Default"
+3d_render/layer_2="Hands"
+
 [rendering]
 
 textures/canvas_textures/default_texture_filter=3

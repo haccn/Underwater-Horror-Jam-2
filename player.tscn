@@ -1,24 +1,24 @@
 [gd_scene load_steps=13 format=3 uid="uid://dfluedvoogcsl"]
 
-[ext_resource type="Script" uid="uid://bymru6gmapxlq" path="res://scripts/controller_manager.gd" id="1_sweqy"]
+[ext_resource type="Script" uid="uid://bymru6gmapxlq" path="res://scripts/player.gd" id="1_sweqy"]
 [ext_resource type="Texture2D" uid="uid://unj4uiohk8r6" path="res://assets/hand.png" id="2_2hs0m"]
 [ext_resource type="Shader" uid="uid://kcx4qo6l8enu" path="res://vignette.gdshader" id="3_1jxqw"]
 [ext_resource type="Material" uid="uid://t3s061dkjxhy" path="res://assets/player_helmet_overlay.tres" id="4_dw050"]
 [ext_resource type="AudioStream" uid="uid://cvprxf73shjbp" path="res://assets/submarine/bio_printer/print.wav" id="5_b26j0"]
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_mo76n"]
+radial_segments = 16
+rings = 1
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_671wp"]
 shader = ExtResource("3_1jxqw")
 shader_parameter/outer_radius = 1.5
 shader_parameter/vignette_color = Color(0, 0, 0, 1)
 
-[sub_resource type="CylinderMesh" id="CylinderMesh_mo76n"]
-radial_segments = 16
-rings = 1
-
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_42l1d"]
-
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_sweqy"]
 height = 1.0
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_42l1d"]
 
 [sub_resource type="Animation" id="Animation_arj1g"]
 resource_name = "Print"
@@ -138,6 +138,32 @@ script = ExtResource("1_sweqy")
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+cull_mask = 1048573
+
+[node name="RayCast3D" type="RayCast3D" parent="Camera3D"]
+target_position = Vector3(0, 0, -1.5)
+
+[node name="Flashlight" type="SpotLight3D" parent="Camera3D"]
+visible = false
+
+[node name="Helmet" type="Node3D" parent="Camera3D"]
+transform = Transform3D(0.504267, 0, 0, 0, 0.504267, 0, 0, 0, 0.504267, 5.96046e-08, 0, 0.0276576)
+
+[node name="Bottom" type="MeshInstance3D" parent="Camera3D/Helmet"]
+transform = Transform3D(1, 0, 0, 0, 0.1, 0, 0, 0, 1, 0, -0.449221, -0.101122)
+layers = 2
+cast_shadow = 0
+mesh = SubResource("CylinderMesh_mo76n")
+skeleton = NodePath("../..")
+surface_material_override/0 = ExtResource("4_dw050")
+
+[node name="Top" type="MeshInstance3D" parent="Camera3D/Helmet"]
+transform = Transform3D(1.25, 0, 0, 0, 0.1, 0, 0, 0, 1.25, 0, 0.416473, -0.101122)
+layers = 2
+cast_shadow = 0
+mesh = SubResource("CylinderMesh_mo76n")
+skeleton = NodePath("../..")
+surface_material_override/0 = ExtResource("4_dw050")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="Camera3D"]
 
@@ -179,36 +205,13 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.617176, 1, 0.995675, 1)
 
-[node name="RayCast3D" type="RayCast3D" parent="Camera3D"]
-target_position = Vector3(0, 0, -1.5)
-
-[node name="Flashlight" type="SpotLight3D" parent="Camera3D"]
-visible = false
-
-[node name="Helmet" type="Node3D" parent="Camera3D"]
-transform = Transform3D(0.504267, 0, 0, 0, 0.504267, 0, 0, 0, 0.504267, 5.96046e-08, 0, 0.0276576)
-
-[node name="Bottom" type="MeshInstance3D" parent="Camera3D/Helmet"]
-transform = Transform3D(1, 0, 0, 0, 0.1, 0, 0, 0, 1, 0, -0.449221, -0.101122)
-cast_shadow = 0
-mesh = SubResource("CylinderMesh_mo76n")
-skeleton = NodePath("../..")
-surface_material_override/0 = ExtResource("4_dw050")
-
-[node name="Top" type="MeshInstance3D" parent="Camera3D/Helmet"]
-transform = Transform3D(1.25, 0, 0, 0, 0.1, 0, 0, 0, 1.25, 0, 0.416473, -0.101122)
-cast_shadow = 0
-mesh = SubResource("CylinderMesh_mo76n")
-skeleton = NodePath("../..")
-surface_material_override/0 = ExtResource("4_dw050")
+[node name="UnderwaterShape" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+shape = SubResource("CapsuleShape3D_sweqy")
 
 [node name="LandShape" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("CapsuleShape3D_42l1d")
-
-[node name="UnderwaterShape" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
-shape = SubResource("CapsuleShape3D_sweqy")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
@@ -218,3 +221,19 @@ libraries = {
 [node name="PrintSound" type="AudioStreamPlayer" parent="."]
 
 [node name="Footstep" type="AudioStreamPlayer3D" parent="."]
+
+[node name="Hands" type="SubViewportContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="SubViewport" type="SubViewport" parent="Hands"]
+transparent_bg = true
+handle_input_locally = false
+render_target_update_mode = 4
+
+[node name="Camera3D" type="Camera3D" parent="Hands/SubViewport"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 1.5, 0)
+cull_mask = 1048574

@@ -2,7 +2,6 @@ extends Interactable
 
 const dont_forget_drill = preload("res://assets/voice/dont_forget_drill.wav")
 
-@onready var player = $"/root/SubmarineScene/Player"
 @onready var robot = $"/root/SubmarineScene/Robot"
 
 func get_is_enabled():
