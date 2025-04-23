@@ -2,8 +2,6 @@ extends Interactable
 
 const dont_forget_drill = preload("res://assets/voice/dont_forget_drill.wav")
 
-@onready var in_ship_pos = $InShipPos
-@onready var out_ship_pos = $OutShipPos
 @onready var player = $"/root/SubmarineScene/Player"
 @onready var robot = $"/root/SubmarineScene/Robot"
 
@@ -17,9 +15,5 @@ func interact():
 			robot.playing = true
 		return
 	
-	if player.is_underwater:
-		player.global_position = in_ship_pos.global_position
-		player.is_underwater = false
-	else:
-		player.global_position = out_ship_pos.global_position
-		player.is_underwater = true
+	Global.player_is_underwater = true
+	get_tree().change_scene_to_file("res://main_scene.tscn")

@@ -7,6 +7,7 @@ const mouse_sensitivity = 0.002
 @onready var camera = $"../Camera3D"
 @onready var ray = $"../Camera3D/RayCast3D"
 @onready var hand = $"../Camera3D/CanvasLayer/Hand"
+@onready var flashlight = $"../Camera3D/Flashlight"
 
 var _interactable: Interactable = null
 
@@ -30,6 +31,11 @@ func _input(event):
 		if _interactable != null and _interactable.get_is_enabled() and \
 			event.is_pressed() and event.is_echo() == false:
 				_interactable.interact()
+				
+	# Toggle flashlight
+	elif InputMap.event_is_action(event, "flashlight"):
+		if event.is_pressed() and event.is_echo() == false:
+			flashlight.visible = !flashlight.visible
 	
 	elif event is InputEventMouseMotion:
 		player.rotate_y(-event.relative.x * mouse_sensitivity)

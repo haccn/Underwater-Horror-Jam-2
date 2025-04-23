@@ -3,13 +3,12 @@
 extends Node
 
 var cutscene_index = 0
+
 var player_has_drill = false
+var player_is_underwater = false
 
 @onready var tree = get_tree()
 @onready var root = get_tree().root
-
-func _ready():
-	respawn()
 
 func respawn():
 	tree.current_scene.get_node("Player/AnimationPlayer").play("Print")

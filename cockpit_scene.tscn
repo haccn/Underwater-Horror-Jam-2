@@ -113,7 +113,8 @@ smooth_faces = true
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(-0.123213, -0.861403, 0.49275, -0.287235, 0.506236, 0.813155, -0.949903, -0.0413436, -0.3098, 0, 6.5, 0)
-light_energy = 0.5
+light_energy = 0.2
+shadow_enabled = true
 
 [node name="Player" type="CharacterBody3D" parent="."]
 

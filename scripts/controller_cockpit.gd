@@ -75,4 +75,5 @@ func _input(event):
 
 	elif event is InputEventKey:
 		if InputMap.event_is_action(event, "interact"):
-			get_tree().change_scene_to_file("res://submarine_scene.tscn")
+			if Global.cutscene_index > 0:
+				get_tree().change_scene_to_file("res://submarine_scene.tscn")
