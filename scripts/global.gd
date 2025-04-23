@@ -3,6 +3,7 @@
 extends Node
 
 var cutscene_index = 0
+var player_has_drill = false
 
 @onready var tree = get_tree()
 @onready var root = get_tree().root

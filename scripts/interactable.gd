@@ -2,7 +2,8 @@ extends Node
 
 class_name Interactable
 
-@export var is_enabled = true
+func get_is_enabled():
+	return true
 
 func interact():
 	print("Interacted!")

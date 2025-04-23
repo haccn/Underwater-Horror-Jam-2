@@ -6,6 +6,9 @@ extends Interactable
 
 var _is_in = false
 
+func get_is_enabled():
+	return Global.cutscene_index > 0
+
 func interact():
 	if _is_in:
 		player.global_position = out_pos.global_position
