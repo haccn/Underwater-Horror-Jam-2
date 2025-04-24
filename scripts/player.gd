@@ -1,5 +1,7 @@
 extends CharacterBody3D
 
+class_name Player
+
 const mouse_sensitivity = 0.002
 
 const underwater_accel = 5
@@ -25,7 +27,11 @@ const footsteps_metal = [
 @onready var underwater_collision_shape = $UnderwaterShape
 @onready var footstep_audio = $Footstep
 
-var is_in_cutscene = false
+@onready var animation_tree = $AnimationTree
+@onready var drill_audio = $Drill
+var drill_blend = 0
+
+@export var is_in_cutscene = false
 
 var _interactable: Interactable = null
 var _time_since_step = 0
@@ -44,6 +50,7 @@ func _ready():
 	update_holding_items()
 
 func _input(event):
+	print(is_in_cutscene)
 	if is_in_cutscene:
 		return
 	
@@ -86,6 +93,17 @@ func _process(delta):
 		if _interact_hold_time >= _interactable.button_hold_seconds:
 			_interactable.interact()
 			_interact_hold_time = 0
+		drill_blend = lerpf(drill_blend, 1, 5 * delta)
+	drill_blend = lerpf(drill_blend, 0, 5 * delta)
+	if drill_blend > 0:
+		animation_tree["parameters/Drill/blend_amount"] = drill_blend
+		drill_audio.volume_db = drill_blend
+		if drill_audio.playing == false:
+			drill_audio.play()
+	else:
+		#if drill_audio.playing:
+		drill_audio.stop()
+		drill_audio.playing = false
 
 func _physics_process(delta):
 	if is_in_cutscene:

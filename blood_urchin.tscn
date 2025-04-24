@@ -1,0 +1,89 @@
+[gd_scene load_steps=10 format=3 uid="uid://d3t0yk0tww4hk"]
+
+[ext_resource type="Script" uid="uid://dng2rtffnmint" path="res://scripts/blood_urchin.gd" id="1_4j3jr"]
+[ext_resource type="PackedScene" uid="uid://w0j1eet7u27x" path="res://assets/blood_urchin/BloodUrchin.blend" id="2_4j3jr"]
+[ext_resource type="AudioStream" uid="uid://8r4tqy3ien2q" path="res://assets/blood_urchin/sucking.mp3" id="2_d855p"]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_d855p"]
+animation = &"Idle"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_xo07m"]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_4j3jr"]
+animation = &"Attack"
+
+[sub_resource type="AnimationNodeOneShot" id="AnimationNodeOneShot_4j3jr"]
+
+[sub_resource type="AnimationNodeBlend2" id="AnimationNodeBlend2_iqt5u"]
+
+[sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_xo07m"]
+graph_offset = Vector2(-300.485, 81.371)
+nodes/Animation/node = SubResource("AnimationNodeAnimation_4j3jr")
+nodes/Animation/position = Vector2(-320, 360)
+"nodes/Animation 2/node" = SubResource("AnimationNodeAnimation_d855p")
+"nodes/Animation 2/position" = Vector2(-320, 160)
+"nodes/Animation 3/node" = SubResource("AnimationNodeAnimation_xo07m")
+"nodes/Animation 3/position" = Vector2(140, 360)
+nodes/Attack/node = SubResource("AnimationNodeOneShot_4j3jr")
+nodes/Attack/position = Vector2(-60, 140)
+nodes/Suck/node = SubResource("AnimationNodeBlend2_iqt5u")
+nodes/Suck/position = Vector2(320, 140)
+nodes/output/position = Vector2(520, 140)
+node_connections = [&"Attack", 0, &"Animation 2", &"Attack", 1, &"Animation", &"Suck", 0, &"Attack", &"Suck", 1, &"Animation 3", &"output", 0, &"Suck"]
+
+[node name="BloodUrchin" type="Node3D"]
+script = ExtResource("1_4j3jr")
+
+[node name="AnimationTree" type="AnimationTree" parent="."]
+root_node = NodePath("../BloodUrchin")
+tree_root = SubResource("AnimationNodeBlendTree_xo07m")
+anim_player = NodePath("../BloodUrchin/AnimationPlayer")
+parameters/Attack/active = 0.0
+parameters/Attack/internal_active = 0.0
+parameters/Attack/request = 0
+parameters/Suck/blend_amount = 0
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_d855p")
+
+[node name="BloodUrchin" parent="." instance=ExtResource("2_4j3jr")]
+
+[node name="Skeleton3D" parent="BloodUrchin/Armature_001" index="0"]
+bones/1/rotation = Quaternion(0.650186, -0.277954, -0.650186, 0.277954)
+bones/2/rotation = Quaternion(-3.88197e-07, 3.6946e-08, 0.284263, 0.958746)
+bones/3/rotation = Quaternion(-6.9763e-07, 1.16833e-08, 0.612447, 0.790512)
+bones/4/rotation = Quaternion(-5.5552e-07, 3.82683e-09, 0.499283, 0.866439)
+bones/5/rotation = Quaternion(0.901172, -0.400421, -0.151691, 0.0674018)
+bones/6/rotation = Quaternion(-1.11452e-07, -1.34436e-07, 0.287814, 0.957686)
+bones/7/rotation = Quaternion(-3.50472e-07, 2.50318e-09, 0.606854, 0.794814)
+bones/8/rotation = Quaternion(-2.97023e-07, 3.96702e-09, 0.491791, 0.870713)
+bones/9/rotation = Quaternion(0.140757, -0.0625432, -0.902944, 0.401209)
+bones/10/rotation = Quaternion(-1.70679e-07, -1.87141e-07, 0.287814, 0.957686)
+bones/11/rotation = Quaternion(2.5233e-07, -2.85098e-07, 0.606853, 0.794814)
+bones/12/rotation = Quaternion(9.98098e-07, -1.73522e-07, 0.491791, 0.870713)
+bones/13/rotation = Quaternion(-0.421516, 0.180904, -0.816568, 0.35045)
+bones/14/rotation = Quaternion(-2.39537e-08, 1.05529e-07, 0.284631, 0.958637)
+bones/15/rotation = Quaternion(-4.65659e-07, 8.40812e-08, 0.611908, 0.790929)
+bones/16/rotation = Quaternion(-4.16144e-07, 3.33304e-08, 0.498547, 0.866863)
+bones/17/rotation = Quaternion(0.817361, -0.363181, 0.408706, -0.181602)
+bones/18/rotation = Quaternion(4.59211e-07, 2.59367e-08, 0.287814, 0.957686)
+bones/19/rotation = Quaternion(6.66041e-07, -2.75795e-08, 0.606853, 0.794814)
+bones/20/rotation = Quaternion(8.82771e-07, -4.82273e-08, 0.491791, 0.870713)
+bones/21/position = Vector3(-1.35163e-07, 0.431776, 1.09488)
+bones/21/scale = Vector3(0.472388, 0.472388, 0.472388)
+bones/22/position = Vector3(-1.03455, 0.45927, 0.358441)
+bones/22/scale = Vector3(0.472388, 0.472388, 0.472388)
+bones/23/position = Vector3(1.04293, 0.459271, 0.333258)
+bones/23/scale = Vector3(0.472388, 0.472388, 0.472388)
+bones/24/position = Vector3(0.63415, 0.434509, -0.892534)
+bones/24/scale = Vector3(0.472388, 0.472388, 0.472388)
+bones/25/position = Vector3(-0.656884, 0.459271, -0.875938)
+bones/25/scale = Vector3(0.472388, 0.472388, 0.472388)
+
+[node name="AnimationPlayer" parent="BloodUrchin" index="1"]
+autoplay = "Idle"
+
+[node name="RayCast3D" type="RayCast3D" parent="."]
+target_position = Vector3(0, -10, 0)
+
+[editable path="BloodUrchin"]
