@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Underwater Horror Jam 2"
-run/main_scene="uid://dsfxx52dv13a6"
+run/main_scene="uid://cdam25a4ajmd3"
 config/features=PackedStringArray("4.4", "Forward Plus")
 config/icon="res://icon.svg"
 

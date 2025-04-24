@@ -10,11 +10,14 @@ const underwater_speed = 3
 
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 const land_speed = 2
-const time_between_steps_s = 0.5
 const footsteps_metal = [
 	preload("res://assets/footsteps/footstep_metal_1.wav"),
 	preload("res://assets/footsteps/footstep_metal_2.wav"),
 	preload("res://assets/footsteps/footstep_metal_3.wav"),
+]
+const footsteps_underwater = [
+	preload("res://assets/footsteps/footstep_underwater_1.mp3"),
+	preload("res://assets/footsteps/footstep_underwater_2.mp3"),
 ]
 
 @onready var camera = $Camera3D
@@ -27,9 +30,8 @@ const footsteps_metal = [
 @onready var underwater_collision_shape = $UnderwaterShape
 @onready var footstep_audio = $Footstep
 
-@onready var animation_tree = $AnimationTree
+@onready var anim_player = $AnimationPlayer
 @onready var drill_audio = $Drill
-var drill_blend = 0
 
 @export var is_in_cutscene = false
 
@@ -39,7 +41,7 @@ var _interact_hold_time = 0
 
 func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
-	
+
 	var window = get_window()
 	$Hands/SubViewport.size = window.size
 	window.connect("size_changed", func():
@@ -50,7 +52,6 @@ func _ready():
 	update_holding_items()
 
 func _input(event):
-	print(is_in_cutscene)
 	if is_in_cutscene:
 		return
 	
@@ -93,17 +94,15 @@ func _process(delta):
 		if _interact_hold_time >= _interactable.button_hold_seconds:
 			_interactable.interact()
 			_interact_hold_time = 0
-		drill_blend = lerpf(drill_blend, 1, 5 * delta)
-	drill_blend = lerpf(drill_blend, 0, 5 * delta)
-	if drill_blend > 0:
-		animation_tree["parameters/Drill/blend_amount"] = drill_blend
-		drill_audio.volume_db = drill_blend
+		
+		anim_player.play("Drill")
 		if drill_audio.playing == false:
 			drill_audio.play()
 	else:
-		#if drill_audio.playing:
-		drill_audio.stop()
-		drill_audio.playing = false
+		if drill_audio.playing:
+			# TODO make this better. We don't want to stop other aniamtions, only drill
+			anim_player.stop()
+			drill_audio.stop()
 
 func _physics_process(delta):
 	if is_in_cutscene:
@@ -129,7 +128,19 @@ func physics_process_underwater(delta):
 	velocity += movement_dir * underwater_accel * delta
 	velocity = velocity.limit_length(underwater_speed)
 	
-	velocity = velocity.lerp(Vector3.ZERO, underwater_decel * delta)
+	if velocity.length_squared() > 0.01:
+		velocity = velocity.lerp(Vector3.ZERO, underwater_decel * delta)
+	
+		if _time_since_step >= 1:
+			footstep_audio.stream = footsteps_underwater.pick_random()
+			footstep_audio.volume_db = randf_range(-20, -15)
+			footstep_audio.pitch_scale = randf_range(0.8, 1.2)
+			footstep_audio.play()
+			_time_since_step = 0
+		else:
+			_time_since_step += delta
+	elif input.length_squared() == 0:
+		velocity = Vector3.ZERO
 	
 	move_and_slide()
 
@@ -143,10 +154,10 @@ func physics_process_land(delta):
 	velocity.z = movement_dir.z * land_speed
 
 	move_and_slide()
-	
+
 	if velocity.length_squared() > 0:
-		if _time_since_step >= time_between_steps_s:
-			footstep_audio.stream = footsteps_metal[randi_range(0, 2)]
+		if _time_since_step >= 0.5:
+			footstep_audio.stream = footsteps_metal.pick_random()
 			footstep_audio.pitch_scale = randf_range(1, 1.5)
 			footstep_audio.play()
 			_time_since_step = 0
@@ -164,4 +175,3 @@ func update_holding_items():
 
 	if Global.player_holding != Pickup.TYPE_NONE:
 		pass
-	

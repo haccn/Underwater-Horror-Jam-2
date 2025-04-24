@@ -2,6 +2,7 @@ extends Node
 
 const hello_and_welcome = preload("res://assets/voice/hello_and_welcome.wav")
 const nuclear_reactor_damaged = preload("res://assets/voice/nuclear_reactor_damaged.mp3")
+const back_so_soon = preload("res://assets/voice/back_so_soon.wav")
 
 @onready var robot = $Robot
 
@@ -11,9 +12,10 @@ func _ready():
 	Global.player_is_underwater = false
 	
 	if Global.cutscene_index == 0 or Global.player_is_respawning:
-		$Player/AnimationPlayer.play("Print")
 		$BioPrinter/AnimationPlayer.play("Print", -1, 0.5)
 		$BioPrinter/Effect.emitting = true
+		$BioPrinter/AudioStreamPlayer.play()
+		$Player/AnimationPlayer.play("Print")
 	else:
 		$Player.global_transform = $DoorPlayerTransform.global_transform
 	
@@ -34,6 +36,11 @@ func _ready():
 			robot.stream = nuclear_reactor_damaged
 			robot.play()
 			Global.cutscene_index += 1)
+	
+	if Global.player_respawn_count == 1:
+		create_timer(3, func():
+			robot.stream = back_so_soon
+			robot.play())
 
 func create_timer(wait_time, callable):
 	var timer = Timer.new()

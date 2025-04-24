@@ -1,9 +1,10 @@
-[gd_scene load_steps=79 format=4 uid="uid://cdam25a4ajmd3"]
+[gd_scene load_steps=80 format=4 uid="uid://cdam25a4ajmd3"]
 
 [ext_resource type="Script" uid="uid://cpwcv8clnk3cg" path="res://scripts/submarine_exit_door.gd" id="1_ifo1v"]
 [ext_resource type="Script" uid="uid://dhqcnbu800c85" path="res://scripts/submarine_scene.gd" id="1_nt2ki"]
 [ext_resource type="PackedScene" uid="uid://deadcjfne4uv4" path="res://assets/submarine/bio_printer/BioPrinter.glb" id="3_ck0ux"]
 [ext_resource type="Texture2D" uid="uid://bmkbn8csgbdbf" path="res://assets/submarine/exit_sign.png" id="3_kgtvm"]
+[ext_resource type="AudioStream" uid="uid://cvprxf73shjbp" path="res://assets/submarine/bio_printer/print.wav" id="3_nt2ki"]
 [ext_resource type="Texture2D" uid="uid://din0twx86t33i" path="res://assets/submarine/PIPES_1A.PNG" id="4_dlg4a"]
 [ext_resource type="Texture2D" uid="uid://cw3nnxc4n6nvb" path="res://assets/submarine/STEEL_1A.PNG" id="5_kgtvm"]
 [ext_resource type="AudioStream" uid="uid://basnjb1kcujh4" path="res://assets/submarine/vault_open.mp3" id="5_m7x7q"]
@@ -350,6 +351,9 @@ layers = 3
 light_color = Color(0, 1, 1, 1)
 light_energy = 0.2
 
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="BioPrinter"]
+stream = ExtResource("3_nt2ki")
+
 [node name="Submarine" type="Node" parent="."]
 
 [node name="SubmarineExitDoor" type="StaticBody3D" parent="Submarine"]
@@ -664,7 +668,6 @@ autoplay = "Flash"
 
 [node name="Player" parent="." instance=ExtResource("21_j5o7m")]
 transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, 1.58906, 0, 1.16954)
-is_in_cutscene = true
 
 [node name="Robot" type="AudioStreamPlayer" parent="."]
 autoplay = true

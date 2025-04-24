@@ -1,10 +1,9 @@
-[gd_scene load_steps=49 format=4 uid="uid://dfluedvoogcsl"]
+[gd_scene load_steps=43 format=4 uid="uid://dfluedvoogcsl"]
 
 [ext_resource type="Script" uid="uid://bymru6gmapxlq" path="res://scripts/player.gd" id="1_sweqy"]
 [ext_resource type="Texture2D" uid="uid://unj4uiohk8r6" path="res://assets/hand.png" id="2_2hs0m"]
 [ext_resource type="Shader" uid="uid://kcx4qo6l8enu" path="res://vignette.gdshader" id="3_1jxqw"]
 [ext_resource type="Material" uid="uid://t3s061dkjxhy" path="res://assets/player_helmet_overlay.tres" id="4_dw050"]
-[ext_resource type="AudioStream" uid="uid://cvprxf73shjbp" path="res://assets/submarine/bio_printer/print.wav" id="5_b26j0"]
 [ext_resource type="AudioStream" uid="uid://cfa12d7tx4atl" path="res://assets/pickup.mp3" id="6_2hs0m"]
 [ext_resource type="AudioStream" uid="uid://cy6glve5ywnos" path="res://assets/drill.mp3" id="7_1jxqw"]
 
@@ -8660,50 +8659,47 @@ tracks/0/keys = {
 "values": [Vector3(0, 0, 0), Vector3(0, 0, 6.28319)]
 }
 
-[sub_resource type="Animation" id="Animation_arj1g"]
+[sub_resource type="Animation" id="Animation_dw050"]
 resource_name = "Print"
-length = 3.5
-tracks/0/type = "audio"
+length = 2.5
+tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("PrintSound")
+tracks/0/path = NodePath("Camera3D/CanvasLayer/PrintOverlay:color")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"clips": [{
-"end_offset": 0.0,
-"start_offset": 0.0,
-"stream": ExtResource("5_b26j0")
-}],
-"times": PackedFloat32Array(0)
-}
-tracks/0/use_blend = true
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Camera3D/CanvasLayer/PrintOverlay:color")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 1.5),
+"times": PackedFloat32Array(0, 2),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Color(1, 1, 1, 1), Color(0, 1, 1, 0)]
 }
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath(".:is_in_cutscene")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0, 3.03333),
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:is_in_cutscene")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 2.5),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [true, false]
 }
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Camera3D/CanvasLayer/PrintOverlay/ColorRect:color")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
 
-[sub_resource type="Animation" id="Animation_efirx"]
+[sub_resource type="Animation" id="Animation_1jxqw"]
 length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -8727,7 +8723,7 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Color(1, 1, 1, 0.482353)]
+"values": [Color(1, 1, 1, 0)]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
@@ -8741,35 +8737,25 @@ tracks/2/keys = {
 "update": 1,
 "values": [false]
 }
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_ysodj"]
-_data = {
-&"Drill": SubResource("Animation_2hs0m"),
-&"Print": SubResource("Animation_arj1g"),
-&"RESET": SubResource("Animation_efirx")
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Camera3D/CanvasLayer/PrintOverlay/ColorRect:color")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
 }
 
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_2hs0m"]
-animation = &"RESET"
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_dw050"]
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_1jxqw"]
-animation = &"Drill"
-
-[sub_resource type="AnimationNodeBlend2" id="AnimationNodeBlend2_dw050"]
-
-[sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_b26j0"]
-graph_offset = Vector2(-533.644, 83.8569)
-nodes/Animation/node = SubResource("AnimationNodeAnimation_1jxqw")
-nodes/Animation/position = Vector2(-400, 340)
-"nodes/Animation 2/node" = SubResource("AnimationNodeAnimation_2hs0m")
-"nodes/Animation 2/position" = Vector2(-420, 140)
-"nodes/Animation 3/node" = SubResource("AnimationNodeAnimation_dw050")
-"nodes/Animation 3/position" = Vector2(-20.509, 274.775)
-nodes/Drill/node = SubResource("AnimationNodeBlend2_dw050")
-nodes/Drill/position = Vector2(-220, 100)
-node_connections = [&"Drill", 0, &"Animation 2", &"Drill", 1, &"Animation", &"output", 0, &"Drill"]
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_1jxqw"]
+_data = {
+&"Drill": SubResource("Animation_2hs0m"),
+&"Print": SubResource("Animation_dw050"),
+&"RESET": SubResource("Animation_1jxqw")
+}
 
 [node name="Player" type="CharacterBody3D"]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 0)
@@ -9311,7 +9297,16 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(1, 1, 1, 0.482353)
+color = Color(1, 1, 1, 0)
+
+[node name="ColorRect" type="ColorRect" parent="Camera3D/CanvasLayer/PrintOverlay"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 1, 1, 0)
 
 [node name="UnderwaterShape" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
@@ -9320,18 +9315,6 @@ shape = SubResource("CapsuleShape3D_sweqy")
 [node name="LandShape" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("CapsuleShape3D_42l1d")
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-libraries = {
-&"": SubResource("AnimationLibrary_ysodj")
-}
-
-[node name="AnimationTree" type="AnimationTree" parent="."]
-tree_root = SubResource("AnimationNodeBlendTree_b26j0")
-anim_player = NodePath("../AnimationPlayer")
-parameters/Drill/blend_amount = 0.0
-
-[node name="PrintSound" type="AudioStreamPlayer" parent="."]
 
 [node name="Hands" type="SubViewportContainer" parent="."]
 anchors_preset = 15
@@ -9356,3 +9339,8 @@ stream = ExtResource("6_2hs0m")
 stream = ExtResource("7_1jxqw")
 
 [node name="Footstep" type="AudioStreamPlayer" parent="."]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_1jxqw")
+}

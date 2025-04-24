@@ -5,6 +5,7 @@ extends Node
 var cutscene_index = 0
 
 var player_is_respawning = false
+var player_respawn_count = 0
 
 var player_is_underwater = false
 var _player_has_drill = true
@@ -27,6 +28,7 @@ signal player_holding_changed
 
 func respawn():
 	player_is_respawning = true
+	player_respawn_count += 1
 	tree.change_scene_to_file("res://submarine_scene.tscn")
 
 func transition_scene(path):
