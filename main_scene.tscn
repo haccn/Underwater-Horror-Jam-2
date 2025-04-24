@@ -457,7 +457,7 @@ transform = Transform3D(1.7, 0, 0, 0, 1.7, 0, 0, 0, 1.7, -11, -17.5, 5.5)
 texture_albedo = ExtResource("11_mo76n")
 
 [node name="Carbon" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, -1.00001, 4.49999)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.52026, -1.00001, 6.55501)
 
 [node name="CSGBakedMeshInstance3D" type="MeshInstance3D" parent="Carbon"]
 mesh = SubResource("ArrayMesh_42l1d")

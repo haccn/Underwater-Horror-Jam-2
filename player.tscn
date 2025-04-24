@@ -1,9 +1,10 @@
-[gd_scene load_steps=43 format=4 uid="uid://dfluedvoogcsl"]
+[gd_scene load_steps=45 format=4 uid="uid://dfluedvoogcsl"]
 
 [ext_resource type="Script" uid="uid://bymru6gmapxlq" path="res://scripts/player.gd" id="1_sweqy"]
 [ext_resource type="Texture2D" uid="uid://unj4uiohk8r6" path="res://assets/hand.png" id="2_2hs0m"]
 [ext_resource type="Shader" uid="uid://kcx4qo6l8enu" path="res://vignette.gdshader" id="3_1jxqw"]
 [ext_resource type="Material" uid="uid://t3s061dkjxhy" path="res://assets/player_helmet_overlay.tres" id="4_dw050"]
+[ext_resource type="Texture2D" uid="uid://ctdg81ykv0df5" path="res://assets/circular_progress.svg" id="5_1jxqw"]
 [ext_resource type="AudioStream" uid="uid://cfa12d7tx4atl" path="res://assets/pickup.mp3" id="6_2hs0m"]
 [ext_resource type="AudioStream" uid="uid://cy6glve5ywnos" path="res://assets/drill.mp3" id="7_1jxqw"]
 
@@ -8634,7 +8635,7 @@ _data = {
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_671wp"]
 shader = ExtResource("3_1jxqw")
-shader_parameter/outer_radius = 0.75
+shader_parameter/outer_radius = 1.4
 shader_parameter/vignette_color = Color(0, 0, 0, 1)
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_sweqy"]
@@ -8689,14 +8690,14 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("Camera3D/CanvasLayer/PrintOverlay/ColorRect:color")
+tracks/2/path = NodePath("Camera3D/CanvasLayer/PrintOverlay:visible")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.5),
+"times": PackedFloat32Array(0, 2),
 "transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+"update": 1,
+"values": [true, false]
 }
 
 [sub_resource type="Animation" id="Animation_1jxqw"]
@@ -8740,18 +8741,71 @@ tracks/2/keys = {
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("Camera3D/CanvasLayer/PrintOverlay/ColorRect:color")
+tracks/3/path = NodePath("Camera3D/CanvasLayer/PrintOverlay:visible")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Camera3D/CanvasLayer/Vignette:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Camera3D/CanvasLayer/Vignette:color")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Color(1, 1, 1, 0)]
+"values": [Color(0.444077, 0, 0.0994422, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_b26j0"]
+resource_name = "Damage"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Camera3D/CanvasLayer/Vignette:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Camera3D/CanvasLayer/Vignette:color")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(0.443137, 0, 0.0980392, 0), Color(0.443137, 0, 0.0980392, 1), Color(0.443137, 0, 0.0980392, 0)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_1jxqw"]
 _data = {
+&"Damage": SubResource("Animation_b26j0"),
 &"Drill": SubResource("Animation_2hs0m"),
 &"Print": SubResource("Animation_dw050"),
 &"RESET": SubResource("Animation_1jxqw")
@@ -9261,8 +9315,9 @@ libraries = {
 [node name="CanvasLayer" type="CanvasLayer" parent="Camera3D"]
 follow_viewport_scale = 2.681
 
-[node name="Hand" type="CenterContainer" parent="Camera3D/CanvasLayer"]
+[node name="Hand" type="Control" parent="Camera3D/CanvasLayer"]
 visible = false
+layout_mode = 3
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -9274,10 +9329,10 @@ offset_right = 20.0
 offset_bottom = 20.0
 grow_horizontal = 2
 grow_vertical = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
 
 [node name="Sprite2D" type="Sprite2D" parent="Camera3D/CanvasLayer/Hand"]
+position = Vector2(16, 16)
+scale = Vector2(0.75, 0.75)
 texture = ExtResource("2_2hs0m")
 
 [node name="Vignette" type="ColorRect" parent="Camera3D/CanvasLayer"]
@@ -9291,6 +9346,7 @@ grow_vertical = 2
 color = Color(0.444077, 0, 0.0994422, 1)
 
 [node name="PrintOverlay" type="ColorRect" parent="Camera3D/CanvasLayer"]
+visible = false
 material = SubResource("ShaderMaterial_671wp")
 anchors_preset = 15
 anchor_right = 1.0
@@ -9299,14 +9355,21 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(1, 1, 1, 0)
 
-[node name="ColorRect" type="ColorRect" parent="Camera3D/CanvasLayer/PrintOverlay"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
+[node name="TextureProgressBar" type="TextureProgressBar" parent="Camera3D/CanvasLayer"]
+visible = false
+offset_left = 334.0
+offset_top = 82.0
+offset_right = 818.0
+offset_bottom = 566.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(1, 1, 1, 0)
+scale = Vector2(0.2, 0.2)
+pivot_offset = Vector2(242, 242)
+fill_mode = 4
+texture_under = ExtResource("5_1jxqw")
+texture_progress = ExtResource("5_1jxqw")
+tint_under = Color(1, 1, 1, 0.25098)
+tint_progress = Color(0.953547, 0.743948, 0, 1)
 
 [node name="UnderwaterShape" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
@@ -9337,6 +9400,8 @@ stream = ExtResource("6_2hs0m")
 
 [node name="Drill" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("7_1jxqw")
+volume_db = -12.0
+parameters/looping = true
 
 [node name="Footstep" type="AudioStreamPlayer" parent="."]
 

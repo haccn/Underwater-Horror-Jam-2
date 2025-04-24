@@ -24,6 +24,7 @@ const footsteps_underwater = [
 @onready var hands_camera = $Hands/SubViewport/Camera3D
 @onready var ray = $Camera3D/RayCast3D
 @onready var interactable_hand = $Camera3D/CanvasLayer/Hand
+@onready var progress_bar = $Camera3D/CanvasLayer/TextureProgressBar
 @onready var flashlight = $Camera3D/Flashlight
 
 @onready var land_collision_shape = $LandShape
@@ -90,7 +91,9 @@ func _process(delta):
 	# See _input for otherwise
 	if _interactable != null and _interactable.requires_button_hold and _interactable.get_is_enabled() \
 		and Input.is_action_pressed("interact"):
+		progress_bar.set_visible(true)
 		_interact_hold_time += delta
+		progress_bar.value = (_interact_hold_time / _interactable.button_hold_seconds) * 100
 		if _interact_hold_time >= _interactable.button_hold_seconds:
 			_interactable.interact()
 			_interact_hold_time = 0
@@ -99,6 +102,8 @@ func _process(delta):
 		if drill_audio.playing == false:
 			drill_audio.play()
 	else:
+		progress_bar.set_visible(false)
+		_interact_hold_time = 0
 		if drill_audio.playing:
 			# TODO make this better. We don't want to stop other aniamtions, only drill
 			anim_player.stop()
