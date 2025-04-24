@@ -9,18 +9,18 @@ func _ready():
 	Global.player_is_underwater = false
 	
 	if Global.cutscene_index > 0:
-		$DangerSiren/AudioStreamPlayer.playing = true
+		$DangerSiren/AudioStreamPlayer.play()
 	
 	if Global.cutscene_index == 0:
 		Global.respawn()
 		get_tree().create_timer(5).connect("timeout", func():
 			robot.stream = hello_and_welcome
-			robot.playing = true)
+			robot.play())
 	
 	elif Global.cutscene_index == 1:
 		$Player.global_transform = $LadderPlayerTransform.global_transform
-		$Submarine/Ladder/AudioStreamPlayer.playing = true
+		$Submarine/Ladder/AudioStreamPlayer.play()
 		get_tree().create_timer(4).connect("timeout", func():
 			robot.stream = nuclear_reactor_damaged
-			robot.playing = true
+			robot.play()
 			Global.cutscene_index += 1)

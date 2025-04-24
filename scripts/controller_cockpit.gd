@@ -57,13 +57,13 @@ func _physics_process(delta):
 			_is_broken = true
 			$DangerSiren/AnimationPlayer.play("Flash")
 			$DangerSiren.visible = true
-			$DangerSiren/AudioStreamPlayer.playing = true
-			$"/root/CockpitScene/ObjectivePosition/AudioStreamPlayer".playing = false
-			$"/root/CockpitScene/Creaking".playing = true
+			$DangerSiren/AudioStreamPlayer.play()
+			$"/root/CockpitScene/ObjectivePosition/AudioStreamPlayer".stop()
+			$"/root/CockpitScene/Creaking".play()
 			get_tree().create_timer(4).connect("timeout", func():
-				$"/root/CockpitScene/Explosion".playing = true
-				$"/root/CockpitScene/EngineNoise".playing = false
-				engine_noise.playing = false
+				$"/root/CockpitScene/Explosion".play()
+				$"/root/CockpitScene/EngineNoise".stop()
+				engine_noise.stop()
 				$CanvasLayer.visible = true
 				shake_strength = 0.75)
 	

@@ -1,14 +1,22 @@
-[gd_scene load_steps=13 format=3 uid="uid://dfluedvoogcsl"]
+[gd_scene load_steps=16 format=3 uid="uid://dfluedvoogcsl"]
 
 [ext_resource type="Script" uid="uid://bymru6gmapxlq" path="res://scripts/player.gd" id="1_sweqy"]
 [ext_resource type="Texture2D" uid="uid://unj4uiohk8r6" path="res://assets/hand.png" id="2_2hs0m"]
 [ext_resource type="Shader" uid="uid://kcx4qo6l8enu" path="res://vignette.gdshader" id="3_1jxqw"]
 [ext_resource type="Material" uid="uid://t3s061dkjxhy" path="res://assets/player_helmet_overlay.tres" id="4_dw050"]
 [ext_resource type="AudioStream" uid="uid://cvprxf73shjbp" path="res://assets/submarine/bio_printer/print.wav" id="5_b26j0"]
+[ext_resource type="AudioStream" uid="uid://cfa12d7tx4atl" path="res://assets/pickup.mp3" id="6_2hs0m"]
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_mo76n"]
 radial_segments = 16
 rings = 1
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_sweqy"]
+radial_segments = 8
+rings = 0
+
+[sub_resource type="BoxMesh" id="BoxMesh_sweqy"]
+size = Vector3(0.1, 0.1, 0.1)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_671wp"]
 shader = ExtResource("3_1jxqw")
@@ -144,6 +152,7 @@ cull_mask = 1048573
 target_position = Vector3(0, 0, -1.5)
 
 [node name="Flashlight" type="SpotLight3D" parent="Camera3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.207064, 0.204834, -0.344961)
 visible = false
 
 [node name="Helmet" type="Node3D" parent="Camera3D"]
@@ -164,6 +173,20 @@ cast_shadow = 0
 mesh = SubResource("CylinderMesh_mo76n")
 skeleton = NodePath("../..")
 surface_material_override/0 = ExtResource("4_dw050")
+
+[node name="Flashlight" type="MeshInstance3D" parent="Camera3D/Helmet"]
+transform = Transform3D(0.2, -1.24345e-14, 3.70577e-22, 0, -8.74228e-09, -0.2, 1.24345e-14, 0.2, -8.74228e-09, -0.42287, 0.41264, -0.541818)
+layers = 2
+mesh = SubResource("CylinderMesh_sweqy")
+surface_material_override/0 = ExtResource("4_dw050")
+
+[node name="Drill" type="Node3D" parent="Camera3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.33404, -0.166323, -0.29873)
+visible = false
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Camera3D/Drill"]
+layers = 2
+mesh = SubResource("BoxMesh_sweqy")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="Camera3D"]
 
@@ -237,3 +260,6 @@ render_target_update_mode = 4
 [node name="Camera3D" type="Camera3D" parent="Hands/SubViewport"]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 1.5, 0)
 cull_mask = 1048574
+
+[node name="FlashlightToggle" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_2hs0m")

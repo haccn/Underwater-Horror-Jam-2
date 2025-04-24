@@ -9,9 +9,11 @@ const underwater_speed = 3
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 const land_speed = 2
 const time_between_steps_s = 0.5
-const footstep_metal_1 = preload("res://assets/footsteps/footstep_metal_1.wav")
-const footstep_metal_2 = preload("res://assets/footsteps/footstep_metal_2.wav")
-const footstep_metal_3 = preload("res://assets/footsteps/footstep_metal_3.wav")
+const footsteps_metal = [
+	preload("res://assets/footsteps/footstep_metal_1.wav"),
+	preload("res://assets/footsteps/footstep_metal_2.wav"),
+	preload("res://assets/footsteps/footstep_metal_3.wav"),
+]
 
 @onready var camera = $Camera3D
 @onready var hands_camera = $Hands/SubViewport/Camera3D
@@ -27,28 +29,35 @@ var is_in_cutscene = false
 
 var _interactable: Interactable = null
 var _time_since_step = 0
+var _interact_hold_time = 0
 
 func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	
 	var window = get_window()
 	$Hands/SubViewport.size = window.size
 	window.connect("size_changed", func():
 		$Hands/SubViewport.size = window.size)
+	
+	Global.connect("player_holding_changed", _on_player_holding_changed)
+	
+	update_holding_items()
 
 func _input(event):
 	if is_in_cutscene:
 		return
 	
-	# Interact with any interactable
-	if InputMap.event_is_action(event, "interact"):
-		if _interactable != null and _interactable.get_is_enabled() and \
-			event.is_pressed() and event.is_echo() == false:
+	# Interact with interactable that doesn't requires button hold
+	# See _process for otherwise
+	if event.is_action_pressed("interact"):
+		if _interactable != null and _interactable.get_is_enabled():
+			if _interactable.requires_button_hold == false:
 				_interactable.interact()
 				
 	# Toggle flashlight
-	elif InputMap.event_is_action(event, "flashlight"):
-		if event.is_pressed() and event.is_echo() == false:
-			flashlight.visible = !flashlight.visible
+	elif event.is_action_pressed("flashlight"):
+		flashlight.visible = !flashlight.visible
+		$FlashlightToggle.play()
 	
 	# Move camera
 	elif event is InputEventMouseMotion:
@@ -67,7 +76,16 @@ func _process(delta):
 	if _interactable != null and _interactable.get_is_enabled():
 		interactable_hand.set_visible(true)
 	else:
-		interactable_hand.set_visible(false)	
+		interactable_hand.set_visible(false)
+		
+	# Interact with interactable that requires button hold
+	# See _input for otherwise
+	if _interactable != null and _interactable.requires_button_hold and _interactable.get_is_enabled() \
+		and Input.is_action_pressed("interact"):
+		_interact_hold_time += delta
+		if _interact_hold_time >= _interactable.button_hold_seconds:
+			_interactable.interact()
+			_interact_hold_time = 0
 
 func _physics_process(delta):
 	if is_in_cutscene:
@@ -110,15 +128,22 @@ func physics_process_land(delta):
 	
 	if velocity.length_squared() > 0:
 		if _time_since_step >= time_between_steps_s:
-			var footstep_index = randi_range(0, 2)
-			if footstep_index == 0:
-				footstep_audio.stream = footstep_metal_1
-			elif footstep_index == 1:
-				footstep_audio.stream = footstep_metal_2
-			else:
-				footstep_audio.stream = footstep_metal_3
+			footstep_audio.stream = footsteps_metal[randi_range(0, 2)]
 			footstep_audio.pitch_scale = randf_range(1, 1.5)
-			footstep_audio.playing = true
+			footstep_audio.play()
 			_time_since_step = 0
 		else:
 			_time_since_step += delta
+
+func _on_player_holding_changed():
+	update_holding_items()
+
+func update_holding_items():
+	if Global.player_has_drill:
+		$Camera3D/Drill.visible = true
+	else:
+		$Camera3D/Drill.visible = false
+
+	if Global.player_holding != Pickup.TYPE_NONE:
+		pass
+	

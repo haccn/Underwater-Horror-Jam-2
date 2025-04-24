@@ -1,4 +1,4 @@
-[gd_scene load_steps=80 format=4 uid="uid://cdam25a4ajmd3"]
+[gd_scene load_steps=79 format=4 uid="uid://cdam25a4ajmd3"]
 
 [ext_resource type="Script" uid="uid://cpwcv8clnk3cg" path="res://scripts/submarine_exit_door.gd" id="1_ifo1v"]
 [ext_resource type="Script" uid="uid://dhqcnbu800c85" path="res://scripts/submarine_scene.gd" id="1_nt2ki"]
@@ -16,10 +16,10 @@
 [ext_resource type="VideoStream" uid="uid://b2sif0iwdgxap" path="res://assets/submarine/tv/ad_jello_chinese_baby.ogv" id="10_vrgwh"]
 [ext_resource type="Texture2D" uid="uid://b3jc023nlm2hf" path="res://assets/submarine/RIVET_1A.PNG" id="11_arj1g"]
 [ext_resource type="Texture2D" uid="uid://ckexak5wcj4b5" path="res://assets/submarine/LAB_2B.PNG" id="12_efirx"]
-[ext_resource type="AudioStream" uid="uid://3h411wts2whe" path="res://assets/submarine/tv/ad_jello_chinese_baby.mp3" id="13_hqisu"]
 [ext_resource type="ArrayMesh" uid="uid://cgcrnokg13omt" path="res://assets/submarine/vault_door.obj" id="13_ifo1v"]
 [ext_resource type="Script" uid="uid://jw2xc5mt8l86" path="res://scripts/radiation_room_door.gd" id="14_ck0ux"]
 [ext_resource type="Texture2D" uid="uid://dg44g0x33ug58" path="res://assets/submarine/radiation_symbol.png" id="15_dlg4a"]
+[ext_resource type="Script" uid="uid://kx1xw05c0f7o" path="res://tv.gd" id="15_nt2ki"]
 [ext_resource type="ArrayMesh" uid="uid://dyap4n4dcsnvh" path="res://assets/submarine/reactor/reactor.obj" id="17_kgtvm"]
 [ext_resource type="AudioStream" uid="uid://dmswleayva2ke" path="res://assets/submarine/submarine_engine.ogg" id="18_vrgwh"]
 [ext_resource type="PackedScene" uid="uid://dfluedvoogcsl" path="res://player.tscn" id="21_j5o7m"]
@@ -27,7 +27,6 @@
 [ext_resource type="ArrayMesh" uid="uid://roliwf8ndqb1" path="res://assets/submarine/fabricator/fabricator.obj" id="26_efirx"]
 [ext_resource type="Script" uid="uid://bgbr406x67vl0" path="res://scripts/drill.gd" id="26_m7x7q"]
 [ext_resource type="Texture2D" uid="uid://c6kqsbllnwh4i" path="res://assets/submarine/fabricator/texture.png" id="27_atfu8"]
-[ext_resource type="AudioStream" uid="uid://cfa12d7tx4atl" path="res://assets/pickup.mp3" id="27_nt2ki"]
 [ext_resource type="Material" uid="uid://d18lcyejuxtm7" path="res://assets/submarine/fabricator/fabricator_material.tres" id="28_m7x7q"]
 [ext_resource type="Material" uid="uid://bbdg6s3k7p5j2" path="res://assets/submarine/fabricator/fabricator_text_material.tres" id="29_nt2ki"]
 [ext_resource type="AudioStream" uid="uid://cfbeayx5omiu0" path="res://assets/cockpit/siren.ogg" id="33_qetiw"]
@@ -486,12 +485,10 @@ mesh = ExtResource("8_agu76")
 skeleton = NodePath("../..")
 surface_material_override/0 = ExtResource("9_hqisu")
 surface_material_override/1 = SubResource("StandardMaterial3D_qwutr")
+script = ExtResource("15_nt2ki")
 
 [node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="Submarine/Tv"]
 transform = Transform3D(2.27273, 0, 0, 0, 2.27273, 0, 0, 0, 2.27273, 0, 0, 0)
-stream = ExtResource("13_hqisu")
-volume_db = -18.0
-autoplay = true
 
 [node name="SubViewport" type="SubViewport" parent="Submarine/Tv"]
 size = Vector2i(300, 200)
@@ -505,8 +502,8 @@ grow_vertical = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 stream = ExtResource("10_vrgwh")
-volume_db = -80.0
 autoplay = true
+bus = &"Tv"
 
 [node name="OmniLight3D" type="OmniLight3D" parent="Submarine"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.61666, 1.4796, -3.20139)
@@ -570,10 +567,10 @@ mesh = ExtResource("13_ifo1v")
 skeleton = NodePath("../../..")
 
 [node name="OutPos" type="Node3D" parent="Submarine/RadiationRoomDoor"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 2, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 0)
 
 [node name="InPos" type="Node3D" parent="Submarine/RadiationRoomDoor"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 2, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0, 0)
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Submarine/RadiationRoomDoor"]
 stream = ExtResource("5_m7x7q")
@@ -649,7 +646,6 @@ parameters/looping = true
 
 [node name="SpotLight3D" type="SpotLight3D" parent="DangerSiren"]
 transform = Transform3D(1, 0, 0, 0, 0.866025, 0.5, 0, -0.5, 0.866025, 0, 0, 1.49012e-08)
-layers = 3
 light_color = Color(1, 0, 0, 1)
 light_energy = 24.0
 shadow_enabled = true
@@ -682,9 +678,6 @@ shape = SubResource("BoxShape3D_arj1g")
 
 [node name="CSGBox3D" type="CSGBox3D" parent="Drill"]
 size = Vector3(0.4, 0.4, 0.4)
-
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Drill"]
-stream = ExtResource("27_nt2ki")
 
 [node name="Fabricator" type="MeshInstance3D" parent="."]
 transform = Transform3D(-3.27835e-08, 0, 0.75, 0, 0.75, 0, -0.75, 0, -3.27835e-08, -1.5, 0, 1.33352)

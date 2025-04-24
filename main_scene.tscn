@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://dsfxx52dv13a6"]
+[gd_scene load_steps=32 format=4 uid="uid://dsfxx52dv13a6"]
 
 [ext_resource type="ArrayMesh" uid="uid://cmejtsi3xt302" path="res://assets/sub_exterior.obj" id="1_0f027"]
 [ext_resource type="Script" uid="uid://be82qluytkeax" path="res://scripts/main_scene.gd" id="1_42l1d"]
@@ -14,6 +14,7 @@
 [ext_resource type="Texture2D" uid="uid://d28xs3gfsy05j" path="res://assets/blood2.png" id="12_42l1d"]
 [ext_resource type="AudioStream" uid="uid://cv6nns426g3nq" path="res://assets/submerge.mp3" id="12_671wp"]
 [ext_resource type="Texture2D" uid="uid://bc4iwqetme4eh" path="res://assets/blood3.png" id="13_2jcla"]
+[ext_resource type="Script" uid="uid://lgxly52nytai" path="res://scripts/pickup.gd" id="14_2jcla"]
 
 [sub_resource type="PhysicalSkyMaterial" id="PhysicalSkyMaterial_o3jxj"]
 ground_color = Color(0, 0, 0, 1)
@@ -51,8 +52,30 @@ data = PackedVector3Array(1, 0, 1, -1, 0, 1, 1, 0, -1, -1, 0, 1, -1, 0, -1, 1, 0
 [sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_7ycvg"]
 data = PackedVector3Array(-1.5061, 1.2537, -0.7499, -1.8256, -0.9742, 0.2248, -0.9323, 1.1191, -1.8799, -0.9323, 1.1191, -1.8799, -1.8256, -0.9742, 0.2248, -2.2179, -0.6155, -0.2924, 0.0338, 1.0596, -1.4399, -0.8255, -0.9742, -0.7753, 0.9313, 0.8814, -1.2163, 0.9313, 0.8814, -1.2163, -0.8255, -0.9742, -0.7753, 1, -1, -1, 1.2948, 1.435, -0.3091, 1, -1, 0, 1.7237, 1.7575, 1.2251, 1.7237, 1.7575, 1.2251, 1, -1, 0, 1, -1, 1, 0.1933, 1.5168, 1.0582, -0.1623, -0.7334, 0.8558, -1, 1, 1, -1, 1, 1, -0.1623, -0.7334, 0.8558, -1, -1, 1, 1, -1, 0, -0.4128, -0.9871, 0.1124, 1, -1, 1, 1, -1, 1, -0.4128, -0.9871, 0.1124, -0.1623, -0.7334, 0.8558, -1.5061, 1.2537, -0.7499, 0.1136, 1.2882, -0.1909, -1, 1, 1, -1, 1, 1, 0.1136, 1.2882, -0.1909, 0.1933, 1.5168, 1.0582, 0.1136, 1.2882, -0.1909, 1.2948, 1.435, -0.3091, 0.1933, 1.5168, 1.0582, 0.1933, 1.5168, 1.0582, 1.2948, 1.435, -0.3091, 1.7237, 1.7575, 1.2251, -0.4128, -0.9871, 0.1124, -1.8256, -0.9742, 0.2248, -0.1623, -0.7334, 0.8558, -0.1623, -0.7334, 0.8558, -1.8256, -0.9742, 0.2248, -1, -1, 1, 1.7237, 1.7575, 1.2251, 1, -1, 1, 0.1933, 1.5168, 1.0582, 0.1933, 1.5168, 1.0582, 1, -1, 1, -0.1623, -0.7334, 0.8558, -0.9323, 1.1191, -1.8799, -2.2179, -0.6155, -0.2924, 0.0338, 1.0596, -1.4399, 0.0338, 1.0596, -1.4399, -2.2179, -0.6155, -0.2924, -0.8255, -0.9742, -0.7753, -0.8255, -0.9742, -0.7753, -2.2179, -0.6155, -0.2924, -0.4128, -0.9871, 0.1124, -0.4128, -0.9871, 0.1124, -2.2179, -0.6155, -0.2924, -1.8256, -0.9742, 0.2248, 0.0338, 1.0596, -1.4399, 0.9313, 0.8814, -1.2163, 0.1136, 1.2882, -0.1909, 0.1136, 1.2882, -0.1909, 0.9313, 0.8814, -1.2163, 1.2948, 1.435, -0.3091, -0.9323, 1.1191, -1.8799, 0.0338, 1.0596, -1.4399, -1.5061, 1.2537, -0.7499, -1.5061, 1.2537, -0.7499, 0.0338, 1.0596, -1.4399, 0.1136, 1.2882, -0.1909, 1, -1, -1, -0.8255, -0.9742, -0.7753, 1, -1, 0, 1, -1, 0, -0.8255, -0.9742, -0.7753, -0.4128, -0.9871, 0.1124, 0.9313, 0.8814, -1.2163, 1, -1, -1, 1.2948, 1.435, -0.3091, 1.2948, 1.435, -0.3091, 1, -1, -1, 1, -1, 0, -1, 1, 1, -1, -1, 1, -1.5061, 1.2537, -0.7499, -1.5061, 1.2537, -0.7499, -1, -1, 1, -1.8256, -0.9742, 0.2248)
 
+[sub_resource type="BoxMesh" id="BoxMesh_m35m6"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_2jcla"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_2jcla"]
+
 [sub_resource type="PlaneMesh" id="PlaneMesh_wr18j"]
 material = ExtResource("8_7ycvg")
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_42l1d"]
+_surfaces = [{
+"aabb": AABB(-0.5, -0.5, -0.5, 1, 1, 1),
+"attribute_data": PackedByteArray("AACAPwAAgD8AAIA/AAAAAAAAAAAAAAAAAACAPwAAgD8AAIA/AAAAAAAAAAAAAAAAAACAPwAAgD8AAIA/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAPwAAgD8AAIA/AACAPwAAgD8AAIA/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAPwAAgD8AAIA/AAAAAAAAAAAAAAAAAACAPwAAgD8AAIA/AAAAAAAAAAAAAAAAAACAPwAAgD8AAIA/AACAPwAAgD8AAIA/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAPwAAgD8AAIA/AACAPwAAgD8AAIA/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAPwAAgD8AAIA/"),
+"format": 34359738391,
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 36,
+"vertex_data": PackedByteArray("AAAAvwAAAL8AAAA/AAAAvwAAAL8AAAC/AAAAvwAAAD8AAAC/AAAAPwAAAL8AAAC/AAAAvwAAAL8AAAC/AAAAvwAAAL8AAAA/AAAAvwAAAD8AAAC/AAAAvwAAAL8AAAC/AAAAPwAAAL8AAAC/AAAAvwAAAD8AAAC/AAAAvwAAAD8AAAA/AAAAvwAAAL8AAAA/AAAAvwAAAL8AAAA/AAAAvwAAAD8AAAA/AAAAPwAAAD8AAAA/AAAAPwAAAD8AAAA/AAAAvwAAAD8AAAA/AAAAvwAAAD8AAAC/AAAAvwAAAL8AAAA/AAAAPwAAAL8AAAA/AAAAPwAAAL8AAAC/AAAAPwAAAD8AAAA/AAAAPwAAAL8AAAA/AAAAvwAAAL8AAAA/AAAAPwAAAL8AAAC/AAAAPwAAAL8AAAA/AAAAPwAAAD8AAAA/AAAAPwAAAL8AAAC/AAAAPwAAAD8AAAC/AAAAvwAAAD8AAAC/AAAAvwAAAD8AAAC/AAAAPwAAAD8AAAC/AAAAPwAAAD8AAAA/AAAAPwAAAD8AAAA/AAAAPwAAAD8AAAC/AAAAPwAAAL8AAAC/AAD/f/9//n8AAP9//3/+fwAA/3//f/5//38AAP//AAD/fwAA//8AAP9/AAD//wAA/////wAA/z//////AAD/P/////8AAP8/AAD/f/9//n8AAP9//3/+fwAA/3//f/5//3//fwAA/z//f/9/AAD/P/9//38AAP8//3//////AAD/f/////8AAP9//////wAA/38AAP//AAD/fwAA//8AAP9/AAD//wAA/3//fwAA/z//f/9/AAD/P/9//38AAP8/////f/9//n////9//3/+f////3//f/5//////wAA/z//////AAD/P/////8AAP8//3//////AAD/f/////8AAP9//////wAA////f/9//n////9//3/+f////3//f/5/")
+}]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2jcla"]
+albedo_color = Color(0.0885599, 0.0885599, 0.0885599, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_2jcla"]
 
 [node name="MainScene" type="Node3D"]
 script = ExtResource("1_42l1d")
@@ -97,7 +120,7 @@ autoplay = true
 parameters/looping = true
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(-0.961516, -0.0669873, 0.266457, 0.242363, 0.25, 0.937422, -0.12941, 0.965926, -0.224144, 0, 0, 0)
+transform = Transform3D(0.99599, -3.91077e-09, 0.0894679, -0.089468, -4.35361e-08, 0.99599, 0, -1, -4.37114e-08, 0, 0, 0)
 layers = 3
 light_energy = 0.2
 shadow_enabled = true
@@ -132,10 +155,10 @@ skeleton = NodePath("")
 shape = SubResource("ConcavePolygonShape3D_qwutr")
 
 [node name="RockCluster" type="Node3D" parent="World"]
-transform = Transform3D(1000, 0, 0, 0, 1000, 0, 0, 0, 1000, -5, -16, -0.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, -16, -0.5)
 
 [node name="Rock" type="MeshInstance3D" parent="World/RockCluster"]
-transform = Transform3D(-1.59109e-10, 0, 0.00364, -0.00315233, 0.00182, -1.37793e-10, -0.00182, -0.00315233, -7.95547e-11, -0.009, 0.00899998, 0.000500001)
+transform = Transform3D(-1.59109e-07, 5.59966e-15, 3.64, -2.57387, 2.57387, -1.12508e-07, -2.57387, -2.57387, -1.12507e-07, -9, 8.99998, 0.500001)
 material_override = ExtResource("8_7ycvg")
 mesh = ExtResource("9_wr18j")
 skeleton = NodePath("../../..")
@@ -145,19 +168,67 @@ skeleton = NodePath("../../..")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="World/RockCluster/Rock/StaticBody3D"]
 shape = SubResource("ConcavePolygonShape3D_7ycvg")
 
-[node name="Rock3" type="MeshInstance3D" parent="World/RockCluster"]
-transform = Transform3D(0.00141421, 0.000707106, 0.00122474, -7.35137e-11, -0.00173205, 0.000999999, 0.00141421, -0.000707106, -0.00122474, -0.0075, 0.0165, 0.011)
+[node name="Rock8" type="MeshInstance3D" parent="World/RockCluster"]
+transform = Transform3D(-0.0933878, 2.5343, 0.415831, 1.20734, -0.328181, 1.65259, 1.55587, 0.406782, -1.25743, -7.5, 19.5, 6.5)
 material_override = ExtResource("8_7ycvg")
 mesh = ExtResource("9_wr18j")
 skeleton = NodePath("../../..")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="World/RockCluster/Rock3"]
+[node name="StaticBody3D" type="StaticBody3D" parent="World/RockCluster/Rock8"]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="World/RockCluster/Rock3/StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="World/RockCluster/Rock8/StaticBody3D"]
 shape = SubResource("ConcavePolygonShape3D_7ycvg")
 
+[node name="Rock9" type="MeshInstance3D" parent="World/RockCluster"]
+transform = Transform3D(-0.0933878, 2.5343, 0.415831, 1.20734, -0.328181, 1.65259, 1.55587, 0.406782, -1.25743, -5.5, 22, 4)
+material_override = ExtResource("8_7ycvg")
+mesh = ExtResource("9_wr18j")
+skeleton = NodePath("../../..")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="World/RockCluster/Rock9"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="World/RockCluster/Rock9/StaticBody3D"]
+shape = SubResource("ConcavePolygonShape3D_7ycvg")
+
+[node name="Rock10" type="MeshInstance3D" parent="World/RockCluster"]
+transform = Transform3D(1.30073, 1.61943, -0.881053, 1.20734, -0.328181, 1.65259, 0.858809, -1.99138, -0.988836, -4.5, 20, 14)
+material_override = ExtResource("8_7ycvg")
+mesh = ExtResource("9_wr18j")
+skeleton = NodePath("../../..")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="World/RockCluster/Rock10"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="World/RockCluster/Rock10/StaticBody3D"]
+shape = SubResource("ConcavePolygonShape3D_7ycvg")
+
+[node name="Rock11" type="MeshInstance3D" parent="World/RockCluster"]
+transform = Transform3D(1.30073, 1.61943, -0.881053, 1.20734, -0.328181, 1.65259, 0.858809, -1.99138, -0.988836, -6, 15.5, 15)
+material_override = ExtResource("8_7ycvg")
+mesh = ExtResource("9_wr18j")
+skeleton = NodePath("../../..")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="World/RockCluster/Rock11"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="World/RockCluster/Rock11/StaticBody3D"]
+shape = SubResource("ConcavePolygonShape3D_7ycvg")
+
+[node name="Wall4" type="MeshInstance3D" parent="World/RockCluster"]
+transform = Transform3D(1.1587, 0.477544, -0.0973678, 5.01428, -0.0862503, 2.4318, -2.38694, 0.0506279, 5.06126, -6, 16, 10.5)
+mesh = SubResource("BoxMesh_m35m6")
+surface_material_override/0 = ExtResource("8_7ycvg")
+
+[node name="Wall5" type="MeshInstance3D" parent="World/RockCluster"]
+transform = Transform3D(-0.868499, 0.373474, 3.51, 5.01428, -0.0862502, 2.4318, -2.50714, -0.301876, 3.6477, -7.5, 10.5, 11.5)
+mesh = SubResource("BoxMesh_m35m6")
+surface_material_override/0 = ExtResource("8_7ycvg")
+
+[node name="Wall6" type="MeshInstance3D" parent="World/RockCluster"]
+transform = Transform3D(0.627849, 0.563979, 3.28236, 7.23577, -0.097314, 0.858945, -1.28021, -0.27343, 6.46452, -6.5, 9.5, 15.5)
+mesh = SubResource("BoxMesh_m35m6")
+surface_material_override/0 = ExtResource("8_7ycvg")
+
 [node name="Rock2" type="MeshInstance3D" parent="World/RockCluster"]
-transform = Transform3D(-0.00283407, 0.00058564, 0.00136569, -0.000585641, 0.00226274, -0.00218564, -0.00136569, -0.00218564, -0.00189681, -0.008, 0.0165, 0.004)
+transform = Transform3D(-1.81917, 2.0899, 1.60093, 0.167826, 2.03406, -2.46463, -2.62726, -1.31716, -1.26595, -8, 16.5, -1)
 material_override = ExtResource("8_7ycvg")
 mesh = ExtResource("9_wr18j")
 skeleton = NodePath("../../..")
@@ -168,7 +239,7 @@ skeleton = NodePath("../../..")
 shape = SubResource("ConcavePolygonShape3D_7ycvg")
 
 [node name="Rock5" type="MeshInstance3D" parent="World/RockCluster"]
-transform = Transform3D(-0.00352055, -0.000571893, -0.00187028, 0.00111014, -0.00254314, -0.000676755, -0.00130107, -0.000622455, 0.00448334, -0.00949998, 0.00399999, -0.0035)
+transform = Transform3D(-3.52055, -0.571893, -1.87028, 1.11014, -2.54314, -0.676755, -1.30107, -0.622455, 4.48334, -9.49998, 3.99999, -3.5)
 material_override = ExtResource("8_7ycvg")
 mesh = ExtResource("9_wr18j")
 skeleton = NodePath("../../..")
@@ -178,19 +249,8 @@ skeleton = NodePath("../../..")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="World/RockCluster/Rock5/StaticBody3D"]
 shape = SubResource("ConcavePolygonShape3D_7ycvg")
 
-[node name="Rock6" type="MeshInstance3D" parent="World/RockCluster"]
-transform = Transform3D(-0.00283407, 0.00058564, 0.00136568, -0.000889898, -0.00302419, -0.000549862, 0.00119002, -0.000866771, 0.00284122, -0.0095, 0.00949999, 0.0135)
-material_override = ExtResource("8_7ycvg")
-mesh = ExtResource("9_wr18j")
-skeleton = NodePath("../../..")
-
-[node name="StaticBody3D" type="StaticBody3D" parent="World/RockCluster/Rock6"]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="World/RockCluster/Rock6/StaticBody3D"]
-shape = SubResource("ConcavePolygonShape3D_7ycvg")
-
 [node name="Rock7" type="MeshInstance3D" parent="World/RockCluster"]
-transform = Transform3D(0.000646359, -0.00291184, -0.00115904, 0.00119002, -0.00086677, 0.00284122, -0.00289932, -0.00100492, 0.000907785, -0.00749998, 0.00399999, 0.0125)
+transform = Transform3D(0.646359, -2.91184, -1.15904, 1.19002, -0.86677, 2.84122, -2.89932, -1.00492, 0.907785, -7.49998, 3.99999, 12.5)
 material_override = ExtResource("8_7ycvg")
 mesh = ExtResource("9_wr18j")
 skeleton = NodePath("../../..")
@@ -201,7 +261,7 @@ skeleton = NodePath("../../..")
 shape = SubResource("ConcavePolygonShape3D_7ycvg")
 
 [node name="Rock4" type="MeshInstance3D" parent="World/RockCluster"]
-transform = Transform3D(0.00027403, 0.00280318, -0.0015189, 0.0030841, -0.000619522, -0.000586938, -0.000808213, -0.00141363, -0.00275471, -0.00899999, 0.00949997, 0.00749999)
+transform = Transform3D(0.27403, 2.80318, -1.5189, 3.0841, -0.619522, -0.586938, -0.808213, -1.41363, -2.75471, -8.99999, 9.49997, 7.49999)
 material_override = ExtResource("8_7ycvg")
 mesh = ExtResource("9_wr18j")
 skeleton = NodePath("../../..")
@@ -210,6 +270,29 @@ skeleton = NodePath("../../..")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="World/RockCluster/Rock4/StaticBody3D"]
 shape = SubResource("ConcavePolygonShape3D_7ycvg")
+
+[node name="Wall" type="MeshInstance3D" parent="World/RockCluster"]
+transform = Transform3D(-0.440274, 0.227551, -2.34105, 2.99469, 0.0623958, 0.0622984, -0.446659, 0.194043, 2.72528, -11, 15, 5)
+mesh = SubResource("PlaneMesh_2jcla")
+surface_material_override/0 = ExtResource("8_7ycvg")
+
+[node name="Wall2" type="MeshInstance3D" parent="World/RockCluster"]
+transform = Transform3D(4.40695, 0.174574, 4.29663, 7.54759, -0.0921445, -2.89615, 0.460867, -0.160287, 6.34452, -10, 16, 8.5)
+mesh = SubResource("BoxMesh_2jcla")
+surface_material_override/0 = ExtResource("8_7ycvg")
+
+[node name="Wall3" type="MeshInstance3D" parent="World/RockCluster"]
+transform = Transform3D(3.12623, 0.0341337, -0.0467904, 0.146487, -0.127675, -2.74839, 0.371874, -0.236657, 1.47599, -9, 15, 9.5)
+cast_shadow = 2
+mesh = SubResource("PlaneMesh_2jcla")
+surface_material_override/0 = ExtResource("8_7ycvg")
+
+[node name="SpotLight3D" type="SpotLight3D" parent="World/RockCluster"]
+transform = Transform3D(-0.0641205, 0.973373, -0.220075, -0.0392479, 0.217899, 0.975182, 0.99717, 0.0711666, 0.0242311, -11.5, 23, 5)
+light_energy = 8.0
+light_volumetric_fog_energy = 0.0
+shadow_enabled = true
+spot_range = 11.147
 
 [node name="RockCluster2" type="Node3D" parent="World"]
 transform = Transform3D(2.25644e-07, -9.6013, 2.57266, -8.60097e-08, 2.57266, 9.6013, -9.94, -2.38419e-07, 2.98023e-07, 11.5, -7.5, 7)
@@ -378,10 +461,19 @@ texture_albedo = ExtResource("13_2jcla")
 transform = Transform3D(1.7, 0, 0, 0, 1.7, 0, 0, 0, 1.7, -11, -17.5, 5.5)
 texture_albedo = ExtResource("11_mo76n")
 
-[node name="OmniLight3D" type="OmniLight3D" parent="."]
-transform = Transform3D(0.707107, 0.353553, 0.612373, -3.67569e-08, -0.866026, 0.5, 0.707107, -0.353553, -0.612372, -12, -2.00001, 6.99999)
-layers = 3
-shadow_enabled = true
+[node name="Carbon" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, -1.00001, 4.49999)
+
+[node name="CSGBakedMeshInstance3D" type="MeshInstance3D" parent="Carbon"]
+mesh = SubResource("ArrayMesh_42l1d")
+surface_material_override/0 = SubResource("StandardMaterial3D_2jcla")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Carbon"]
+script = ExtResource("14_2jcla")
+requires_button_hold = true
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Carbon/StaticBody3D"]
+shape = SubResource("BoxShape3D_2jcla")
 
 [node name="OmniLight3D2" type="OmniLight3D" parent="."]
 transform = Transform3D(0.707107, 0.353553, 0.612373, -3.67569e-08, -0.866026, 0.5, 0.707107, -0.353553, -0.612372, -8.5, -16, 5.49999)

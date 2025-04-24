@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://xfbq8gag4sus"]
+[gd_scene load_steps=22 format=3 uid="uid://xfbq8gag4sus"]
 
 [ext_resource type="ArrayMesh" uid="uid://vc1otskrlu1h" path="res://assets/cockpit/panels.obj" id="1_2ei3t"]
 [ext_resource type="Script" uid="uid://cquilswbssol" path="res://scripts/controller_cockpit.gd" id="1_u8jma"]
@@ -6,7 +6,6 @@
 [ext_resource type="Material" uid="uid://dchl7yauo0m2r" path="res://assets/cockpit/console_material.tres" id="3_5cfl1"]
 [ext_resource type="Material" uid="uid://c1rxnm6farp4l" path="res://assets/cockpit/joystick_material.tres" id="4_u8jma"]
 [ext_resource type="AudioStream" uid="uid://cfbeayx5omiu0" path="res://assets/cockpit/siren.ogg" id="6_ghfmb"]
-[ext_resource type="AudioStream" uid="uid://br6je4sbkv700" path="res://assets/cockpit/high_pitch_noise.ogg" id="7_p6jfi"]
 [ext_resource type="Texture2D" uid="uid://dg44g0x33ug58" path="res://assets/submarine/radiation_symbol.png" id="7_sbdck"]
 [ext_resource type="AudioStream" uid="uid://dmswleayva2ke" path="res://assets/submarine/submarine_engine.ogg" id="8_sbdck"]
 [ext_resource type="AudioStream" uid="uid://cl3cgxb4fe1yr" path="res://assets/cockpit/explosion_impact.ogg" id="9_1fm72"]
@@ -255,15 +254,7 @@ stream = ExtResource("10_tfkky")
 volume_db = -4.0
 
 [node name="ObjectivePosition" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.71517, 0, -4.84346)
-
-[node name="AudioStreamPlayer" type="AudioStreamPlayer3D" parent="ObjectivePosition"]
-stream = ExtResource("7_p6jfi")
-volume_db = -16.0
-max_db = 0.0
-autoplay = true
-panning_strength = 0.0
-parameters/looping = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.0639, 0, -43.0128)
 
 [node name="Sit" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("12_voujt")

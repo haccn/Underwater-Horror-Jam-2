@@ -11,8 +11,8 @@ func interact():
 	if Global.player_has_drill == false:
 		if robot.playing == false:
 			robot.stream = dont_forget_drill
-			robot.playing = true
+			robot.play()
 		return
 	
-	$AudioStreamPlayer.playing = true
+	$AudioStreamPlayer.play()
 	Global.transition_scene("res://main_scene.tscn")

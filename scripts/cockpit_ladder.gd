@@ -5,5 +5,5 @@ func get_is_enabled():
 	
 func interact():
 	$"/root/SubmarineScene/Player".is_in_cutscene = true
-	$"../AudioStreamPlayer".playing = true
+	$"../AudioStreamPlayer".play()
 	Global.transition_scene("res://cockpit_scene.tscn")
