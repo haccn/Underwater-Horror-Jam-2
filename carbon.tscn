@@ -1,0 +1,24 @@
+[gd_scene load_steps=5 format=3 uid="uid://v84ouswwe75c"]
+
+[ext_resource type="ArrayMesh" uid="uid://cdum30m1cr2jd" path="res://assets/carbon.obj" id="1_ql868"]
+[ext_resource type="Script" uid="uid://lgxly52nytai" path="res://scripts/pickup.gd" id="2_nxuwt"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_u0ygc"]
+albedo_color = Color(0.241156, 0.241156, 0.241156, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_2jcla"]
+size = Vector3(1, 1, 0.5)
+
+[node name="Carbon" type="Node3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.15, 0, 0, 0, 0.15, 0, 0, 0, 0.15, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_u0ygc")
+mesh = ExtResource("1_ql868")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+script = ExtResource("2_nxuwt")
+requires_button_hold = true
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+shape = SubResource("BoxShape3D_2jcla")

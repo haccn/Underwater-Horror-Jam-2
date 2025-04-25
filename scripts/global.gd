@@ -2,6 +2,9 @@
 
 extends Node
 
+# 0 - Welcome
+# 1 - Nuclear reactor damaged
+# 2 - ...
 var cutscene_index = 0
 
 var player_is_respawning = false

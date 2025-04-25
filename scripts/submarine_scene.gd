@@ -25,29 +25,20 @@ func _ready():
 		$DangerSiren/AudioStreamPlayer.play()
 		
 	if Global.cutscene_index == 0:
-		create_timer(5, func():
+		get_tree().create_timer(5).connect("timeout", func():
+			print("hello")
 			robot.stream = hello_and_welcome
 			robot.play())
 	elif Global.cutscene_index == 1:
 		$Player.global_transform = $LadderPlayerTransform.global_transform
 		$Submarine/Ladder/AudioStreamPlayer.play()
 		$Submarine/EngineSound.stop()
-		create_timer(4, func():
+		get_tree().create_timer(4).connect("timeout", func():
 			robot.stream = nuclear_reactor_damaged
 			robot.play()
 			Global.cutscene_index += 1)
 	
 	if Global.player_respawn_count == 1:
-		create_timer(3, func():
+		get_tree().create_timer(3).connect("timeout", func():
 			robot.stream = back_so_soon
 			robot.play())
-
-func create_timer(wait_time, callable):
-	var timer = Timer.new()
-	timer.wait_time = wait_time
-	timer.one_shot = true
-	add_child(timer)
-	timer.connect("timeout", func():
-		callable.invoke()
-		timer.queue_free())
-	return timer

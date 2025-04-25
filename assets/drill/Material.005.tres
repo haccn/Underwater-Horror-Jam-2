@@ -1,0 +1,9 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://cchwn20yg8e8f"]
+
+[ext_resource type="Texture2D" uid="uid://cuovwpd17d4h2" path="res://assets/drill/drill_texture.png" id="1_m4dr8"]
+
+[resource]
+resource_name = "Material.005"
+cull_mode = 2
+albedo_texture = ExtResource("1_m4dr8")
+texture_filter = 2

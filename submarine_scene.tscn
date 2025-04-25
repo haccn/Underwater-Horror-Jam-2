@@ -1,4 +1,4 @@
-[gd_scene load_steps=80 format=4 uid="uid://cdam25a4ajmd3"]
+[gd_scene load_steps=82 format=4 uid="uid://cdam25a4ajmd3"]
 
 [ext_resource type="Script" uid="uid://cpwcv8clnk3cg" path="res://scripts/submarine_exit_door.gd" id="1_ifo1v"]
 [ext_resource type="Script" uid="uid://dhqcnbu800c85" path="res://scripts/submarine_scene.gd" id="1_nt2ki"]
@@ -28,6 +28,7 @@
 [ext_resource type="ArrayMesh" uid="uid://roliwf8ndqb1" path="res://assets/submarine/fabricator/fabricator.obj" id="26_efirx"]
 [ext_resource type="Script" uid="uid://bgbr406x67vl0" path="res://scripts/drill.gd" id="26_m7x7q"]
 [ext_resource type="Texture2D" uid="uid://c6kqsbllnwh4i" path="res://assets/submarine/fabricator/texture.png" id="27_atfu8"]
+[ext_resource type="PackedScene" uid="uid://dt0svd6hm1rxr" path="res://assets/drill/Drill.blend" id="28_hqsje"]
 [ext_resource type="Material" uid="uid://d18lcyejuxtm7" path="res://assets/submarine/fabricator/fabricator_material.tres" id="28_m7x7q"]
 [ext_resource type="Material" uid="uid://bbdg6s3k7p5j2" path="res://assets/submarine/fabricator/fabricator_text_material.tres" id="29_nt2ki"]
 [ext_resource type="AudioStream" uid="uid://cfbeayx5omiu0" path="res://assets/cockpit/siren.ogg" id="33_qetiw"]
@@ -49,7 +50,8 @@ reflected_light_source = 1
 ssao_radius = 13.86
 ssao_intensity = 16.0
 glow_enabled = true
-volumetric_fog_density = 0.1
+volumetric_fog_enabled = true
+volumetric_fog_density = 0.0
 volumetric_fog_albedo = Color(0.601223, 0.601223, 0.601223, 1)
 volumetric_fog_anisotropy = 0.4
 volumetric_fog_sky_affect = 0.5
@@ -85,7 +87,6 @@ texture_filter = 0
 [sub_resource type="PlaneMesh" id="PlaneMesh_7ycvg"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2jcla"]
-cull_mode = 2
 albedo_texture = ExtResource("4_dlg4a")
 uv1_scale = Vector3(2, 2, 2)
 uv1_triplanar = true
@@ -269,6 +270,9 @@ height = 0.1
 radial_segments = 8
 rings = 4
 
+[sub_resource type="FogMaterial" id="FogMaterial_nt2ki"]
+density = 0.5
+
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_i6aw8"]
 height = 3.25
 radius = 1.0
@@ -312,7 +316,7 @@ _data = {
 }
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_arj1g"]
-size = Vector3(0.5, 0.5, 0.5)
+size = Vector3(0.305, 0.307637, 0.5)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hqsje"]
 albedo_texture = ExtResource("27_atfu8")
@@ -347,7 +351,6 @@ color_ramp = SubResource("Gradient_vrgwh")
 
 [node name="OmniLight3D2" type="OmniLight3D" parent="BioPrinter"]
 transform = Transform3D(-0.866026, 0, -0.5, 0, 1, 0, 0.5, 0, -0.866026, 0.0744025, 2.31503, 0.108029)
-layers = 3
 light_color = Color(0, 1, 1, 1)
 light_energy = 0.2
 
@@ -376,7 +379,6 @@ mesh = SubResource("BoxMesh_8vqou")
 
 [node name="OmniLight3D" type="OmniLight3D" parent="Submarine/SubmarineExitDoor/ExitSign"]
 transform = Transform3D(1, -1.43051e-07, 0, 1.43051e-07, 1, 0, 0, 0, 1, 0, 0, 1.67058)
-layers = 3
 light_color = Color(0, 1, 0, 1)
 light_energy = 0.1
 
@@ -459,7 +461,6 @@ volume_db = 4.0
 
 [node name="OmniLight3D3" type="OmniLight3D" parent="Submarine"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.7566, 2.32399, -3.02424)
-layers = 3
 shadow_enabled = true
 
 [node name="Wall5" type="MeshInstance3D" parent="Submarine"]
@@ -511,7 +512,6 @@ bus = &"Tv"
 
 [node name="OmniLight3D" type="OmniLight3D" parent="Submarine"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.61666, 1.4796, -3.20139)
-layers = 3
 light_energy = 0.2
 
 [node name="Bench" type="Node3D" parent="Submarine"]
@@ -535,7 +535,6 @@ shape = SubResource("BoxShape3D_mo76n")
 
 [node name="OmniLight3D" type="OmniLight3D" parent="Submarine/Bench"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 0.5)
-layers = 3
 shadow_enabled = true
 
 [node name="RadiationRoomDoor" type="Node3D" parent="Submarine"]
@@ -609,6 +608,11 @@ fixed_fps = 16
 process_material = SubResource("ParticleProcessMaterial_arj1g")
 draw_pass_1 = SubResource("SphereMesh_ysodj")
 
+[node name="FogVolume" type="FogVolume" parent="Submarine/GasHissSound"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.25, 0.5)
+size = Vector3(4, 3.5, 3)
+material = SubResource("FogMaterial_nt2ki")
+
 [node name="EngineSound" type="AudioStreamPlayer3D" parent="Submarine"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.01115, 1.22802, 0.0241396)
 stream = ExtResource("18_vrgwh")
@@ -622,8 +626,8 @@ parameters/looping = true
 
 [node name="OmniLight3D4" type="OmniLight3D" parent="Submarine"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.05013, 2.82399, -0.0128365)
-layers = 3
 light_color = Color(0.0606769, 0.947154, 0, 1)
+light_volumetric_fog_energy = 0.0
 shadow_enabled = true
 
 [node name="Reactor" type="MeshInstance3D" parent="Submarine"]
@@ -670,21 +674,20 @@ autoplay = "Flash"
 transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, 1.58906, 0, 1.16954)
 
 [node name="Robot" type="AudioStreamPlayer" parent="."]
-autoplay = true
 bus = &"Robot"
 
 [node name="Drill" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, 1.25827, -2)
+transform = Transform3D(-3.78552e-08, 0.866025, 0.5, -1, -4.37114e-08, 0, 2.18557e-08, -0.5, 0.866025, 1.28681, 1.09033, -2.5)
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Drill"]
 script = ExtResource("26_m7x7q")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Drill/StaticBody3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.05, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0180762, 0)
 shape = SubResource("BoxShape3D_arj1g")
 
-[node name="CSGBox3D" type="CSGBox3D" parent="Drill"]
-size = Vector3(0.4, 0.4, 0.4)
+[node name="Drill" parent="Drill" instance=ExtResource("28_hqsje")]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
 
 [node name="Fabricator" type="MeshInstance3D" parent="."]
 transform = Transform3D(-3.27835e-08, 0, 0.75, 0, 0.75, 0, -0.75, 0, -3.27835e-08, -1.5, 0, 1.33352)
@@ -702,5 +705,4 @@ shape = SubResource("BoxShape3D_efirx")
 
 [node name="OmniLight3D" type="OmniLight3D" parent="Fabricator"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
-layers = 3
 light_energy = 0.2

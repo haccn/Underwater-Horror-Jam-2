@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://xfbq8gag4sus"]
+[gd_scene load_steps=25 format=3 uid="uid://xfbq8gag4sus"]
 
 [ext_resource type="ArrayMesh" uid="uid://vc1otskrlu1h" path="res://assets/cockpit/panels.obj" id="1_2ei3t"]
 [ext_resource type="Script" uid="uid://cquilswbssol" path="res://scripts/controller_cockpit.gd" id="1_u8jma"]
@@ -6,10 +6,12 @@
 [ext_resource type="Material" uid="uid://dchl7yauo0m2r" path="res://assets/cockpit/console_material.tres" id="3_5cfl1"]
 [ext_resource type="Material" uid="uid://c1rxnm6farp4l" path="res://assets/cockpit/joystick_material.tres" id="4_u8jma"]
 [ext_resource type="AudioStream" uid="uid://cfbeayx5omiu0" path="res://assets/cockpit/siren.ogg" id="6_ghfmb"]
+[ext_resource type="VideoStream" uid="uid://dc7fxtjepevvr" path="res://assets/submarine/tv/noise.ogv" id="6_pao38"]
 [ext_resource type="Texture2D" uid="uid://dg44g0x33ug58" path="res://assets/submarine/radiation_symbol.png" id="7_sbdck"]
 [ext_resource type="AudioStream" uid="uid://dmswleayva2ke" path="res://assets/submarine/submarine_engine.ogg" id="8_sbdck"]
 [ext_resource type="AudioStream" uid="uid://cl3cgxb4fe1yr" path="res://assets/cockpit/explosion_impact.ogg" id="9_1fm72"]
-[ext_resource type="AudioStream" uid="uid://bra2gqdf4uana" path="res://assets/cockpit/metal_creaking.mp3" id="10_tfkky"]
+[ext_resource type="Shader" uid="uid://csc6y3sadlqh4" path="res://post_processing.gdshader" id="9_ap0fa"]
+[ext_resource type="AudioStream" uid="uid://lplcn4gxna7l" path="res://assets/cockpit/sonar_ping.mp3" id="9_voujt"]
 [ext_resource type="AudioStream" uid="uid://weonsbo7q84n" path="res://assets/cockpit/sit.mp3" id="12_voujt"]
 [ext_resource type="AudioStream" uid="uid://vd34plddob7e" path="res://assets/cockpit/engine.mp3" id="13_pao38"]
 
@@ -83,6 +85,15 @@ _data = {
 &"RESET": SubResource("Animation_ghfmb")
 }
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_1p4il"]
+shader = ExtResource("9_ap0fa")
+shader_parameter/r_displacement = Vector2(3, 0)
+shader_parameter/g_displacement = Vector2(0, 0)
+shader_parameter/b_displacement = Vector2(-3, 0)
+shader_parameter/height = 0.7
+shader_parameter/width = 0.5
+shader_parameter/fade = 0.7
+
 [node name="CockpitScene" type="Node3D"]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
@@ -114,7 +125,6 @@ smooth_faces = true
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(-0.123213, -0.861403, 0.49275, -0.287235, 0.506236, 0.813155, -0.949903, -0.0413436, -0.3098, 0, 6.5, 0)
-layers = 3
 light_energy = 0.2
 shadow_enabled = true
 
@@ -142,7 +152,6 @@ surface_material_override/7 = ExtResource("4_u8jma")
 
 [node name="OmniLight3D" type="OmniLight3D" parent="Player"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
-layers = 3
 light_energy = 4.048
 light_volumetric_fog_energy = 0.0
 
@@ -195,6 +204,19 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 color = Color(0, 1, 0, 1)
 
+[node name="VideoStreamPlayer" type="VideoStreamPlayer" parent="Player/RadarViewport"]
+modulate = Color(0.262932, 0.262932, 0.262932, 0.0313726)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+stream = ExtResource("6_pao38")
+volume_db = -80.0
+autoplay = true
+loop = true
+bus = &"Tv"
+
 [node name="CanvasLayer" type="CanvasLayer" parent="Player"]
 visible = false
 
@@ -219,7 +241,6 @@ parameters/looping = true
 
 [node name="SpotLight3D" type="SpotLight3D" parent="Player/DangerSiren"]
 transform = Transform3D(1, 0, 0, 0, 0.866025, 0.5, 0, -0.5, 0.866025, 0, 0, 0.5)
-layers = 3
 light_color = Color(1, 0, 0, 1)
 light_energy = 24.0
 spot_range = 5.5
@@ -239,9 +260,25 @@ libraries = {
 &"": SubResource("AnimationLibrary_sbdck")
 }
 
+[node name="CanvasLayer2" type="CanvasLayer" parent="Player"]
+
+[node name="PostProcessing" type="ColorRect" parent="Player/CanvasLayer2"]
+material = SubResource("ShaderMaterial_1p4il")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
 [node name="EngineNoise" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("8_sbdck")
 volume_db = -12.0
+autoplay = true
+parameters/looping = true
+
+[node name="SonarPing" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("9_voujt")
+volume_db = -8.0
 autoplay = true
 parameters/looping = true
 
@@ -249,12 +286,8 @@ parameters/looping = true
 stream = ExtResource("9_1fm72")
 volume_db = 8.0
 
-[node name="Creaking" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("10_tfkky")
-volume_db = -4.0
-
 [node name="ObjectivePosition" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.0639, 0, -43.0128)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.0119, 0, -33.539)
 
 [node name="Sit" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("12_voujt")

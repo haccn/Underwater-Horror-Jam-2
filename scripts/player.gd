@@ -17,11 +17,9 @@ const footsteps_metal = [
 ]
 const footsteps_underwater = [
 	preload("res://assets/footsteps/footstep_underwater_1.mp3"),
-	preload("res://assets/footsteps/footstep_underwater_2.mp3"),
 ]
 
 @onready var camera = $Camera3D
-@onready var hands_camera = $Hands/SubViewport/Camera3D
 @onready var ray = $Camera3D/RayCast3D
 @onready var interactable_hand = $Camera3D/CanvasLayer/Hand
 @onready var progress_bar = $Camera3D/CanvasLayer/TextureProgressBar
@@ -43,11 +41,6 @@ var _interact_hold_time = 0
 func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
-	var window = get_window()
-	$Hands/SubViewport.size = window.size
-	window.connect("size_changed", func():
-		$Hands/SubViewport.size = window.size)
-	
 	Global.connect("player_holding_changed", _on_player_holding_changed)
 	
 	update_holding_items()
@@ -75,8 +68,6 @@ func _input(event):
 		camera.rotation.y = clampf(camera.rotation.y, -deg_to_rad(70), deg_to_rad(70))
 
 func _process(delta):
-	hands_camera.global_transform = camera.global_transform
-	
 	if is_in_cutscene:
 		return
 	
@@ -170,6 +161,8 @@ func physics_process_land(delta):
 			_time_since_step += delta
 
 func _on_player_holding_changed():
+	$Camera3D/Arms/AnimationPlayer.play("arms_armature|arms_armature|arms_armature|Collect_something")
+	await $Camera3D/Arms/AnimationPlayer.animation_finished
 	update_holding_items()
 
 func update_holding_items():
@@ -178,5 +171,12 @@ func update_holding_items():
 	else:
 		$Camera3D/Drill.visible = false
 
-	if Global.player_holding != Pickup.TYPE_NONE:
-		pass
+	$Camera3D/Iron.visible = false
+	$Camera3D/Carbon.visible = false
+	match Global.player_holding:
+		Pickup.TYPE_NONE:
+			pass
+		Pickup.TYPE_CARBON:
+			$Camera3D/Carbon.visible = true
+		Pickup.TYPE_IRON:
+			$Camera3D/Iron.visible = true

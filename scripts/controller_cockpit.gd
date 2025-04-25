@@ -41,7 +41,7 @@ func _physics_process(delta):
 		_velocity += Vector2(0, -forward) * accel * delta
 		_velocity = _velocity.limit_length(speed)
 		if forward != 0:
-			engine_noise.volume_db = lerpf(engine_noise.volume_db, -14, 4 * delta)
+			engine_noise.volume_db = lerpf(engine_noise.volume_db, -16, 4 * delta)
 		else:
 			engine_noise.volume_db = lerpf(engine_noise.volume_db, -20, 4 * delta)
 	_velocity = _velocity.lerp(Vector2.ZERO, decel * delta)
@@ -58,9 +58,7 @@ func _physics_process(delta):
 			$DangerSiren/AnimationPlayer.play("Flash")
 			$DangerSiren.visible = true
 			$DangerSiren/AudioStreamPlayer.play()
-			$"/root/CockpitScene/ObjectivePosition/AudioStreamPlayer".stop()
-			$"/root/CockpitScene/Creaking".play()
-			get_tree().create_timer(4).connect("timeout", func():
+			get_tree().create_timer(2).connect("timeout", func():
 				$"/root/CockpitScene/Explosion".play()
 				$"/root/CockpitScene/EngineNoise".stop()
 				engine_noise.stop()
