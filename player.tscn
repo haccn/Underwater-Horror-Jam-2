@@ -1,4 +1,4 @@
-[gd_scene load_steps=51 format=4 uid="uid://dfluedvoogcsl"]
+[gd_scene load_steps=50 format=4 uid="uid://dfluedvoogcsl"]
 
 [ext_resource type="Script" uid="uid://bymru6gmapxlq" path="res://scripts/player.gd" id="1_sweqy"]
 [ext_resource type="Texture2D" uid="uid://unj4uiohk8r6" path="res://assets/hand.png" id="2_2hs0m"]
@@ -7,7 +7,6 @@
 [ext_resource type="Material" uid="uid://t3s061dkjxhy" path="res://assets/player_helmet_overlay.tres" id="4_dw050"]
 [ext_resource type="Texture2D" uid="uid://ctdg81ykv0df5" path="res://assets/circular_progress.svg" id="5_1jxqw"]
 [ext_resource type="AudioStream" uid="uid://cfa12d7tx4atl" path="res://assets/pickup.mp3" id="6_2hs0m"]
-[ext_resource type="Shader" uid="uid://csc6y3sadlqh4" path="res://post_processing.gdshader" id="6_dw050"]
 [ext_resource type="AudioStream" uid="uid://cy6glve5ywnos" path="res://assets/drill.mp3" id="7_1jxqw"]
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_mo76n"]
@@ -8640,15 +8639,6 @@ shader = ExtResource("3_1jxqw")
 shader_parameter/outer_radius = 1.4
 shader_parameter/vignette_color = Color(0, 0, 0, 1)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_b26j0"]
-shader = ExtResource("6_dw050")
-shader_parameter/r_displacement = Vector2(3, 0)
-shader_parameter/g_displacement = Vector2(0, 0)
-shader_parameter/b_displacement = Vector2(-3, 0)
-shader_parameter/height = 0.7
-shader_parameter/width = 0.5
-shader_parameter/fade = 0.7
-
 [sub_resource type="SphereMesh" id="SphereMesh_b26j0"]
 radial_segments = 6
 rings = 4
@@ -8657,7 +8647,9 @@ rings = 4
 albedo_color = Color(0.244776, 0.244776, 0.244776, 1)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_nvl01"]
-albedo_color = Color(0.504278, 0.227336, 0.231736, 1)
+albedo_color = Color(0.552941, 0.160784, 0.137255, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_dw050"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_sweqy"]
 height = 1.0
@@ -9373,10 +9365,15 @@ color = Color(1, 1, 1, 0)
 
 [node name="TextureProgressBar" type="TextureProgressBar" parent="Camera3D/CanvasLayer"]
 visible = false
-offset_left = 334.0
-offset_top = 82.0
-offset_right = 818.0
-offset_bottom = 566.0
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -242.0
+offset_top = -242.0
+offset_right = 242.0
+offset_bottom = 242.0
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(0.2, 0.2)
@@ -9386,14 +9383,6 @@ texture_under = ExtResource("5_1jxqw")
 texture_progress = ExtResource("5_1jxqw")
 tint_under = Color(1, 1, 1, 0.25098)
 tint_progress = Color(0.953547, 0.743948, 0, 1)
-
-[node name="PostProcessing" type="ColorRect" parent="Camera3D/CanvasLayer"]
-material = SubResource("ShaderMaterial_b26j0")
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
 
 [node name="Carbon" type="MeshInstance3D" parent="Camera3D"]
 transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, -0.239671, -0.0849549, -0.206979)
@@ -9405,6 +9394,13 @@ surface_material_override/0 = SubResource("StandardMaterial3D_n7ghd")
 transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, -0.239671, -0.0849549, -0.206979)
 visible = false
 mesh = SubResource("SphereMesh_b26j0")
+surface_material_override/0 = SubResource("StandardMaterial3D_nvl01")
+
+[node name="RAM" type="MeshInstance3D" parent="Camera3D"]
+transform = Transform3D(0.1, 0, -2.77556e-16, 0, 0.1, 0, 2.77556e-16, 0, 0.1, -0.287606, -0.101946, -0.248374)
+visible = false
+mesh = SubResource("BoxMesh_dw050")
+skeleton = NodePath("../Iron")
 surface_material_override/0 = SubResource("StandardMaterial3D_nvl01")
 
 [node name="UnderwaterShape" type="CollisionShape3D" parent="."]

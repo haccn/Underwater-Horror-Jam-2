@@ -171,12 +171,14 @@ func update_holding_items():
 	else:
 		$Camera3D/Drill.visible = false
 
-	$Camera3D/Iron.visible = false
 	$Camera3D/Carbon.visible = false
-	match Global.player_holding:
-		Pickup.TYPE_NONE:
-			pass
-		Pickup.TYPE_CARBON:
-			$Camera3D/Carbon.visible = true
-		Pickup.TYPE_IRON:
-			$Camera3D/Iron.visible = true
+	$Camera3D/Iron.visible = false
+	$Camera3D/RAM.visible = false
+	if Global._player_items.is_empty() == false:
+		match Global._player_items.back():
+			Pickup.TYPE_CARBON:
+				$Camera3D/Carbon.visible = true
+			Pickup.TYPE_IRON:
+				$Camera3D/Iron.visible = true
+			Pickup.TYPE_RAM:
+				$Camera3D/RAM.visible = true

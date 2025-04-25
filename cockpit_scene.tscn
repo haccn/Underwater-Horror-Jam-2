@@ -10,7 +10,6 @@
 [ext_resource type="Texture2D" uid="uid://dg44g0x33ug58" path="res://assets/submarine/radiation_symbol.png" id="7_sbdck"]
 [ext_resource type="AudioStream" uid="uid://dmswleayva2ke" path="res://assets/submarine/submarine_engine.ogg" id="8_sbdck"]
 [ext_resource type="AudioStream" uid="uid://cl3cgxb4fe1yr" path="res://assets/cockpit/explosion_impact.ogg" id="9_1fm72"]
-[ext_resource type="Shader" uid="uid://csc6y3sadlqh4" path="res://post_processing.gdshader" id="9_ap0fa"]
 [ext_resource type="AudioStream" uid="uid://lplcn4gxna7l" path="res://assets/cockpit/sonar_ping.mp3" id="9_voujt"]
 [ext_resource type="AudioStream" uid="uid://weonsbo7q84n" path="res://assets/cockpit/sit.mp3" id="12_voujt"]
 [ext_resource type="AudioStream" uid="uid://vd34plddob7e" path="res://assets/cockpit/engine.mp3" id="13_pao38"]
@@ -85,8 +84,34 @@ _data = {
 &"RESET": SubResource("Animation_ghfmb")
 }
 
+[sub_resource type="Shader" id="Shader_pao38"]
+code = "shader_type canvas_item;
+
+uniform sampler2D screen_texture : hint_screen_texture, filter_nearest;
+
+uniform vec2 r_displacement = vec2(3.0, 0.0);
+uniform vec2 g_displacement = vec2(0.0, 0.0);
+uniform vec2 b_displacement = vec2(-3.0, 0.0);
+uniform float height: hint_range(0.0, 1.0, 0.1) = 0.7;
+uniform float width: hint_range(0.0, 1.0, 0.1) = 0.5;
+uniform float fade = 0.7;
+
+void fragment() {
+	// Chromatic abberation
+	
+	float shrink_width = 2.0 / width;
+	float shrink_height = 2.0 / height;
+	float dist = distance(vec2(UV.x * shrink_width, UV.y * shrink_height), vec2(0.5 * shrink_width, 0.5 * shrink_height));
+
+	float r = texture(screen_texture, SCREEN_UV + vec2(SCREEN_PIXEL_SIZE*r_displacement), 0.0).r;
+	float g = texture(screen_texture, SCREEN_UV + vec2(SCREEN_PIXEL_SIZE*g_displacement), 0.0).g;
+	float b = texture(screen_texture, SCREEN_UV + vec2(SCREEN_PIXEL_SIZE*b_displacement), 0.0).b;
+
+	COLOR = vec4(r, g, b, dist - fade);
+}"
+
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_1p4il"]
-shader = ExtResource("9_ap0fa")
+shader = SubResource("Shader_pao38")
 shader_parameter/r_displacement = Vector2(3, 0)
 shader_parameter/g_displacement = Vector2(0, 0)
 shader_parameter/b_displacement = Vector2(-3, 0)

@@ -1,4 +1,4 @@
-[gd_scene load_steps=82 format=4 uid="uid://cdam25a4ajmd3"]
+[gd_scene load_steps=90 format=4 uid="uid://cdam25a4ajmd3"]
 
 [ext_resource type="Script" uid="uid://cpwcv8clnk3cg" path="res://scripts/submarine_exit_door.gd" id="1_ifo1v"]
 [ext_resource type="Script" uid="uid://dhqcnbu800c85" path="res://scripts/submarine_scene.gd" id="1_nt2ki"]
@@ -25,6 +25,7 @@
 [ext_resource type="AudioStream" uid="uid://dmswleayva2ke" path="res://assets/submarine/submarine_engine.ogg" id="18_vrgwh"]
 [ext_resource type="PackedScene" uid="uid://dfluedvoogcsl" path="res://player.tscn" id="21_j5o7m"]
 [ext_resource type="AudioStream" uid="uid://ciq1qt7suyqyb" path="res://assets/submarine/reactor/gas_hiss.mp3" id="25_arj1g"]
+[ext_resource type="Script" uid="uid://cse3m3v7pl5i3" path="res://scripts/reactor.gd" id="25_vfojm"]
 [ext_resource type="ArrayMesh" uid="uid://roliwf8ndqb1" path="res://assets/submarine/fabricator/fabricator.obj" id="26_efirx"]
 [ext_resource type="Script" uid="uid://bgbr406x67vl0" path="res://scripts/drill.gd" id="26_m7x7q"]
 [ext_resource type="Texture2D" uid="uid://c6kqsbllnwh4i" path="res://assets/submarine/fabricator/texture.png" id="27_atfu8"]
@@ -32,6 +33,7 @@
 [ext_resource type="Material" uid="uid://d18lcyejuxtm7" path="res://assets/submarine/fabricator/fabricator_material.tres" id="28_m7x7q"]
 [ext_resource type="Material" uid="uid://bbdg6s3k7p5j2" path="res://assets/submarine/fabricator/fabricator_text_material.tres" id="29_nt2ki"]
 [ext_resource type="AudioStream" uid="uid://cfbeayx5omiu0" path="res://assets/cockpit/siren.ogg" id="33_qetiw"]
+[ext_resource type="Script" uid="uid://bx65amuupcndg" path="res://scripts/fabricator.gd" id="33_vfojm"]
 
 [sub_resource type="PhysicalSkyMaterial" id="PhysicalSkyMaterial_0f027"]
 ground_color = Color(0, 0, 0, 1)
@@ -277,6 +279,13 @@ density = 0.5
 height = 3.25
 radius = 1.0
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vfojm"]
+albedo_color = Color(0.462291, 0.462291, 0.462291, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_6xibi"]
+radial_segments = 8
+rings = 4
+
 [sub_resource type="Animation" id="Animation_p6jfi"]
 resource_name = "Flash"
 length = 0.5
@@ -324,6 +333,142 @@ texture_filter = 2
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_efirx"]
 size = Vector3(1, 2.5, 1)
+
+[sub_resource type="Animation" id="Animation_vfojm"]
+resource_name = "EndGame"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimationPlayer/CanvasLayer/ColorRect:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.966667, 1.96667),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 0), Color(0, 0, 0, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimationPlayer/CanvasLayer/Label:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.966667, 1.96667),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("AnimationPlayer/CanvasLayer/Label:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.966667),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("AnimationPlayer/CanvasLayer/ColorRect:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0.966667),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Player:is_in_cutscene")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0.966667),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_6xibi"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimationPlayer/CanvasLayer/ColorRect:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0, 0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimationPlayer/CanvasLayer/Label:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("AnimationPlayer/CanvasLayer/Label:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("AnimationPlayer/CanvasLayer/ColorRect:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Player:is_in_cutscene")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_6xibi"]
+_data = {
+&"EndGame": SubResource("Animation_vfojm"),
+&"RESET": SubResource("Animation_6xibi")
+}
+
+[sub_resource type="LabelSettings" id="LabelSettings_w561w"]
+font_size = 90
 
 [node name="SubmarineScene" type="Node3D"]
 script = ExtResource("1_nt2ki")
@@ -636,10 +781,17 @@ mesh = ExtResource("17_kgtvm")
 skeleton = NodePath("../..")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Submarine/Reactor"]
+script = ExtResource("25_vfojm")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Submarine/Reactor/StaticBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.625, 0)
 shape = SubResource("CylinderShape3D_i6aw8")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Submarine/Reactor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0609894, 1.85277, 0.457968)
+visible = false
+material_override = SubResource("StandardMaterial3D_vfojm")
+mesh = SubResource("SphereMesh_6xibi")
 
 [node name="LadderPlayerTransform" type="Node3D" parent="."]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -4.5, 0, -3)
@@ -698,6 +850,7 @@ surface_material_override/2 = ExtResource("28_m7x7q")
 surface_material_override/3 = ExtResource("29_nt2ki")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Fabricator"]
+script = ExtResource("33_vfojm")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Fabricator/StaticBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.25, 0)
@@ -706,3 +859,39 @@ shape = SubResource("BoxShape3D_efirx")
 [node name="OmniLight3D" type="OmniLight3D" parent="Fabricator"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
 light_energy = 0.2
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_6xibi")
+}
+
+[node name="CanvasLayer" type="CanvasLayer" parent="AnimationPlayer"]
+
+[node name="ColorRect" type="ColorRect" parent="AnimationPlayer/CanvasLayer"]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0)
+
+[node name="Label" type="Label" parent="AnimationPlayer/CanvasLayer"]
+visible = false
+modulate = Color(1, 1, 1, 0)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -30.0
+offset_top = -11.5
+offset_right = 30.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "yay its repaired
+the end"
+label_settings = SubResource("LabelSettings_w561w")
+horizontal_alignment = 1
+vertical_alignment = 1

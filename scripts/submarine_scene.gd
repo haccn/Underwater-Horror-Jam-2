@@ -23,6 +23,8 @@ func _ready():
 	
 	if Global.cutscene_index > 0:
 		$DangerSiren/AudioStreamPlayer.play()
+	if Global.cutscene_index > 1:
+		$Drill.queue_free()
 		
 	if Global.cutscene_index == 0:
 		get_tree().create_timer(5).connect("timeout", func():
@@ -38,7 +40,9 @@ func _ready():
 			robot.play()
 			Global.cutscene_index += 1)
 	
-	if Global.player_respawn_count == 1:
+	if Global.player_is_respawning and Global.player_respawn_count == 1:
 		get_tree().create_timer(3).connect("timeout", func():
 			robot.stream = back_so_soon
 			robot.play())
+	
+	Global.player_is_respawning = false
